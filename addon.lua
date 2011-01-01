@@ -43,8 +43,8 @@ local L = setmetatable( {
 ------------------------------------------------------------------------
 
 local patterns = {
-	L["^Equip: Increases y?o?u?r? ?(.+) by (%d+)%.$"],
-	L["^Equip: Improves y?o?u?r? ?(.+) by (%d+)%.$"],
+	L["^Equip: Increases y?o?u?r? ?(.+) by (%d+)%."],
+	L["^Equip: Improves y?o?u?r? ?(.+) by (%d+)%."],
 	L["^Equip: Restores (%d+) (.+)%.$"],
 	L["^Equip: Increases ([dh][ae][ma][al][gi][en]g? done by magical spells and effects) by up to (%d+.)$"],
 	L["^Equip: Increases attack power by (%d+) (in Cat, Bear, Dire Bear, and Moonkin forms only).$"],
@@ -99,7 +99,7 @@ local function ReformatItemTooltip( tooltip )
 		local line = _G[ tooltipName .. "TextLeft" .. i ]
 		local text = line:GetText()
 		if text and text ~= ITEM_HEROIC and text ~= ITEM_HEROIC_EPIC then
-			if ( text == ITEM_SOCKETABLE and settings.hideRightClickSocket ) or ( text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy ) or (settings.hideItemLevel and text:match( L["^Item Level %d"] ) ) or ( settings.hideMadeBy and text:match( L["^<Made by %S+>$"] ) ) then
+			if ( text == ITEM_SOULBOUND and settings.hideSoulbound ) or ( text == ITEM_SOCKETABLE and settings.hideRightClickSocket ) or ( text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy ) or ( settings.hideItemLevel and text:match( L["^Item Level %d"] ) ) or ( settings.hideMadeBy and text:match( L["^<Made by %S+>$"] ) ) then
 				line:SetText( "" )
 			else
 				local r, g, b = line:GetTextColor()
