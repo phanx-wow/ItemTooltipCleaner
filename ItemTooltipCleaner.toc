@@ -1,0 +1,21 @@
+## Interface: 40000
+## Version: 4.0.3.wowi:revision-beta
+## Title: Item Tooltip Cleaner
+## Notes: Compacts equipment bonus text and removes extraneous lines from item tooltips.
+## Author: Akkorian
+## X-Credits: Inspired by PhoenixTooltip, by dlemvigh.
+## X-Email: akkorian@hotmail.com
+## X-CompatibleLocales: enUS
+## X-Localizations: enUS
+## X-Website:
+## X-Curse-Project-ID:
+## X-WoWI-ID:
+## SavedVariables: ItemTooltipCleanerSettings
+
+Libs\LibStub\LibStub.lua
+Libs\LibAboutPanel\LibAboutPanel.lua
+Libs\PhanxConfig-Checkbox\PhanxConfig-Checkbox.lua
+Libs\PhanxConfig-ColorPicker\PhanxConfig-ColorPicker.lua
+
+addon.lua
+options.lua
