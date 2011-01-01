@@ -17,13 +17,17 @@ panel:RegisterEvent("ADDON_LOADED")
 panel:SetScript("OnEvent", function(self, event, addon)
 	if addon ~= ADDON_NAME then return end
 
-	ItemTooltipCleanerSettings = ItemTooltipCleanerSettings or { }
-	for k, v in pairs(settings) do
-		if type(v) ~= type(ItemTooltipCleanerSettings[k]) then
-			ItemTooltipCleanerSettings[k] = v
+	if ItemTooltipCleanerSettings then
+		for k, v in pairs(settings) do
+			if type(v) ~= type(ItemTooltipCleanerSettings[k]) then
+				ItemTooltipCleanerSettings[k] = v
+			end
+		end
+		for k, v in pairs(ItemTooltipCleanerSettings) do
+			settings[k] = v
 		end
 	end
-	settings = ItemTooltipCleanerSettings
+	ItemTooltipCleanerSettings = settings
 
 	self:UnregisterAllEvents()
 	self:SetScript("OnEvent", nil)
@@ -47,12 +51,14 @@ panel:SetScript("OnShow", function(self)
 	notes:SetJustifyH("LEFT")
 	notes:SetJustifyV("TOP")
 	notes:SetNonSpaceWrap(true)
-	notes:SetText( GetAddonMetadata(ADDON_NAME, "Notes") )
+	notes:SetText( GetAddOnMetadata(ADDON_NAME, "Notes") )
 
 	local colorEnchant = self:CreateColorPicker(L["Enchantment color"])
-	colorEnchant:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 0, -12)
+	colorEnchant:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 4, -12)
 	colorEnchant:SetColor( unpack(settings.enchantColor) )
-	colorEnchant.GetColor = function() return unpack(settings.enchantColor) end
+	colorEnchant.GetColor = function()
+		return unpack(settings.enchantColor)
+	end
 	colorEnchant.OnColorChanged = function(self, r, g, b)
 		settings.enchantColor[1] = r
 		settings.enchantColor[2] = g
@@ -60,7 +66,7 @@ panel:SetScript("OnShow", function(self)
 	end
 
 	local checkBonus = self:CreateCheckbox(L["Compact equipment bonuses"])
-	checkBonus:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -8)
+	checkBonus:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", -3, -10)
 	checkBonus:SetChecked(settings.compactBonuses)
 	checkBonus.OnClick = function(self, checked)
 		settings.compactBonuses = checked
@@ -71,6 +77,7 @@ panel:SetScript("OnShow", function(self)
 	checkILevel:SetChecked(settings.hideItemLevel)
 	checkILevel.OnClick = function(self, checked)
 		settings.hideItemLevel = checked
+	end
 
 	local checkBuy = self:CreateCheckbox(L["Hide buying instructions"])
 	checkBuy:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
@@ -102,3 +109,14 @@ panel:SetScript("OnShow", function(self)
 
 	self:SetScript("OnShow", nil)
 end)
+
+InterfaceOptions_AddCategory(panel)
+
+panel.about = LibStub("LibAboutPanel").new(panel.name, ADDON_NAME)
+
+SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
+
+SlashCmdList["ITEMTOOLTIPCLEANER"] = function()
+	InterfaceOptionsFrame_OpenToCategory(panel.about)
+	InterfaceOptionsFrame_OpenToCategory(panel)
+end
