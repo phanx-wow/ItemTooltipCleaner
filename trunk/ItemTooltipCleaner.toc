@@ -7,9 +7,9 @@
 ## X-Email: akkorian@hotmail.com
 ## X-CompatibleLocales: enUS
 ## X-Localizations: enUS
-## X-Website:
-## X-Curse-Project-ID:
-## X-WoWI-ID:
+## X-Website: http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
+## X-Curse-Project-ID: itemtooltipcleaner
+## X-WoWI-ID: 19129
 ## SavedVariables: ItemTooltipCleanerSettings
 
 Libs\LibStub\LibStub.lua

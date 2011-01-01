@@ -3,7 +3,7 @@ Item Tooltip Cleaner
 
 by Akkorian < akkorian@hotmail.com >
 Copyright © 2010 Akkorian. Some rights reserved. See LICENSE.txt for details.
-http://www.wowinterface.com/downloads/info-ItemTooltipCleaner.html
+http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 http://wow.curse.com/downloads/wow-addons/details/itemtooltipcleaner.aspx
 
 
@@ -12,8 +12,9 @@ Features
 
 Item Tooltip Cleaner compacts equipment bonuses and removes extraneous
 text from item tooltips, including item levels, socketing instructions,
-vendor stack purchase instructions, "Made by" tags, and "Soulbound". It
-also recolors enchantment lines to make them more distinct.
+stack purchase instructions, vendor sell values while you're not at a
+vendor, "Made by" tags, and "Soulbound" lines. It also recolors
+enchantment lines to help set them apart from equipment bonus lines.
 
 Item Tooltip Cleaner is compatible with RatingBuster and other addons
 that read stats from the tooltip. It is based on dlemvigh's addon

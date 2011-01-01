@@ -13,6 +13,7 @@ local settings = {
 	hideMadeBy = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
+	hideSellValue = false,
 	hideSoulbound = false,
 	customTooltips = {
 		"AtlasLootTooltip",		-- AtlasLoot
@@ -108,7 +109,7 @@ local function ReformatItemTooltip( tooltip )
 				elseif settings.compactBonuses then
 					if cache[ text ] then
 						line:SetText( cache[ text ] )
-						line:SetTextColor( 0.2, 1, 0.2 )
+						line:SetTextColor( 0, 1, 0 )
 					else
 						for _, pattern in ipairs( patterns ) do
 							local stat, value = text:match( pattern )
@@ -119,7 +120,7 @@ local function ReformatItemTooltip( tooltip )
 								local result = string.format( "+%d %s", value, names[ stat ] or stat )
 								cache[ text ] = result
 								line:SetText( result )
-								line:SetTextColor( 0.2, 1, 0.2 )
+								line:SetTextColor( 0, 1, 0 )
 								break
 							end
 						end
@@ -139,6 +140,16 @@ for _, tooltip in pairs( {
 } ) do
 	if _G[ tooltip ] then
 		_G[ tooltip ]:HookScript( "OnTooltipSetItem", ReformatItemTooltip )
+	end
+end
+
+------------------------------------------------------------------------
+
+local prehook = GameTooltip_OnTooltipAddMoney
+
+function GameTooltip_OnTooltipAddMoney(...)
+	if not settings.hideSellValue or MerchantFrame:IsShown() then
+		return prehook(...)
 	end
 end
 
