@@ -10,8 +10,7 @@ local ADDON_NAME, namespace = ...
 local settings = namespace.settings
 local L = namespace.L
 
-local panel = CreateFrame( "Frame" )
-panel.name = GetAddOnMetadata( ADDON_NAME, "Title" )
+local panel = LibStub( "PhanxConfig-OptionsPanel" ).CreateOptionsPanel( ADDON_NAME )
 
 panel:RegisterEvent( "ADDON_LOADED" )
 panel:SetScript( "OnEvent", function( self, event, addon )
@@ -33,27 +32,10 @@ panel:SetScript( "OnEvent", function( self, event, addon )
 	self:SetScript( "OnEvent", nil )
 end )
 
-panel:Hide()
-panel:SetScript( "OnShow", function( self )
-	self.CreateCheckbox = LibStub( "PhanxConfig-Checkbox" ).CreateCheckbox
-	self.CreateColorPicker = LibStub( "PhanxConfig-ColorPicker" ).CreateColorPicker
+panel.runOnce = function( self )
+	local title, notes = LibStub( "PhanxConfig-Header" ).CreateHeader( self, ADDON_NAME, GetAddOnMetadata( ADDON_NAME, "Notes" ) )
 
-	local title = self:CreateFontString( nil, "ARTWORK", "GameFontNormalLarge" )
-	title:SetPoint( "TOPLEFT", 16, -16 )
-	title:SetPoint( "TOPRIGHT", -16, -16 )
-	title:SetJustifyH( "LEFT" )
-	title:SetText( self.name )
-
-	local notes = self:CreateFontString( nil, "ARTWORK", "GameFontHighlightSmall" )
-	notes:SetPoint( "TOPLEFT", title, "BOTTOMLEFT", 0, -8 )
-	notes:SetPoint( "TOPRIGHT", title, 0, -8 )
-	notes:SetHeight( 32 )
-	notes:SetJustifyH( "LEFT" )
-	notes:SetJustifyV( "TOP" )
-	notes:SetNonSpaceWrap( true )
-	notes:SetText( GetAddOnMetadata( ADDON_NAME, "Notes" ) )
-
-	local colorEnchant = self:CreateColorPicker( L["Enchantment color"] )
+	local colorEnchant = LibStub( "PhanxConfig-ColorPicker" ).CreateColorPicker( self, L["Enchantment color"] )
 	colorEnchant:SetPoint( "TOPLEFT", notes, "BOTTOMLEFT", 4, -12 )
 	colorEnchant:SetColor( unpack( settings.enchantColor ) )
 	colorEnchant.GetColor = function()
@@ -65,66 +47,62 @@ panel:SetScript( "OnShow", function( self )
 		settings.enchantColor[ 3 ] = b
 	end
 
-	local checkBonus = self:CreateCheckbox( L["Compact equipment bonuses"] )
+	local CreateCheckbox = LibStub( "PhanxConfig-Checkbox" ).CreateCheckbox
+	local function OnClick( self, checked )
+		settings[ self.key ] = checked
+	end
+
+	local checkBonus = CreateCheckbox( self, L["Compact equipment bonuses"] )
 	checkBonus:SetPoint( "TOPLEFT", colorEnchant, "BOTTOMLEFT", -3, -10 )
-	checkBonus:SetChecked( settings.compactBonuses )
-	checkBonus.OnClick = function( self, checked )
-		settings.compactBonuses = checked
-	end
+	checkBonus.OnClick = OnClick
+	checkBonus.key = "compactBonuses"
 
-	local checkILevel = self:CreateCheckbox( L["Hide item levels"] )
+	local checkILevel = CreateCheckbox( self, L["Hide item levels"] )
 	checkILevel:SetPoint( "TOPLEFT", checkBonus, "BOTTOMLEFT", 0, -8 )
-	checkILevel:SetChecked( settings.hideItemLevel )
-	checkILevel.OnClick = function( self, checked )
-		settings.hideItemLevel = checked
-	end
+	checkILevel.OnClick = OnClick
+	checkILevel.key = "hideItemLevel"
 
-	local checkBuy = self:CreateCheckbox( L["Hide buying instructions"] )
+	local checkBuy = CreateCheckbox( self, L["Hide buying instructions"] )
 	checkBuy:SetPoint( "TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8 )
-	checkBuy:SetChecked( settings.hideRightClickBuy )
-	checkBuy.OnClick = function( self, checked )
-		settings.hideRightClickBuy = checked
-	end
+	checkBuy.OnClick = OnClick
+	checkBuy.key = "hideRightClickBuy"
 
-	local checkSocket = self:CreateCheckbox( L["Hide socketing instructions"] )
+	local checkSocket = CreateCheckbox( self, L["Hide socketing instructions"] )
 	checkSocket:SetPoint( "TOPLEFT", checkBuy, "BOTTOMLEFT", 0, -8 )
-	checkSocket:SetChecked( settings.hideRightClickSocket )
-	checkSocket.OnClick = function( self, checked )
-		settings.hideRightClickSocket = checked
-	end
+	checkSocket.OnClick = OnClick
+	checkSocket.key = "hideRightClickSocket"
 
-	local checkMadeBy = self:CreateCheckbox( L["Hide \"Made By\" tags"] )
+	local checkMadeBy = CreateCheckbox( self, L["Hide \"Made By\" tags"] )
 	checkMadeBy:SetPoint( "TOPLEFT", checkSocket, "BOTTOMLEFT", 0, -8 )
-	checkMadeBy:SetChecked( settings.hideMadeBy )
-	checkMadeBy.OnClick = function( self, checked )
-		settings.hideMadeBy = checked
-	end
+	checkMadeBy.OnClick = OnClick
+	checkMadeBy.key = "hideMadeBy"
 
-	local checkSoulbound = self:CreateCheckbox( L["Hide \"Soulbound\" lines"] )
+	local checkSoulbound = CreateCheckbox( self, L["Hide \"Soulbound\" lines"] )
 	checkSoulbound:SetPoint( "TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8 )
-	checkSoulbound:SetChecked( settings.hideSoulbound )
-	checkSoulbound.OnClick = function( self, checked )
-		settings.hideSoulbound = checked
-	end
+	checkSoulbound.OnClick = OnClick
+	checkSoulbound.key = "hideSoulbound"
 
-	local checkValue = self:CreateCheckbox( L["Hide vendor values"] )
-	checkValue.desc = L["Hide vendor values, except while interacting with a vendor"]
+	local checkValue = CreateCheckbox( self, L["Hide vendor values"], L["Hide vendor values, except while interacting with a vendor."] )
 	checkValue:SetPoint( "TOPLEFT", checkSoulbound, "BOTTOMLEFT", 0, -8 )
-	checkValue:SetChecked( settings.hideSellValue )
-	checkValue.OnClick = function( self, checked )
-		settings.hideSellValue = checked
+	checkValue.OnClick = OnClick
+	checkValue.key = "hideSellValue"
+
+	self.refresh = function( self )
+		checkBonus:SetChecked( settings.compactBonuses )
+		checkILevel:SetChecked( settings.hideItemLevel )
+		checkBuy:SetChecked( settings.hideRightClickBuy )
+		checkSocket:SetChecked( settings.hideRightClickSocket )
+		checkMadeBy:SetChecked( settings.hideMadeBy )
+		checkSoulbound:SetChecked( settings.hideSoulbound )
+		checkValue:SetChecked( settings.hideSellValue )
 	end
+end
 
-	self:SetScript( "OnShow", nil )
-end )
-
-InterfaceOptions_AddCategory( panel )
-
-panel.about = LibStub( "LibAboutPanel" ).new( panel.name, ADDON_NAME )
+local about = LibStub( "LibAboutPanel" ).new( ADDON_NAME, ADDON_NAME )
 
 SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
 
 SlashCmdList["ITEMTOOLTIPCLEANER"] = function()
-	InterfaceOptionsFrame_OpenToCategory( panel.about )
+	InterfaceOptionsFrame_OpenToCategory( about )
 	InterfaceOptionsFrame_OpenToCategory( panel )
 end
