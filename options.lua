@@ -6,9 +6,9 @@
 --	http://wow.curseforge.com/addons/itemtooltipcleaner/
 ------------------------------------------------------------------------
 
-local ADDON_NAME, ns = ...
-local settings = ns.settings
-local L = ns.L
+local ADDON_NAME, namespace = ...
+local settings = namespace.settings
+local L = namespace.L
 
 local panel = CreateFrame( "Frame" )
 panel.name = GetAddOnMetadata( ADDON_NAME, "Title" )
