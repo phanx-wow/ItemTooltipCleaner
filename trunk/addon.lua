@@ -6,6 +6,10 @@
 --	http://wow.curseforge.com/addons/itemtooltipcleaner/
 ------------------------------------------------------------------------
 
+local ADDON_NAME, namespace = ...
+
+------------------------------------------------------------------------
+
 local settings = {
 	compactBonuses = true,
 	enchantColor = { 0, 0.8, 1 },
@@ -25,14 +29,13 @@ local settings = {
 	},
 }
 
+namespace.settings = settings
+
 ------------------------------------------------------------------------
 
-local L = setmetatable( {
-	["^%d+ Armor$"]     = "^" .. ARMOR_TEMPLATE:replace( "%d", "%d+" ) .. "$",
-	["^Item Level %d"]  = "^" .. ITEM_LEVEL:replace( "%d", "%d+" ),
-	["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:replace( "%s", "%S+" ) .. "$",
-	["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:replace( "%s", "" ):trim(),
-}, {
+if not namespace.L then namespace.L = { } end
+
+local L = setmetatable( namespace.L, {
 	__index = function( t, k )
 		if k == nil then return "" end
 		local v = tostring( k )
@@ -41,56 +44,39 @@ local L = setmetatable( {
 	end
 } )
 
+L["^%d+ Armor$"]     = "^" .. ARMOR_TEMPLATE:replace( "%d", "%d+" ) .. "$"
+L["^Chance on hit:"] = "^" .. ITEM_SPELL_TRIGGER_ONPROC
+L["^Item Level %d"]  = "^" .. ITEM_LEVEL:replace( "%d", "%d+" )
+L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:replace( "%s", "%S+" ) .. "$"
+L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:replace( "%s", "" ):trim()
+
 ------------------------------------------------------------------------
 
-local patterns = {
-	L["^Equip: Increases y?o?u?r? ?(.+) by (%d+)%."],
-	L["^Equip: Improves y?o?u?r? ?(.+) by (%d+)%."],
-	L["^Equip: Restores (%d+) (.+)%.$"],
-	L["^Equip: Increases ([dh][ae][ma][al][gi][en]g? done by magical spells and effects) by up to (%d+.)$"],
-	L["^Equip: Increases attack power by (%d+) (in Cat, Bear, Dire Bear, and Moonkin forms only).$"],
+local stat_patterns = namespace.stat_patterns or {
+	"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by (%d+)%.", -- catches "Improves" and "Increases"
+	"^Equip: (.+) increased by (%d+)%.",
 }
 
 ------------------------------------------------------------------------
 
-local names = setmetatable( {
-	[L["in Cat, Bear, Dire Bear, and Moonkin forms only"]] = ITEM_MOD_FERAL_ATTACK_POWER_SHORT,
+local uppercase = namespace.uppercase or string.upper
 
-	[L["shield block rating"]] = ITEM_MOD_BLOCK_RATING_SHORT,
-	[L["the block value of your shield"]] = ITEM_MOD_BLOCK_VALUE_SHORT,
-
-	[L["damage done by magical spells and effects"]] = ITEM_MOD_SPELL_DAMAGE_DONE_SHORT,
-	[L["healing done by magical spells and effects"]] = ITEM_MOD_SPELL_HEALING_DONE_SHORT,
-
-	[L["melee critical avoidance rating"]] = ITEM_MOD_CRIT_TAKEN_MELEE_RATING_SHORT,
-	[L["ranged critical avoidance rating"]] = ITEM_MOD_CRIT_TAKEN_RANGED_RATING_SHORT,
-	[L["spell critical avoidance rating"]] = ITEM_MOD_CRIT_TAKEN_SPELL_RATING_SHORT,
-
-	[L["melee critical strike rating"]] = ITEM_MOD_CRIT_MELEE_RATING_SHORT,
-	[L["ranged critical strike rating"]] = ITEM_MOD_CRIT_RANGED_RATING_SHORT,
-	[L["spell critical strike rating"]] = ITEM_MOD_CRIT_SPELL_RATING_SHORT,
-
-	[L["melee haste rating"]] = ITEM_MOD_HASTE_MELEE_RATING_SHORT,
-	[L["ranged haste rating"]] = ITEM_MOD_HASTE_RANGED_RATING_SHORT,
-	[L["spell haste rating"]] = ITEM_MOD_HASTE_SPELL_RATING_SHORT,
-
-	[L["melee hit avoidance rating"]] = ITEM_MOD_HIT_TAKEN_MELEE_RATING_SHORT,
-	[L["ranged hit avoidance rating"]] = ITEM_MOD_HIT_TAKEN_RANGED_RATING_SHORT,
-	[L["spell hit avoidance rating"]] = ITEM_MOD_HIT_TAKEN_SPELL_RATING_SHORT,
-
-	[L["melee hit rating"]] = ITEM_MOD_HIT_MELEE_RATING_SHORT,
-	[L["ranged hit rating"]] = ITEM_MOD_HIT_RANGED_RATING_SHORT,
-	[L["spell hit rating"]] = ITEM_MOD_HIT_SPELL_RATING_SHORT,
-}, {
+local stat_names = setmetatable( { }, {
 	__index = function( t, k )
 		if k == nil then return "" end
-		local v = k:gsub( "(%l)", string.upper, 1 ):gsub( "( %l)", string.upper )
-		t[ k ] = v
+		local v = k:gsub( "^(%l)", uppercase, 1 ):gsub( "( %l)", uppercase )
+		rawset( t, k, v )
 		return v
 	end
 } )
 
 ------------------------------------------------------------------------
+
+local ITEM_HEROIC = ITEM_HEROIC
+local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
+local ITEM_SOCKETABLE = ITEM_SOCKETABLE
+local ITEM_SOULBOUND = ITEM_SOULBOUND
+local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
 
 local cache = setmetatable( { }, { __mode = "kv" } ) -- weak table to enable garbage collection
 
@@ -104,27 +90,29 @@ local function ReformatItemTooltip( tooltip )
 				line:SetText( "" )
 			else
 				local r, g, b = line:GetTextColor()
-				if r < 0.05 and g > 0.95 and not text:match( "^%a+:" ) and not text:match( L["^%d+ Armor$"] ) and not text:match( L["^Socket Bonus:"] ) then
-					line:SetTextColor( unpack( settings.enchantColor ) )
-				elseif settings.compactBonuses then
-					if cache[ text ] then
-						line:SetText( cache[ text ] )
-						line:SetTextColor( 0, 1, 0 )
-					else
-						for _, pattern in ipairs( patterns ) do
-							local stat, value = text:match( pattern )
-							if stat then
-								if tonumber( stat ) then
-									stat, value = value, stat
+				if r > 0.05 or g < 0.95 or text:match( "^%a+:" ) or text:match( L["^Chance on hit:"] ) or text:match( L["^%d+ Armor$"] ) or text:match( L["^Socket Bonus:"] ) then
+					if settings.compactBonuses then
+						if cache[ text ] then
+							line:SetText( cache[ text ] )
+							line:SetTextColor( 0, 1, 0 )
+						else
+							for _, pattern in ipairs( stat_patterns ) do
+								local stat, value = text:match( pattern )
+								if stat then
+									if tonumber( stat ) then
+										stat, value = value, stat
+									end
+									local result = string.format( "+%d %s", value, stat_names[ stat ] or stat )
+									cache[ text ] = result
+									line:SetText( result )
+									line:SetTextColor( 0, 1, 0 )
+									break
 								end
-								local result = string.format( "+%d %s", value, names[ stat ] or stat )
-								cache[ text ] = result
-								line:SetText( result )
-								line:SetTextColor( 0, 1, 0 )
-								break
 							end
 						end
 					end
+				else
+					line:SetTextColor( unpack( settings.enchantColor ) )
 				end
 			end
 			tooltip:Show()
@@ -147,14 +135,11 @@ end
 
 local prehook = GameTooltip_OnTooltipAddMoney
 
-function GameTooltip_OnTooltipAddMoney(...)
-	if not settings.hideSellValue or MerchantFrame:IsShown() then
-		return prehook(...)
+function GameTooltip_OnTooltipAddMoney( ... )
+	if settings.hideSellValue and not MerchantFrame:IsShown() then
+		return
 	end
+	return prehook( ... )
 end
 
-------------------------------------------------------------------------
-
-local _, ns = ...
-ns.settings = settings
-ns.L = L
+THE_ALPHABET = "а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я"
