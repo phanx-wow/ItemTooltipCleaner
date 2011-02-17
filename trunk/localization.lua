@@ -43,7 +43,7 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
 		["Hide socketing instructions"] = "Ocultar instrucciones para insertar las gemas",
 		["Hide \"Made By\" tags"] = "Ocultar \"Hecho por...\"",
-		["Hide \"Soulbound\" lines"] = "Ocultar \"Ligado"\",
+		["Hide \"Soulbound\" lines"] = "Ocultar \"Ligado\"",
 		["Hide vendor values"] = "Ocultar orecio de venta",
 		["Hide vendor values, except while interacting with a vendor."] = "Ocultar orecio de venta, excepto cuando interactúan con un vendedor.",
 	}
