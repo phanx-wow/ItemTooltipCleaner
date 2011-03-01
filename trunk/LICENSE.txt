@@ -1,9 +1,9 @@
 ItemTooltipCleaner
-by Akkorian < akkorian@hotmail.com >
-http://www.wowinterface.com/downloads/info-ItemTooltipCleaner.html
+Compacts equipment bonus text and removes extraneous lines from item tooltips.
+http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 http://wow.curse.com/downloads/wow-addons/details/itemtooltipcleaner.aspx
 
-Copyright © 2010 Akkorian
+Copyright © 2010–2011 Andrew "Akkorian" M. < akkorian@hotmail.com >
 
 The contents of this software, excluding third-party resources, are
 copyrighted to its author(s) with all rights reserved, under United States

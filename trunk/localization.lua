@@ -2,6 +2,7 @@
 --	Item Tooltip Cleaner
 --	Compacts equipment bonus text and removes extraneous lines from item tooltips.
 --	by Akkorian <akkorian@hotmail.com>
+--	Copyright © 2010–2011. Some rights reserved. See LICENSE.txt for details.
 --	http://www.wowinterface.com/addons/info-ItemTooltipCleaner.html
 --	http://wow.curseforge.com/addons/itemtooltipcleaner/
 ------------------------------------------------------------------------
@@ -26,7 +27,7 @@ return end
 
 ------------------------------------------------------------------------
 --	Español (EU) y Español (LA)
---	Last updated 2011-02-16 by Akkorian
+--	Last updated 2011-03-01 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
@@ -38,10 +39,10 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 
 	namespace.L = {
 		["Enchantment color"] = "Color de encantamientos",
-		["Compact equipment bonuses"] = "Compacto bonos equipo",
+		["Compact equipment bonuses"] = "Compacto texto de bonos equipos",
 		["Hide item levels"] = "Ocultar niveles de equipo",
 		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
-		["Hide socketing instructions"] = "Ocultar instrucciones para insertar las gemas",
+		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
 		["Hide \"Made By\" tags"] = "Ocultar \"Hecho por...\"",
 		["Hide \"Soulbound\" lines"] = "Ocultar \"Ligado\"",
 		["Hide vendor values"] = "Ocultar orecio de venta",
