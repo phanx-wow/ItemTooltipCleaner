@@ -53,19 +53,19 @@ L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:replace( "%s", "" ):trim()
 
 ------------------------------------------------------------------------
 
-local stat_patterns = namespace.stat_patterns or {
+local stat_patterns = namespace.patterns or {
 	"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by (%d+)%.", -- catches "Improves" and "Increases"
 	"^Equip: (.+) increased by (%d+)%.",
 }
 
 ------------------------------------------------------------------------
 
-local uppercase = namespace.uppercase or string.upper
+local capitalize = namespace.capitalize
 
 local stat_names = setmetatable( { }, {
 	__index = function( t, k )
 		if k == nil then return "" end
-		local v = k:gsub( "^(%l)", uppercase, 1 ):gsub( "( %l)", uppercase )
+		local v = ( capitalize or tostring )( k )
 		rawset( t, k, v )
 		return v
 	end

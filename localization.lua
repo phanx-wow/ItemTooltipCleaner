@@ -34,13 +34,13 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 
 	namespace.patterns = {
 		"^Equipar: [AM][ue][mj][eo][nr][ta]a? [ets][lu] (.+) (%d+) p.", -- captura "Aumentar" y "Mejora", y "el" y "tu" y "su"
-		"^Equipar: (.+) aumendata (%d+) p.",
+		"^Equipar: (.+) aumentada (%d+) p.",
 	}
 
 	namespace.L = {
 		["Enchantment color"] = "Color de encantamientos",
 		["Compact equipment bonuses"] = "Compacto texto de bonos equipos",
-		["Hide item levels"] = "Ocultar niveles de equipo",
+		["Hide item levels"] = "Ocultar niveles de objecto",
 		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
 		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
 		["Hide \"Made By\" tags"] = "Ocultar \"Hecho por...\"",
