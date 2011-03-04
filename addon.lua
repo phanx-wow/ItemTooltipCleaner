@@ -9,6 +9,8 @@
 
 local ADDON_NAME, namespace = ...
 
+local GAME_LOCALE = GetLocale()
+
 ------------------------------------------------------------------------
 
 local settings = {
@@ -36,16 +38,14 @@ namespace.settings = settings
 
 if not namespace.L then namespace.L = { } end
 
-local L = setmetatable( namespace.L, {
-	__index = function( t, k )
-		if k == nil then return "" end
-		local v = tostring( k )
-		t[ k ] = v
-		return v
-	end
-} )
+local L = setmetatable( namespace.L, { __index = function( t, k )
+	if k == nil then return "" end
+	local v = tostring( k )
+	t[ k ] = v
+	return v
+end } )
 
-L["^%d+ Armor$"]     = "^" .. ARMOR_TEMPLATE:replace( "%d", "%d+" ) .. "$"
+L["^%d+ Armor$"]	 = "^" .. ARMOR_TEMPLATE:replace( "%d", "%d+" ) .. "$"
 L["^Chance on hit:"] = "^" .. ITEM_SPELL_TRIGGER_ONPROC
 L["^Item Level %d"]  = "^" .. ITEM_LEVEL:replace( "%d", "%d+" )
 L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:replace( "%s", "%S+" ) .. "$"
@@ -53,23 +53,41 @@ L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:replace( "%s", "" ):trim()
 
 ------------------------------------------------------------------------
 
-local stat_patterns = namespace.patterns or {
-	"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by (%d+)%.", -- catches "Improves" and "Increases"
-	"^Equip: (.+) increased by (%d+)%.",
-}
+if not namespace.patterns then
+	namespace.patterns = {
+		"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by (%d+)%.", -- catches "Improves" and "Increases"
+		"^Equip: Restores (%d+) (health per 5 sec%.)",
+		"^Equip: (.+) increased by (%d+)%.",
+	}
+end
+
+local stat_patterns = namespace.patterns
+local stat_strings = namespace.strings
 
 ------------------------------------------------------------------------
 
-local capitalize = namespace.capitalize
-
-local stat_names = setmetatable( { }, {
-	__index = function( t, k )
-		if k == nil then return "" end
-		local v = ( capitalize or tostring )( k )
-		rawset( t, k, v )
-		return v
+local stat_names = setmetatable( { }, { __index = function( t, k )
+	if type( k ) ~= "string" then return "" end
+	local v = k
+	if GAME_LOCALE:match( "^[de]" ) then
+		-- de, en: Capitalize each word.
+		for word in k:gmatch( "%S+" ) do
+			local i, c = 2, word:sub( 1, 1 )
+			if c:byte() > 127 then
+				i, c = 3, word:sub( 1, 2 )
+			end
+			word = c:upper() .. word:sub( i )
+			v = v and ( v .. " " .. word ) or word
+		end
+	elseif GAME_LOCALE:match( "^[ef][sr]" ) then
+		-- es, fr: Lowercase everything.
+		v = v:lower()
 	end
-} )
+	rawset( t, k, v )
+	return v
+end } )
+
+namespace.names = stat_names
 
 ------------------------------------------------------------------------
 
@@ -97,13 +115,14 @@ local function ReformatItemTooltip( tooltip )
 							line:SetText( cache[ text ] )
 							line:SetTextColor( 0, 1, 0 )
 						else
-							for _, pattern in ipairs( stat_patterns ) do
+							for i, pattern in ipairs( stat_patterns ) do
 								local stat, value = text:match( pattern )
 								if stat then
 									if tonumber( stat ) then
 										stat, value = value, stat
 									end
-									local result = string.format( "+%d %s", value, stat_names[ stat ] or stat )
+									local str = stat_strings and stat_strings[ i ] or "+%d %s"
+									local result = str:format( value, stat_names[ stat ] or stat )
 									cache[ text ] = result
 									line:SetText( result )
 									line:SetTextColor( 0, 1, 0 )

@@ -27,8 +27,8 @@ in the standard Interface Options window.
 Localization
 ------------
 
-Item Tooltip Cleaner is compatible with English, Deutsch, Español, and
-Français game clients.
+Item Tooltip Cleaner is compatible with English, Deutsch, Español,
+Français, Русский, 한국어, and 繁體中文 game clients.
 
 Item Tooltip Cleaner is translated into English and Español.
 
