@@ -7,7 +7,7 @@
 ## Author: Akkorian
 ## X-Credits: Inspired by PhoenixTooltip, by dlemvigh.
 ## X-Email: akkorian@hotmail.com
-## X-CompatibleLocales: enUS, esES, esMX
+## X-CompatibleLocales: enUS, deDE, esES, esMX, frFR, ruRU, koKR, zhTW
 ## X-Localizations: enUS, esES, esMX
 ## X-Website: http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 ## X-Curse-Project-ID: itemtooltipcleaner
