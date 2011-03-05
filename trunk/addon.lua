@@ -68,7 +68,7 @@ local stat_strings = namespace.strings
 
 local stat_names = setmetatable( { }, { __index = function( t, k )
 	if type( k ) ~= "string" then return "" end
-	local v = k
+	local v
 	if GAME_LOCALE:match( "^[de]" ) then
 		-- de, en: Capitalize each word.
 		for word in k:gmatch( "%S+" ) do
@@ -81,7 +81,9 @@ local stat_names = setmetatable( { }, { __index = function( t, k )
 		end
 	elseif GAME_LOCALE:match( "^[ef][sr]" ) then
 		-- es, fr: Lowercase everything.
-		v = v:lower()
+		v = k:lower()
+	else
+		v = k
 	end
 	rawset( t, k, v )
 	return v
