@@ -7,17 +7,29 @@
 --	http://wow.curseforge.com/addons/itemtooltipcleaner/
 ------------------------------------------------------------------------
 
-local ADDON_NAME, namespace = ...
 local GAME_LOCALE = GetLocale()
-namespace.GAME_LOCALE = GAME_LOCALE
 if GAME_LOCALE:match( "^en" ) then return end
 
+local ADDON_NAME, namespace = ...
+
 ------------------------------------------------------------------------
---	Deutsch
+--	German | Deutsch
 --	Last updated 2011-02-16 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "deDE" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" tags"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
 
 	namespace.patterns = {
 		"^Anlegen: Erhöht ?[Ed]?[uei]?[rne]?e? (.+) um (%d+).", -- "Eure" or "den" or "die"
@@ -34,23 +46,11 @@ if GAME_LOCALE == "deDE" then
 return end
 
 ------------------------------------------------------------------------
---	Español (EU) y Español (LA)
+--	Spanish | Español
 --	Last updated 2011-03-01 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
-
-	namespace.patterns = {
-		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] (.+) (%d+) p.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
-		"^Equipar: Restaura (%d+) p. de (salud cada 5 s)",
-		"^Equipar: (.+) aumentada (%d+) p.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d salud cada 5 s",
-		"+%d habilidad de %s",
-	}
 
 	namespace.L = {
 		["Enchantment color"] = "Color de encantamientos",
@@ -64,14 +64,38 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 		["Hide vendor values, except while interacting with a vendor."] = "Ocultar orecio de venta, excepto cuando interactúan con un vendedor.",
 	}
 
+	namespace.patterns = {
+		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] (.+) (%d+) p.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
+		"^Equipar: Restaura (%d+) p. de (salud cada 5 s)",
+		"^Equipar: (.+) aumentada (%d+) p.",
+	}
+
+	namespace.strings = {
+		"+%d %s",
+		"+%d salud cada 5 s",
+		"+%d habilidad de %s",
+	}
+
 return end
 
 ------------------------------------------------------------------------
---	Français
+--	French | Français
 --	Last updated 2011-02-16 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "frFR" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" tags"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
 
 	namespace.patterns = {
 		"^Équipé : Augmente [dlv][eao]t?r?e? (.+) de (%d+).", -- "de" or "la" or "votre"
@@ -90,11 +114,23 @@ if GAME_LOCALE == "frFR" then
 return end
 
 ------------------------------------------------------------------------
---	Русский
+--	Russian | Русский
 --	Last updated 2011-03-03 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "ruRU" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" tags"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
 
 	namespace.patterns = {
 		"^Если на персонаже: Рейтинг (.+) +(%d+).",
@@ -115,17 +151,29 @@ if GAME_LOCALE == "ruRU" then
 return end
 
 ------------------------------------------------------------------------
---	한국어
+--	Korean | 한국어
 --	Last updated 2011-03-03 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "koKR" then
 
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" tags"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
+
 	namespace.patterns = {
 		"^착용 효과: (.+)가 (%d+)만큼 증가합니다.",
 		"^착용 효과: (.+)이 (%d+)만큼 증가합니다.", -- maybe can be combined with #1, depending on how string.match works in koKR?
 		"^착용 효과: 매 5초마다 (%d+)의 (.+)을 회복합니다.",
-		"^%착용 효과: (.+) (%d+)만큼 증가합니다.",
+		"^착용 효과: (.+) (%d+)만큼 증가합니다.",
 	}
 
 	namespace.strings = {
@@ -138,11 +186,23 @@ if GAME_LOCALE == "koKR" then
 return end
 
 ------------------------------------------------------------------------
---	繁體中文
+--	Simplified Chinese | 繁體中文
 --	Last updated 2011-03-03 by Akkorian
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "zhTW" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" tags"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
 
 	namespace.patterns = {
 		"^裝備:%s*提高(%d+)點(.+)。",
