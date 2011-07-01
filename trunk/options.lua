@@ -34,9 +34,9 @@ panel:SetScript( "OnEvent", function( self, event, addon )
 --[[
 	for k, v in pairs( _G ) do
 		if type( v ) == "string" and v:match( "%%d" ) and k:match( "^ITEM_MOD" ) and not k:match( "_SHORT$" ) then
-			local str = v:replace( "%d", 13 )
+			local str = v:gsub( "%%d", 13 )
 			for i, pattern in ipairs( stat_patterns ) do
-				local stat, amount = str:match( pattern:replace( "^" .. ITEM_SPELL_TRIGGER_ONEQUIP, "" ):trim() )
+				local stat, amount = str:match( pattern:gsub( "^" .. ITEM_SPELL_TRIGGER_ONEQUIP, "" ):trim() )
 				if stat and amount then
 					if stat == "13" then stat = amount end
 					stat_names[ stat ] = _G[ k .. "_SHORT" ]
