@@ -45,11 +45,11 @@ local L = setmetatable( namespace.L, { __index = function( t, k )
 	return v
 end } )
 
-L["^%d+ Armor$"]	 = "^" .. ARMOR_TEMPLATE:replace( "%d", "%d+" ) .. "$"
+L["^%d+ Armor$"]	 = "^" .. ARMOR_TEMPLATE:gsub( "%%d", "%d+" ) .. "$"
 L["^Chance on hit:"] = "^" .. ITEM_SPELL_TRIGGER_ONPROC
-L["^Item Level %d"]  = "^" .. ITEM_LEVEL:replace( "%d", "%d+" )
-L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:replace( "%s", "%S+" ) .. "$"
-L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:replace( "%s", "" ):trim()
+L["^Item Level %d"]  = "^" .. ITEM_LEVEL:gsub( "%%d", "%d+" )
+L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:gsub( "%%s", "%S+" ) .. "$"
+L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:gsub( "%%s", "" ):trim()
 
 ------------------------------------------------------------------------
 
