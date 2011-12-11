@@ -2,6 +2,7 @@ Item Tooltip Cleaner
 ====================
 
 by Akkorian < akkorian@hotmail.com >
+Maintained by Phanx < addons@phanx.net >
 Copyright © 2010–2011 Akkorian. Some rights reserved. See LICENSE.txt for details.
 http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 http://wow.curse.com/downloads/wow-addons/details/itemtooltipcleaner.aspx
@@ -28,9 +29,9 @@ Localization
 ------------
 
 Item Tooltip Cleaner is compatible with English, Deutsch, Español,
-Français, Русский, 한국어, and 繁體中文 game clients.
+Français, Português, Русский, 한국어, and 繁體中文 game clients.
 
-Item Tooltip Cleaner is translated into English and Español.
+Item Tooltip Cleaner is translated into English, Español, and Português.
 
 If you can provide translations for any locale, please contact me, or
 use the CurseForge localization system:
@@ -46,4 +47,4 @@ either download site. For general questions or feedback, feel free to
 post a comment on either download site.
 
 If you need to contact me privately, you can send me a private message
-on either download site, or email me at <akkorian@hotmail.com>.
+on either download site, or email me at <addons@phanx.net>.
