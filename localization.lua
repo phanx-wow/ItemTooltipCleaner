@@ -60,8 +60,8 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
 		["Hide \"Made By\" tags"] = "Ocultar líneas con \"Hecho por...\"",
 		["Hide \"Soulbound\" lines"] = "Ocultar líneas con \"Ligado\"",
-		["Hide vendor values"] = "Ocultar orecio de venta",
-		["Hide vendor values, except while interacting with a vendor."] = "Ocultar orecio de venta, excepto cuando interactúan con un vendedor.",
+		["Hide vendor values"] = "Ocultar precio de venta",
+		["Hide vendor values, except while interacting with a vendor."] = "Ocultar precio de venta, excepto cuando interactúan con un vendedor.",
 	}
 
 	namespace.patterns = {
@@ -109,6 +109,39 @@ if GAME_LOCALE == "frFR" then
 		"+%d au %s",
 		"+%d Points de vie toutes les 5 sec.",
 		"+%d au %s",
+	}
+
+return end
+
+------------------------------------------------------------------------
+--	Portuguese | Português
+--	Last updated 2011-12-11 by Phanx
+------------------------------------------------------------------------
+
+if GAME_LOCALE == "ptBR" then
+
+	namespace.L = {
+		["Enchantment color"] = "Cor do encantamentos",
+		["Compact equipment bonuses"] = "Encurtar bônus de equipamentos",
+		["Hide item levels"] = "Ocultar níveis de itens",
+		["Hide buying instructions"] = "Ocultar instruções para comprar",
+		["Hide socketing instructions"] = "Ocultar instruções para engastar",
+		["Hide \"Made By\" tags"] = "Ocultar \"Criado por\" linhas",
+		["Hide \"Soulbound\" lines"] = "Ocultar \"Vinculado\" linhas",
+		["Hide vendor values"] = "Esconder preço de venda",
+		["Hide vendor values, except while interacting with a vendor."] = "Ocultar preço de venda, exceto quando interagem com um vendedor.",
+	}
+
+	namespace.patterns = {
+		"^Equipado: Aumenta [ao] ?s?u?a? [ct][ha][ax][na]c?e? ?d?e? (.+) em (%d+).",
+		"^Equipado: [AM][ue][ml][eh][no][tr]a o (.+) em até (%d+).",
+		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de (.+) por 5 segundos.",
+	}
+
+	namespace.strings = {
+		"+%d %s",
+		"+%d %s",
+		"+%d pontos de %s toutes les 5 sec.",
 	}
 
 return end
