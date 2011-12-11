@@ -133,7 +133,7 @@ if GAME_LOCALE == "ptBR" then
 	}
 
 	namespace.patterns = {
-		"^Equipado: Aumenta [ao] ?s?u?a? [ct][ha][ax][na]c?e? ?d?e? (.+) em (%d+).",
+		"^Equipado: Aumenta [ao] ?s?u?a?( ?[ct][ha][ax][na]c?e? ?d?e? .+) em (%d+).",
 		"^Equipado: [AM][ue][ml][eh][no][tr]a o (.+) em até (%d+).",
 		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de (.+) por 5 segundos.",
 	}
