@@ -3,8 +3,8 @@
 --	Compacts equipment bonus text and removes extraneous lines from item tooltips.
 --	by Akkorian <akkorian@hotmail.com>
 --	Copyright © 2010–2011. Some rights reserved. See LICENSE.txt for details.
---	http://www.wowinterface.com/addons/info-ItemTooltipCleaner.html
---	http://wow.curseforge.com/addons/itemtooltipcleaner/
+--	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
+--	http://www.curse.com/addons/wow/itemtooltipcleaner
 ------------------------------------------------------------------------
 
 local GAME_LOCALE = GetLocale()
