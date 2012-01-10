@@ -3,7 +3,7 @@
 --	Compacts equipment bonus text and removes extraneous lines from item tooltips.
 --	by Akkorian < akkorian@hotmail.com >
 --	Maintained by Phanx < addons@phanx.net >
---	Copyright © 2010–2011. Some rights reserved. See LICENSE.txt for details.
+--	Copyright © 2010–2012 Andrew M. Some rights reserved. See LICENSE.txt for details.
 --	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 --	http://www.curse.com/addons/wow/itemtooltipcleaner
 ------------------------------------------------------------------------
@@ -49,7 +49,7 @@ end } )
 L["^%d+ Armor$"]	 = "^" .. ARMOR_TEMPLATE:gsub( "%%d", "%d+" ) .. "$"
 L["^Chance on hit:"] = "^" .. ITEM_SPELL_TRIGGER_ONPROC
 L["^Item Level %d"]  = "^" .. ITEM_LEVEL:gsub( "%%d", "%d+" )
-L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:gsub( "%%s", "%S+" ) .. "$"
+L["^<Made by %S+>$"] = "^" .. ITEM_CREATED_BY:gsub( "%%s", ".+" ) .. "$"
 L["^Socket Bonus:"]  = "^" .. ITEM_SOCKET_BONUS:gsub( "%%s", "" ):trim()
 
 ------------------------------------------------------------------------

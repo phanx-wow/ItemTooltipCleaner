@@ -3,7 +3,7 @@ Item Tooltip Cleaner
 
 by Akkorian < akkorian@hotmail.com >
 Maintained by Phanx < addons@phanx.net >
-Copyright © 2010–2011 Akkorian. Some rights reserved. See LICENSE.txt for details.
+Copyright © 2010–2012 Andrew M. Some rights reserved. See LICENSE.txt for details.
 http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 http://www.curse.com/addons/wow/itemtooltipcleaner
 
