@@ -99,6 +99,7 @@ local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
 local ITEM_SOCKETABLE = ITEM_SOCKETABLE
 local ITEM_SOULBOUND = ITEM_SOULBOUND
 local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
+local RAID_FINDER = RAID_FINDER
 
 local cache = setmetatable( { }, { __mode = "kv" } ) -- weak table to enable garbage collection
 
@@ -108,7 +109,7 @@ local function ReformatItemTooltip( tooltip )
 		local line = _G[ tooltipName .. "TextLeft" .. i ]
 		local text = line:GetText()
 		if text and text ~= ITEM_HEROIC and text ~= ITEM_HEROIC_EPIC then
-			if ( text == ITEM_SOULBOUND and settings.hideSoulbound ) or ( text == ITEM_SOCKETABLE and settings.hideRightClickSocket ) or ( text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy ) or ( settings.hideItemLevel and text:match( L["^Item Level %d"] ) ) or ( settings.hideMadeBy and text:match( L["^<Made by %S+>$"] ) ) then
+			if ( text == ITEM_SOULBOUND and settings.hideSoulbound ) or ( text == RAID_FINDER and settings.hideRaidFinder ) or ( text == ITEM_SOCKETABLE and settings.hideRightClickSocket ) or ( text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy ) or ( settings.hideItemLevel and text:match( L["^Item Level %d"] ) ) or ( settings.hideMadeBy and text:match( L["^<Made by %S+>$"] ) ) then
 				line:SetText( "" )
 			else
 				local r, g, b = line:GetTextColor()
@@ -146,8 +147,15 @@ end
 for _, tooltip in pairs( {
 	"GameTooltip",
 	"ItemRefTooltip",
+	"ItemRefShoppingTooltip1",
+	"ItemRefShoppingTooltip2",
+	"ItemRefShoppingTooltip3",
 	"ShoppingTooltip1",
 	"ShoppingTooltip2",
+	"ShoppingTooltip3",
+	"WorldMapCompareTooltip1",
+	"WorldMapCompareTooltip2",
+	"WorldMapCompareTooltip3",
 } ) do
 	if _G[ tooltip ] then
 		_G[ tooltip ]:HookScript( "OnTooltipSetItem", ReformatItemTooltip )
@@ -164,5 +172,3 @@ function GameTooltip_OnTooltipAddMoney( ... )
 	end
 	return prehook( ... )
 end
-
-THE_ALPHABET = "а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я"
