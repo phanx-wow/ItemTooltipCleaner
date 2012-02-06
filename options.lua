@@ -95,8 +95,13 @@ panel.runOnce = function( self )
 	checkMadeBy.OnClick = OnClick
 	checkMadeBy.key = "hideMadeBy"
 
+	local checkRaidFinder = CreateCheckbox( self, L["Hide \"Raid Finder\" tags"] )
+	checkRaidFinder:SetPoint( "TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8 )
+	checkRaidFinder.OnClick = OnClick
+	checkRaidFinder.key = "hideRaidFinder"
+
 	local checkSoulbound = CreateCheckbox( self, L["Hide \"Soulbound\" lines"] )
-	checkSoulbound:SetPoint( "TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8 )
+	checkSoulbound:SetPoint( "TOPLEFT", checkRaidFinder, "BOTTOMLEFT", 0, -8 )
 	checkSoulbound.OnClick = OnClick
 	checkSoulbound.key = "hideSoulbound"
 
