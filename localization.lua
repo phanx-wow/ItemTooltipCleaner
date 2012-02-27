@@ -60,9 +60,9 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 		["Hide item levels"] = "Ocultar niveles de objecto",
 		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
 		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
-		["Hide \"Made By\" lines"] = "Ocultar líneas con \"Hecho por...\"",
-		["Hide \"Raid Finder\" lines"] = "Ocultar líneas con \"Buscador de bandas\"",
-		["Hide \"Soulbound\" lines"] = "Ocultar líneas con \"Ligado\"",
+		["Hide \"Made By\" lines"] = "Ocultar \"Hecho por...\"",
+		["Hide \"Raid Finder\" lines"] = "Ocultar \"Buscador de bandas\"",
+		["Hide \"Soulbound\" lines"] = "Ocultar \"Ligado\"",
 		["Hide vendor values"] = "Ocultar precio de venta",
 		["Hide vendor values, except while interacting with a vendor."] = "Ocultar precio de venta, excepto cuando interactúan con un vendedor.",
 	}
@@ -226,8 +226,36 @@ if GAME_LOCALE == "koKR" then
 return end
 
 ------------------------------------------------------------------------
+--	Traditional Chinese | 
+--	Last updated 2012-02-26 by Phanx
+------------------------------------------------------------------------
+
+if GAME_LOCALE == "zhCN" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+		["Hide \"Made By\" lines"] = "隐藏\"由谁制造\"标签",
+	--	["Hide \"Raid Finder\" lines"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
+
+	namespace.patterns = {
+	}
+
+	namespace.strings = {
+	}
+
+return end
+
+------------------------------------------------------------------------
 --	Simplified Chinese | 繁體中文
---	Last updated 2011-03-03 by Akkorian
+--	Last updated 2012-02-26 by Phanx
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "zhTW" then
@@ -246,17 +274,21 @@ if GAME_LOCALE == "zhTW" then
 	}
 
 	namespace.patterns = {
-		"^裝備:%s*提高(%d+)點(.+)。",
-		"^裝備:%s*使你的(.+)提高(%d+)",
-		"^裝備:%s*(每5秒恢復)(%d+)",
-		"^裝備:%s*(.+)提高30點。",
+		"^裝備:%s*提高(%d+)點(.+)。", -- Improves by (%d+) points your (.+).
+		"^裝備:%s*使你的(.+)提高(%d+)點。", -- Improves your (.+) by (%d+) points.
+		"^裝備:%s*使你的(.+)提高(%d+)。", -- Mastery rating
+		"^裝備:%s*每5秒恢復(%d+)點生命力。", -- Restores (%d+) health per 5 seconds.
+		"^裝備:%s*每5秒恢復(%d+)生命力。",
+		"^裝備:%s*每5秒恢復(%d+)點法力。", -- Restores (%d+) mana per 5 seconds.
 	}
 
 	namespace.strings = {
 		"+%d %s",
 		"+%d %s",
-		"+%d 生命力每5秒",
 		"+%d %s",
+		"+%d 生命力每5秒",
+		"+%d 生命力每5秒",
+		"+%d 法力每5秒",
 	}
 
 return end
