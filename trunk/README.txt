@@ -1,11 +1,10 @@
 Item Tooltip Cleaner
-====================
+==============
 
-by Akkorian < akkorian@hotmail.com >
-Maintained by Phanx < addons@phanx.net >
-Copyright © 2010–2012 Andrew M. Some rights reserved. See LICENSE.txt for details.
-http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
-http://www.curse.com/addons/wow/itemtooltipcleaner
+* Copyright (c) 2012 Phanx <addons@phanx.net>. All rights reserved.
+* See the accompanying LICENSE file for more information.
+* http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
+* http://www.curse.com/addons/wow/itemtooltipcleaner
 
 
 Features
@@ -18,23 +17,26 @@ vendor, "Made by" tags, and "Soulbound" lines. It also recolors
 enchantment lines to help set them apart from equipment bonus lines.
 
 Item Tooltip Cleaner is compatible with RatingBuster and other addons
-that read stats from the tooltip. It is based on dlemvigh's addon
-PhoenixTooltip, which is no longer maintained.
+that read stats from the tooltip.
 
-Type ``/itc`` for options, or browse to the Item Tooltip Cleaner panel
+
+Usage
+-----
+
+Type "/itc" for options, or browse to the Item Tooltip Cleaner panel
 in the standard Interface Options window.
 
 
 Localization
 ------------
 
-Item Tooltip Cleaner is compatible with English, Deutsch, Español,
-Français, Português, Русский, 한국어, and 繁體中文 game clients.
+Compatible with English, Deutsch, Español (EU), Español (AL), Français,
+Português, Русский, 한국어, and 繁體中文 game clients.
 
-Item Tooltip Cleaner is translated into English, Español, and Português.
+Translated into English, Español, and Português.
 
-If you can provide translations for any locale, please contact me, or
-use the CurseForge localization system:
+To add or update translations for any language, see the Localization tab
+on the CurseForge project page:
 
 http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
 
@@ -42,9 +44,22 @@ http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
 Feedback
 --------
 
-To report a bug or request a feature, please use the ticket tracker on
-either download site. For general questions or feedback, feel free to
-post a comment on either download site.
+Bugs, errors, or other problems:
+	Submit a bug report ticket on either download page.
 
-If you need to contact me privately, you can send me a private message
-on either download site, or email me at <addons@phanx.net>.
+Feature requests or other suggestions:
+	Submit a feature request ticket system on either download page.
+
+General questions or comments:
+	Post a comment on the WoWInterface download page.
+
+If you need to contact me privately for a reason other than those listed
+above, you can send me a private message on either download site, or
+email me at <addons@phanx.net>.
+
+
+Credits
+-------
+
+GridStatusHealTrace was originally written by Akkorian, and was inpsired
+by the PhoenixTooltip addon by dlemvigh.

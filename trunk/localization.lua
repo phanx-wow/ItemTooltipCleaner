@@ -1,12 +1,11 @@
-------------------------------------------------------------------------
---	Item Tooltip Cleaner
---	Compacts equipment bonus text and removes extraneous lines from item tooltips.
---	by Akkorian <akkorian@hotmail.com>
---	Maintained by Phanx <addons@phanx.net>
---	Copyright © 2010–2012 Andrew M. Some rights reserved. See LICENSE.txt for details.
---	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
---	http://www.curse.com/addons/wow/itemtooltipcleaner
-------------------------------------------------------------------------
+--[[--------------------------------------------------------------------
+	Item Tooltip Cleaner
+	Compacts equipment bonus text and removes extraneous lines from item tooltips.
+	Copyright (c) 2012 Phanx <addons@phanx.net>. All rights reserved.
+	See the accompanying README and LICENSE files for more information.
+	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
+	http://www.curse.com/addons/wow/itemtooltipcleaner
+----------------------------------------------------------------------]]
 
 local GAME_LOCALE = GetLocale()
 if GAME_LOCALE:match( "^en" ) then return end
@@ -113,6 +112,34 @@ if GAME_LOCALE == "frFR" then
 		"+%d au %s",
 		"+%d Points de vie toutes les 5 sec.",
 		"+%d au %s",
+	}
+
+return end
+
+------------------------------------------------------------------------
+--	Italian | Italiano
+--	Last updated YYYY-MM-DD
+------------------------------------------------------------------------
+
+if GAME_LOCALE == "itIT" then
+
+	namespace.L = {
+	--	["Enchantment color"] = "",
+	--	["Compact equipment bonuses"] = "",
+	--	["Hide item levels"] = "",
+	--	["Hide buying instructions"] = "",
+	--	["Hide socketing instructions"] = "",
+	--	["Hide \"Made By\" lines"] = "",
+	--	["Hide \"Raid Finder\" lines"] = "",
+	--	["Hide \"Soulbound\" lines"] = "",
+	--	["Hide vendor values"] = "",
+	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	}
+
+	namespace.patterns = {
+	}
+
+	namespace.strings = {
 	}
 
 return end
@@ -226,7 +253,7 @@ if GAME_LOCALE == "koKR" then
 return end
 
 ------------------------------------------------------------------------
---	Traditional Chinese | 
+--	Traditional Chinese |
 --	Last updated 2012-02-26 by Phanx
 ------------------------------------------------------------------------
 
