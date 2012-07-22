@@ -187,6 +187,7 @@ local showPriceFrames = {
 	"AuctionFrame",
 	"MerchantFrame",
 	"QuestRewardPanel",
+	"QuestFrameRewardPanel",
 }
 
 local prehook = GameTooltip_OnTooltipAddMoney
@@ -195,8 +196,9 @@ function GameTooltip_OnTooltipAddMoney(...)
 	if not settings.hideSellValue then
 		return prehook(...)
 	end
-	for _, frame in pairs(showPriceFrames) do
-		if _G[frame]:IsShown() then
+	for _, name in pairs(showPriceFrames) do
+		local frame = _G[name]
+		if frame and frame:IsShown() then
 			return prehook(...)
 		end
 	end
