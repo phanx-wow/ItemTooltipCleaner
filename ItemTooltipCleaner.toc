@@ -1,18 +1,21 @@
-## Interface: 50001
-## Version: 5.0.1.wowi:revision-beta
+## Interface: 40300
+## Version: 4.3.4.wowi:revision
 
 ## Title: Item Tooltip Cleaner
 ## Notes: Compacts equipment bonus text and removes extraneous lines from item tooltips.
-## Notes-esES: Reduce el texto de bonos equipos, y elimina las l�neas extras de descripciones de los objetos.
-## Notes-esMX: Reduce el texto de bonos equipos, y elimina las l�neas extras de descripciones de los objetos.
+## Notes-deDE: Beschreibungen von Boni in Ausrüstungs-Tooltips verkürzen, und Text überflüssig ausblenden.
+## Notes-esES: Acortar el texto de bonos equipos, y eliminar textos superfluo de descripciones de objetos.
+## Notes-esMX: Acortar el texto de bonos equipos, y eliminar textos superfluo de descripciones de objetos.
+## Notes-ptBR: Encurtar o texto de bônus em equipamentos, e remover o texto supérfluo das dicas de itens.
+## Notes-zhCN: 简化装备属性文本并从装备提示信息中移除多余的行.
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
 ## X-Credits: Originally written by Akkorian. Inspired by dlemvigh's PhoenixTooltip.
 ## X-Copyright: Copyright (c) 2010-2012 Phanx. All rights reserved.
 ## X-License: See accompanying LICENSE file for details.
-## X-CompatibleLocales: enUS, deDE, esES, esMX, frFR, ptBR, ruRU, koKR, zhTW
-## X-Localizations: enUS, esES, esMX, ptBR
+## X-CompatibleLocales: enUS, deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW
+## X-Localizations: enUS, deDE, esES, esMX, ptBR, zhCN
 ## X-Website: http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 ## X-Curse-Project-ID: itemtooltipcleaner
 ## X-WoWI-ID: 19129
