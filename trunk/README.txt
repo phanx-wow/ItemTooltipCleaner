@@ -1,5 +1,5 @@
 Item Tooltip Cleaner
-==============
+====================
 
 * Copyright (c) 2012 Phanx <addons@phanx.net>. All rights reserved.
 * See the accompanying LICENSE file for more information.
@@ -10,11 +10,12 @@ Item Tooltip Cleaner
 Features
 --------
 
-Item Tooltip Cleaner compacts equipment bonuses and removes extraneous
-text from item tooltips, including item levels, socketing instructions,
-stack purchase instructions, vendor sell values while you're not at a
-vendor, "Made by" tags, and "Soulbound" lines. It also recolors
-enchantment lines to help set them apart from equipment bonus lines.
+Item Tooltip Cleaner compacts long equipment bonus lines and removes
+extraneous text from item tooltips, including item levels; socketing
+and stack buying instructions; Heroic, Made by, Raid Finder, Reforged,
+and Soulbound tags; and vendor sell values except when a vendor, auction
+house, or quest reward window is visible. Ut also recolors enchantment
+lines to help set them apart from equipment bonus lines.
 
 Item Tooltip Cleaner is compatible with RatingBuster and other addons
 that read stats from the tooltip.
@@ -30,15 +31,16 @@ in the standard Interface Options window.
 Localization
 ------------
 
-Compatible with English, Deutsch, Español (EU), Español (AL), Français,
-Português, Русский, 한국어, and 繁體中文 game clients.
+Compatible with English, Deutsch (deDE), Español (esES/esMX),
+Français (frFR), Italiano (itIT), Português (ptBR), Русский (ruRU),
+한국어 (koKR), 简体中文 (zhCN), and 繁體中文 (zhTW) game clients.
 
-Translated into English, Español, and Português.
+Translated into English, Deutsch, Español, Português, and 简体中文.
 
-To add or update translations for any language, see the Localization tab
-on the CurseForge project page:
+To add or update translations for any language, enter them on the
+Localization tab on the CurseForge project page:
 
-http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
+	http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
 
 
 Feedback
@@ -48,7 +50,7 @@ Bugs, errors, or other problems:
 	Submit a bug report ticket on either download page.
 
 Feature requests or other suggestions:
-	Submit a feature request ticket system on either download page.
+	Submit a feature request ticket on either download page.
 
 General questions or comments:
 	Post a comment on the WoWInterface download page.
