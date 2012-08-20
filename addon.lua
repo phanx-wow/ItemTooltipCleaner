@@ -32,14 +32,17 @@ namespace.settings = settings
 
 ------------------------------------------------------------------------
 
-if not namespace.L then namespace.L = { } end
-
-local L = setmetatable(namespace.L, { __index = function(t, k)
+local L = setmetatable(namespace.L or {}, { __index = function(t, k)
 	if k == nil then return "" end
 	local v = tostring(k)
 	t[k] = v
 	return v
 end })
+
+if not namespace.L then
+	L["[^%d,]"] = "[^%d" .. (LARGE_NUMBER_SEPERATOR or ",") .. "]"
+	namespace.L = L
+end
 
 ------------------------------------------------------------------------
 
@@ -133,7 +136,7 @@ local function ReformatItemTooltip(tooltip)
 							for j, pattern in ipairs(stat_patterns) do
 								local stat, value = text:match(pattern)
 								if stat then
-									if strmatch(value, "[^%d,]") then -- needs localization
+									if strmatch(value, L["[^%d,]"]) then
 										stat, value = gsub(value, ",", ""), stat
 									else
 										value = gsub(value, ",", "")

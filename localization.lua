@@ -20,6 +20,8 @@ local ADDON_NAME, namespace = ...
 if GAME_LOCALE == "deDE" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d%.]", -- LARGE_NUMBER_SEPERATOR = "."
+
 		["Enchantment Requires"] = "Verzauberung benötigt",
 		["Socket Requires"] = "Sockel benötigt",
 
@@ -38,15 +40,15 @@ if GAME_LOCALE == "deDE" then
 	}
 
 	namespace.patterns = {
-		"^Anlegen: Erhöht ?[Ed]?[uei]?[rne]?e? (.+) um (%d+).", -- "Eure" or "den" or "die"
+		"^Anlegen: Erhöht ?[Ed]?[uei]?[rne]?e? (.+) um ([%d%.]+).", -- "Eure" or "den" or "die"
+		"^Anlegen: (.+) um ([%d%.]+) erhöht.",
 		"^Anlegen: Stellt alle 5 Sek. (%d+) (.+) wieder her.",
-		"^Anlegen: (.+) um (%d+) erhöht.",
 	}
 
 	namespace.strings = {
 		"+%d %s",
-		"+%d %s pro 5 Sek.",
 		"+%d %s",
+		"+%d %s pro 5 Sek.",
 	}
 
 return end
@@ -59,6 +61,8 @@ return end
 if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = "" in ES, "," in MX
+
 		["Enchantment Requires"] = "Encantamiento requiere",
 		["Socket Requires"] = "Ranura requiere",
 
@@ -77,9 +81,9 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	}
 
 	namespace.patterns = {
-		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] (.+) (%d+) p.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
+		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] (.+) ([%d,]+) p.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
 		"^Equipar: Restaura (%d+) p. de (salud cada 5 s)",
-		"^Equipar: (.+) aumentada (%d+) p.",
+		"^Equipar: (.+) aumentada ([%d,]+) p.",
 	}
 
 	namespace.strings = {
@@ -98,6 +102,8 @@ return end
 if GAME_LOCALE == "frFR" then
 
 	namespace.L = {
+		["[^%d,]"] = "%D", -- LARGE_NUMBER_SEPERATOR = ""
+
 		["Enchantment Requires"] = "L'enchantement requiert",
 		["Socket Requires"] = "Le sertissage requiert",
 
@@ -118,15 +124,15 @@ if GAME_LOCALE == "frFR" then
 	namespace.patterns = {
 		"^Équipé : Augmente [dlv][eao]t?r?e? (.+) de (%d+).", -- "de" or "la" or "votre"
 		"^Équipé : Augmente de (%d+) le (.+).",
-		"^Équipé : Rend (%d+) points de (vie toutes les 5 secondes).",
 		"^Équipé : (.+) augmentée de (%d+).",
+		"^Équipé : Rend (%d+) points de (vie toutes les 5 secondes).",
 	}
 
 	namespace.strings = {
 		"+%d au %s",
 		"+%d au %s",
-		"+%d de vie toutes les 5 s",
 		"+%d au %s",
+		"+%d de vie toutes les 5 s",
 	}
 
 return end
@@ -139,6 +145,8 @@ return end
 if GAME_LOCALE == "itIT" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d%.]", -- LARGE_NUMBER_SEPERATOR = "."
+
 		["Enchantment Requires"] = "L'incantamento richiede",
 		["Socket Requires"] = "L'incavo richiede",
 
@@ -157,8 +165,8 @@ if GAME_LOCALE == "itIT" then
 	}
 
 	namespace.patterns = {
-		"^Equipaggia: Aumenta l['a] ?(.+) di (%d+).", -- "l'" "la "
-		"^Equipaggia: Aumenta (i danni) e gli effetti magici fino a (%d+).",
+		"^Equipaggia: Aumenta l['a] ?(.+) di ([%d%.]+).", -- "l'" "la "
+		"^Equipaggia: Aumenta (i danni) e gli effetti magici fino a ([%d%.]+).",
 		"^Equipaggia: Ripristina (%d+) (.+) ogni 5 s.",
 	}
 
@@ -178,6 +186,8 @@ return end
 if GAME_LOCALE == "ptBR" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+
 		["Enchantment Requires"] = "Encantamento requer",
 		["Socket Requires"] = "Engaste requer",
 
@@ -196,8 +206,8 @@ if GAME_LOCALE == "ptBR" then
 	}
 
 	namespace.patterns = {
-		"^Equipado: Aumenta [ao] ?s?u?a?(?[ct][ha][ax][na]c?e? ?d?e? .+) em (%d+).",
-		"^Equipado: [AM][ue][ml][eh][no][tr]a o (.+) em até (%d+).",
+		"^Equipado: Aumenta [ao] ?s?u?a?(?[ct][ha][ax][na]c?e? ?d?e? .+) em ([%d,]+).",
+		"^Equipado: [AM][ue][ml][eh][no][tr]a o (.+) em até ([%d,]+).",
 		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de (.+) por 5 segundos.",
 	}
 
@@ -217,6 +227,8 @@ return end
 if GAME_LOCALE == "ruRU" then
 
 	namespace.L = {
+		["[^%d,]"] = "%D", -- LARGE_NUMBER_SEPERATOR = ""
+
 		["Enchantment Requires"] = "Для наложения чар",
 		["Socket Requires"] = "Для (использования )?гнезда [тп][ре][ер][бс][уо][ен][та][сж]я?( должен быть не младше)?",
 
@@ -260,6 +272,8 @@ return end
 if GAME_LOCALE == "koKR" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+
 		["Enchantment Requires"] = "마법부여",
 		["Socket Requires"] = "보석 홈",
 
@@ -278,17 +292,17 @@ if GAME_LOCALE == "koKR" then
 	}
 
 	namespace.patterns = {
-		"^착용 효과: (.+)가 (%d+)만큼 증가합니다.",
-		"^착용 효과: (.+)이 (%d+)만큼 증가합니다.", -- maybe can be combined with #1, depending on how string.match works in koKR
+		"^착용 효과: (.+)가 ([%d,]+)만큼 증가합니다.",
+		"^착용 효과: (.+)이 ([%d,]+)만큼 증가합니다.", -- maybe can be combined with #1, depending on how string.match works in koKR
+		"^착용 효과: (.+) ([%d,]+)만큼 증가합니다.",
 		"^착용 효과: 매 5초마다 (%d+)의 (.+)을 회복합니다.",
-		"^착용 효과: (.+) (%d+)만큼 증가합니다.",
 	}
 
 	namespace.strings = {
 		"+%d %s",
 		"+%d %s",
-		"+%d 5초당 %s",
 		"+%d %s",
+		"+%d 5초당 %s",
 	}
 
 return end
@@ -301,6 +315,8 @@ return end
 if GAME_LOCALE == "zhCN" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+
 		["Enchantment Requires"] = "附魔要求",
 		["Socket Requires"] = "插槽要求",
 
@@ -319,9 +335,9 @@ if GAME_LOCALE == "zhCN" then
 	}
 
 	namespace.patterns = {
-		"^装备：%s*(.+)提高(%d+)点。",
+		"^装备：%s*(.+)提高([%d,]+)点。",
+		"^装备：%s*使你的(.+)提高([%d,]+)。",
 		"^装备：%s*每5秒恢复(%d+)点生命值。",
-		"^装备：%s*使你的(.+)提高(%d+)。",
 --		"^装备：使你的(.+)提高(%d+)点。",
 --		"^装备：使你的盾牌(.+)提高(%d+)点。" -- maybe can be combined with #1, depending on how string.match works in zhCN
 --		"^装备：(.+)提高(%d+)点。",
@@ -329,8 +345,8 @@ if GAME_LOCALE == "zhCN" then
 
 	namespace.strings = {
 		"+%d %s",
-		"+%d HP/5s",
 		"+%d %s",
+		"+%d HP/5s",
 	}
 
 return end
@@ -343,6 +359,8 @@ return end
 if GAME_LOCALE == "zhTW" then
 
 	namespace.L = {
+		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+
 		["Enchantment Requires"] = "(此)?附魔需要",
 		["Socket Requires"] = "插槽需要",
 
@@ -361,8 +379,8 @@ if GAME_LOCALE == "zhTW" then
 	}
 
 	namespace.patterns = {
-		"^裝備:%s*提高(%d+)點(.+)。",
-		"^裝備:%s*使你的(.+)提高(%d+)(點)?。",
+		"^裝備:%s*提高([%d,]+)點(.+)。",
+		"^裝備:%s*使你的(.+)提高([%d,]+)(點)?。",
 		"^裝備:%s*每5秒恢復(%d+)(點)?生命力。", -- Restores (%d+) health per 5 seconds.
 	}
 
