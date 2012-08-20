@@ -26,14 +26,6 @@ local settings = {
 	hideRightClickSocket = true,
 --	hideSellValue = false,
 --	hideSoulbound = false,
-	customTooltips = {
-		"AtlasLootTooltip",		-- AtlasLoot
-		"AtlasQuestTooltip",	-- AtlasQuest
-		"EQCompareTooltip",		-- EQCompare
-		"ComparisonTooltip",	-- EquipCompare
-		"LinksTooltip",			-- Links
-		"tekKompareTooltip",	-- tekKompare
-	},
 }
 
 namespace.settings = settings
@@ -53,7 +45,7 @@ end })
 
 if not namespace.patterns then
 	namespace.patterns = {
-		"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by (%d+)%.", -- catches "Improves" and "Increases"
+		"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by ([%d,]+)%.", -- catches "Improves" and "Increases"
 		"^Equip: Restores (%d+) (health per 5 sec%.)",
 		"^Equip: (.+) increased by (%d+)%.",
 	}
@@ -116,10 +108,12 @@ local cache = setmetatable({ }, { __mode = "kv" }) -- weak table to enable garba
 
 local function ReformatItemTooltip(tooltip)
 	local tooltipName = tooltip:GetName()
+	local shift, line, text = 0
 	for i = 2, tooltip:NumLines() do
-		local line = _G[tooltipName .. "TextLeft" .. i]
-		local text = line:GetText()
+		line = _G[tooltipName .. "TextLeft" .. i]
+		text = line:GetText()
 		if text then
+			print(i, text)
 			if (text == ITEM_HEROIC and settings.hideHeroic)
 			or (text == ITEM_SOCKETABLE and settings.hideRightClickSocket)
 			or (text == ITEM_SOULBOUND and settings.hideSoulbound)
@@ -129,38 +123,83 @@ local function ReformatItemTooltip(tooltip)
 			or (settings.hideItemLevel and text:match(S_ITEM_LEVEL))
 			or (settings.hideMadeBy and text:match(S_ITEM_CREATED_BY))
 			or (settings.hideRequirements and (text:match(S_ITEM_MIN_LEVEL) or text:match(S_ITEM_REQ_REPUTATION) or text:match(S_ITEM_REQ_SKILL) or text:match(L["Enchantment Requires"]) or text:match(L["Socket Requires"]))) then
-				line:SetText("")
+				print("HIDE")
+				line:SetText(nil)
+				line:Hide()
+				shift = shift + 1
 			elseif not text:match("<") then
 				local r, g, b = line:GetTextColor()
 				if r > 0.05 or g < 0.95 or text:match("^%a+:") or text:match(S_ITEM_SPELL_TRIGGER_ONPROC) or text:match(S_ARMOR_TEMPLATE) or text:match(S_ITEM_SOCKET_BONUS) then
 					if settings.compactBonuses then
 						if cache[text] then
+							print("CACHED", cache[text])
+							if shift > 0 then
+								print(i, "->", i-shift)
+								line:SetText(nil)
+								line:Hide()
+								line = _G[tooltipName.."TextLeft"..(i-shift)]
+								line:Show()
+							end
 							line:SetText(cache[text])
 							line:SetTextColor(0, 1, 0)
 						else
-							for i, pattern in ipairs(stat_patterns) do
+							for j, pattern in ipairs(stat_patterns) do
 								local stat, value = text:match(pattern)
 								if stat then
-									if tonumber(stat) then
-										stat, value = value, stat
+									if strmatch(value, "[^%d,]") then -- needs localization
+										stat, value = gsub(value, ",", ""), stat
+									else
+										value = gsub(value, ",", "")
 									end
-									local str = stat_strings and stat_strings[i] or "+%d %s"
-									local result = str:format(value, stat_names[stat] or stat)
+									local str = stat_strings and stat_strings[j] or "+%d %s"
+									local result = format(str, value, stat_names[stat] or stat)
 									cache[text] = result
+									print("STAT", result)
+									if shift > 0 then
+										print(i, "->", i-shift)
+										line:SetText(nil)
+										line:Hide()
+										line = _G[tooltipName.."TextLeft"..(i-shift)]
+										line:Show()
+									end
 									line:SetText(result)
 									line:SetTextColor(0, 1, 0)
 									break
 								end
 							end
 						end
+					else
+						print("NO COMPACT")
 					end
 				else
+					print("ENCHANT")
+					if shift > 0 then
+						print(i, "->", i-shift)
+						line:SetText(nil)
+						line:Hide()
+						line = _G[tooltipName.."TextLeft"..(i-shift)]
+						line:SetText(text)
+						line:Show()
+					end
 					line:SetTextColor(unpack(settings.enchantColor))
 				end
+			elseif shift > 0 then
+				print("KEEP")
+				print(i, "->", i-shift)
+				local r, g, b = line:GetTextColor()
+				line:SetText(nil)
+				line:Hide()
+				line = _G[tooltipName.."TextLeft"..(i-shift)]
+				line:SetText(text)
+				line:SetTextColor(r, g, b)
+			else
+				print("KEEP")
 			end
-			tooltip:Show()
+		else
+			print("NIL")
 		end
 	end
+	tooltip:Show()
 end
 
 for _, tooltip in pairs({
