@@ -89,27 +89,27 @@ panel.runOnce = function(self)
 		end
 	end
 
-	local checkHeroic = CreateCheckbox(self, string.format(L["Hide \"%s\" tags"], ITEM_HEROIC))
+	local checkHeroic = CreateCheckbox(self, string.format(L["Hide %q tags"], ITEM_HEROIC))
 	checkHeroic:SetPoint("TOPLEFT", checkEquipSets, "BOTTOMLEFT", 0, -8)
 	checkHeroic.OnClick = OnClick
 	checkHeroic.key = "hideHeroic"
 
-	local checkMadeBy = CreateCheckbox(self, string.format(L["Hide \"%s\" tags"], L["Made by"]))
+	local checkMadeBy = CreateCheckbox(self, string.format(L["Hide %q tags"], L["Made by"]))
 	checkMadeBy:SetPoint("TOPLEFT", checkHeroic, "BOTTOMLEFT", 0, -8)
 	checkMadeBy.OnClick = OnClick
 	checkMadeBy.key = "hideMadeBy"
 
-	local checkRaidFinder = CreateCheckbox(self, string.format(L["Hide \"%s\" tags"], RAID_FINDER))
+	local checkRaidFinder = CreateCheckbox(self, string.format(L["Hide %q tags"], RAID_FINDER))
 	checkRaidFinder:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
 	checkRaidFinder.OnClick = OnClick
 	checkRaidFinder.key = "hideRaidFinder"
 
-	local checkReforged = CreateCheckbox(self, string.format(L["Hide \"%s\" tags"], REFORGED))
+	local checkReforged = CreateCheckbox(self, string.format(L["Hide %q tags"], REFORGED))
 	checkReforged:SetPoint("TOPLEFT", checkRaidFinder, "BOTTOMLEFT", 0, -8)
 	checkReforged.OnClick = OnClick
 	checkReforged.key = "hideReforged"
 
-	local checkSoulbound = CreateCheckbox(self, string.format(L["Hide \"%s\" tags"], ITEM_SOULBOUND))
+	local checkSoulbound = CreateCheckbox(self, string.format(L["Hide %q tags"], ITEM_SOULBOUND))
 	checkSoulbound:SetPoint("TOPLEFT", checkReforged, "BOTTOMLEFT", 0, -8)
 	checkSoulbound.OnClick = OnClick
 	checkSoulbound.key = "hideSoulbound"
