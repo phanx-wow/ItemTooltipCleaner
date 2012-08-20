@@ -106,14 +106,33 @@ local S_ITEM_SPELL_TRIGGER_ONUSE = "^"..ITEM_SPELL_TRIGGER_ONUSE -- not used
 
 local cache = setmetatable({ }, { __mode = "kv" }) -- weak table to enable garbage collection
 
+local lineobj, linetext, liner, lineg, lineb = {}, {}, {}, {}, {}
+
+local lineobj_mt = { __index = function(t, i)
+	local v = t.name and _G[t.name .. "TextLeft" .. i]
+	if v then
+		rawset(t, i, v)
+		return v
+	end
+end }
+
 local function ReformatItemTooltip(tooltip)
-	local tooltipName = tooltip:GetName()
-	local shift, line, text = 0
-	for i = 2, tooltip:NumLines() do
-		line = _G[tooltipName .. "TextLeft" .. i]
-		text = line:GetText()
-		if text then
-			print(i, text)
+	local name = tooltip:GetName()
+	local numLines = tooltip:GetNumLines()
+	local lines = lineobj[tooltipName]
+
+	-- Loop over the tooltip and get all the lines as-is
+	for i = 2, numLines do
+		linetext[i] = lines[i]:GetText()
+		liner[i], lineg[i], lineb[i] = lines[i]:GetTextColor()
+	end
+
+	-- Loop over the stored lines and write back the wanted ones
+	local line = 2
+	for i = 2, numLines do
+		local text = linetext[i]
+
+		if text and strlen(text) > 1 then
 			if (text == ITEM_HEROIC and settings.hideHeroic)
 			or (text == ITEM_SOCKETABLE and settings.hideRightClickSocket)
 			or (text == ITEM_SOULBOUND and settings.hideSoulbound)
@@ -123,25 +142,15 @@ local function ReformatItemTooltip(tooltip)
 			or (settings.hideItemLevel and text:match(S_ITEM_LEVEL))
 			or (settings.hideMadeBy and text:match(S_ITEM_CREATED_BY))
 			or (settings.hideRequirements and (text:match(S_ITEM_MIN_LEVEL) or text:match(S_ITEM_REQ_REPUTATION) or text:match(S_ITEM_REQ_SKILL) or text:match(L["Enchantment Requires"]) or text:match(L["Socket Requires"]))) then
-				print("HIDE")
-				line:SetText(nil)
-				line:Hide()
-				shift = shift + 1
+				-- hide
 			elseif not text:match("<") then
-				local r, g, b = line:GetTextColor()
+				local r, g, b = liner[i], lineg[i], lineb[i]
 				if r > 0.05 or g < 0.95 or text:match("^%a+:") or text:match(S_ITEM_SPELL_TRIGGER_ONPROC) or text:match(S_ARMOR_TEMPLATE) or text:match(S_ITEM_SOCKET_BONUS) then
 					if settings.compactBonuses then
 						if cache[text] then
-							print("CACHED", cache[text])
-							if shift > 0 then
-								print(i, "->", i-shift)
-								line:SetText(nil)
-								line:Hide()
-								line = _G[tooltipName.."TextLeft"..(i-shift)]
-								line:Show()
-							end
-							line:SetText(cache[text])
-							line:SetTextColor(0, 1, 0)
+							lines[line]:SetText(cache[text])
+							lines[line]:SetTextColor(0, 1, 0)
+							line = line + 1
 						else
 							for j, pattern in ipairs(stat_patterns) do
 								local stat, value = text:match(pattern)
@@ -151,54 +160,42 @@ local function ReformatItemTooltip(tooltip)
 									else
 										value = gsub(value, ",", "")
 									end
+
 									local str = stat_strings and stat_strings[j] or "+%d %s"
 									local result = format(str, value, stat_names[stat] or stat)
 									cache[text] = result
-									print("STAT", result)
-									if shift > 0 then
-										print(i, "->", i-shift)
-										line:SetText(nil)
-										line:Hide()
-										line = _G[tooltipName.."TextLeft"..(i-shift)]
-										line:Show()
-									end
-									line:SetText(result)
-									line:SetTextColor(0, 1, 0)
+
+									lines[line]:SetText(result)
+									lines[line]:SetTextColor(0, 1, 0)
+									line = line + 1
 									break
 								end
 							end
 						end
-					else
-						print("NO COMPACT")
 					end
 				else
-					print("ENCHANT")
-					if shift > 0 then
-						print(i, "->", i-shift)
-						line:SetText(nil)
-						line:Hide()
-						line = _G[tooltipName.."TextLeft"..(i-shift)]
-						line:SetText(text)
-						line:Show()
-					end
-					line:SetTextColor(unpack(settings.enchantColor))
+					lines[line]:SetText(text)
+					lines[line]:SetTextColor(unpack(settings.enchantColor))
+					line = line + 1
 				end
-			elseif shift > 0 then
-				print("KEEP")
-				print(i, "->", i-shift)
-				local r, g, b = line:GetTextColor()
-				line:SetText(nil)
-				line:Hide()
-				line = _G[tooltipName.."TextLeft"..(i-shift)]
-				line:SetText(text)
-				line:SetTextColor(r, g, b)
 			else
-				print("KEEP")
+				lines[line]:SetText(text)
+				lines[line]:SetTextColor(liner[i], lineg[i], lineb[i])
+				line = line + 1
 			end
 		else
-			print("NIL")
+			lines[line]:SetText(" ")
+			line = line + 1
 		end
 	end
+
+	-- Get rid of any empty lines left at the end
+	for i = line + 1, numLines do
+		lines[i]:SetText(nil)
+		lines[i]:Hide()
+	end
+
+	-- Redraw the tooltip
 	tooltip:Show()
 end
 
@@ -216,6 +213,7 @@ for _, tooltip in pairs({
 	"WorldMapCompareTooltip3",
 }) do
 	if _G[tooltip] then
+		lineobj[tooltip] = setmetatable({ name = tooltip }, lineobj_mt })
 		_G[tooltip]:HookScript("OnTooltipSetItem", ReformatItemTooltip)
 	end
 end
