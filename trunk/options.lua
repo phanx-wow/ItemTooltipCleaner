@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Compacts equipment bonus text and removes extraneous lines from item tooltips.
-	Copyright (c) 2012 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
