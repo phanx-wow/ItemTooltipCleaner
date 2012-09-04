@@ -3,7 +3,7 @@
 
 ## Title: Item Tooltip Cleaner
 ## Notes: Compacts equipment bonus text and removes extraneous lines from item tooltips.
-## Notes-deDE: Beschreibungen von Boni in Ausrüstungs-Tooltips verkürzen, und Text überflüssig ausblenden.
+## Notes-deDE: Beschreibungen von Boni in Ausrüstungs-Tooltips verkürzen, und überflüssigen Text ausblenden.
 ## Notes-esES: Acortar el texto de bonos equipos, y eliminar textos superfluo de descripciones de objetos.
 ## Notes-esMX: Acortar el texto de bonos equipos, y eliminar textos superfluo de descripciones de objetos.
 ## Notes-ptBR: Encurtar o texto de bônus em equipamentos, e remover o texto supérfluo das dicas de itens.
