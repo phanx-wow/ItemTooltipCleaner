@@ -14,7 +14,7 @@ local ADDON_NAME, namespace = ...
 
 ------------------------------------------------------------------------
 --	German | Deutsch
---	Last updated 2012-07-21 by Phanx
+--	Last updated 2012-09-04 by litastep @ CurseForge
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "deDE" then
@@ -32,11 +32,11 @@ if GAME_LOCALE == "deDE" then
 		["Hide %q lines"] = "Etikett %q ausblenden",
 		["Made by"] = "Hergestellt von",
 		["Hide requirements"] = "Anforderungen ausblenden",
-		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Blenden Sie die Anforderungen an Stufe, Ruf und Fertigkeit, für Gegenstände, Verzauberungen und Sockel.",
+		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden.",
 		["Hide buying instructions"] = "Instruktionen zum Kauf ausblenden",
 		["Hide socketing instructions"] = "Instruktionen zum Sockeln ausblenden",
 		["Hide vendor values"] = "Händlerpreis ausblenden",
-		["Hide vendor values, except while interacting with a vendor."] = "Händlerpreis ausblenden, außer wenn der Händlerfenster angezeigt wird.",
+		["Hide vendor values, except while interacting with a vendor."] = "Händlerpreis ausblenden, außer wenn das Händlerfenster angezeigt wird.",
 	}
 
 	namespace.patterns = {
@@ -221,7 +221,7 @@ return end
 
 ------------------------------------------------------------------------
 --	Russian | Русский
---	Last updated YYYY-MM-DD by NAME
+--	Last updated 2012-09-03 by Phanx
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "ruRU" then
