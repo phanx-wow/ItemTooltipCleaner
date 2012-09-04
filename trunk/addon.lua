@@ -96,14 +96,14 @@ local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
 local RAID_FINDER = RAID_FINDER
 local REFORGED = REFORGED
 
-local S_ARMOR_TEMPLATE = "^" .. ARMOR_TEMPLATE:gsub("%%d", "%%d+") .. "$"
-local S_ITEM_CREATED_BY = "^" .. ITEM_CREATED_BY:gsub("%%s", ".+") .. "$"
-local S_ITEM_LEVEL = "^" .. ITEM_LEVEL:gsub("%%d", "%%d+") .. "$"
-local S_ITEM_MIN_LEVEL = ITEM_MIN_LEVEL:gsub("%%d", "%%d+")
-local S_ITEM_REQ_REPUTATION = ITEM_REQ_REPUTATION:gsub("%%s", ".+")
-local S_ITEM_REQ_SKILL = ITEM_REQ_SKILL:gsub("%%s", ".+")
-local S_ITEM_SOCKET_BONUS = "^" .. ITEM_SOCKET_BONUS:gsub("%%s", ""):trim()
-local S_ITEM_SPELL_TRIGGER_ONEQUIP = "^"..ITEM_SPELL_TRIGGER_ONEQUIP -- not used
+local S_ARMOR_TEMPLATE = "^" .. ARMOR_TEMPLATE:gsub("%%%d?$?d", "%%d+") .. "$"
+local S_ITEM_CREATED_BY = "^" .. ITEM_CREATED_BY:gsub("%%%d?$?s", ".+") .. "$"
+local S_ITEM_LEVEL = "^" .. ITEM_LEVEL:gsub("%%%d?$?d", "%%d+") .. "$"
+local S_ITEM_MIN_LEVEL = ITEM_MIN_LEVEL:gsub("%%%d?$?d", "%%d+")
+local S_ITEM_REQ_REPUTATION = ITEM_REQ_REPUTATION:gsub("%%%d?$?s", ".+")
+local S_ITEM_REQ_SKILL = ITEM_REQ_SKILL:gsub("%%%d?$?s", ".+")
+local S_ITEM_SOCKET_BONUS = "^" .. ITEM_SOCKET_BONUS:gsub("%%%d?$?s", ""):trim()
+local S_ITEM_SPELL_TRIGGER_ONEQUIP = "^"..ITEM_SPELL_TRIGGER_ONEQUIP -- not use
 local S_ITEM_SPELL_TRIGGER_ONPROC = "^"..ITEM_SPELL_TRIGGER_ONPROC
 local S_ITEM_SPELL_TRIGGER_ONUSE = "^"..ITEM_SPELL_TRIGGER_ONUSE -- not used
 
@@ -121,20 +121,27 @@ local function ReformatItemTooltip(tooltip)
 			or (text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy)
 			or (text == REFORGED and settings.hideReforged)
 			or (text == RAID_FINDER and settings.hideRaidFinder)
-			or (settings.hideItemLevel and text:match(S_ITEM_LEVEL))
-			or (settings.hideMadeBy and text:match(S_ITEM_CREATED_BY))
-			or (settings.hideRequirements and (text:match(S_ITEM_MIN_LEVEL) or text:match(S_ITEM_REQ_REPUTATION) or text:match(S_ITEM_REQ_SKILL) or text:match(L["Enchantment Requires"]) or text:match(L["Socket Requires"]))) then
+			or (settings.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
+			or (settings.hideMadeBy and strmatch(text, S_ITEM_CREATED_BY))
+			or (settings.hideRequirements
+				and (strmatch(text, S_ITEM_MIN_LEVEL)
+					or strmatch(text, S_ITEM_REQ_REPUTATION)
+					or strmatch(text, S_ITEM_REQ_SKILL)
+					or strmatch(text, L["Enchantment Requires"])
+					or strmatch(text, L["Socket Requires"])
+				)
+			) then
 				line:SetText("")
-			elseif not text:match("<") then
+			elseif not strmatch(text, "<") then
 				local r, g, b = line:GetTextColor()
-				if r > 0.05 or g < 0.95 or text:match("^%a+:") or text:match(S_ITEM_SPELL_TRIGGER_ONPROC) or text:match(S_ARMOR_TEMPLATE) or text:match(S_ITEM_SOCKET_BONUS) then
+				if r > 0.05 or g < 0.95 or strmatch(text, "^.+:") or strmatch(text, S_ITEM_SPELL_TRIGGER_ONPROC) or strmatch(text, S_ARMOR_TEMPLATE) or strmatch(text, S_ITEM_SOCKET_BONUS) then
 					if settings.compactBonuses then
 						if cache[text] then
 							line:SetText(cache[text])
 							line:SetTextColor(0, 1, 0)
 						else
 							for j, pattern in ipairs(stat_patterns) do
-								local stat, value = text:match(pattern)
+								local stat, value = strmatch(text, pattern)
 								if stat then
 									if strmatch(value, L["[^%d,]"]) then
 										stat, value = gsub(value, ",", ""), stat
