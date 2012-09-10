@@ -36,7 +36,7 @@ if GAME_LOCALE == "deDE" then
 		["Hide buying instructions"] = "Instruktionen zum Kauf ausblenden",
 		["Hide socketing instructions"] = "Instruktionen zum Sockeln ausblenden",
 		["Hide vendor values"] = "Händlerpreis ausblenden",
-		["Hide vendor values, except while interacting with a vendor."] = "Händlerpreis ausblenden, außer wenn das Händlerfenster angezeigt wird.",
+		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster, oder Questbelohnungsfenster angezeigt wird.",
 	}
 
 	namespace.patterns = {
@@ -77,7 +77,7 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
 		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
 		["Hide vendor values"] = "Ocultar precio de venta",
-		["Hide vendor values, except while interacting with a vendor."] = "Ocultar precio de venta, excepto cuando interactúan con un vendedor.",
+		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Ocultar los precios de venta, Ocultar los precios de venta, excepto en la interacción con con un vendedor, en la casa de subastas, o en la elección de una recompensa de una misión.",
 	}
 
 	namespace.patterns = {
@@ -118,7 +118,7 @@ if GAME_LOCALE == "frFR" then
 	--	["Hide buying instructions"] = "",
 	--	["Hide socketing instructions"] = "",
 	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
 	}
 
 	namespace.patterns = {
@@ -161,7 +161,7 @@ if GAME_LOCALE == "itIT" then
 	--	["Hide buying instructions"] = "",
 	--	["Hide socketing instructions"] = "",
 	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
 	}
 
 	namespace.patterns = {
@@ -202,7 +202,7 @@ if GAME_LOCALE == "ptBR" then
 		["Hide buying instructions"] = "Ocultar instruções para comprar",
 		["Hide socketing instructions"] = "Ocultar instruções para engastar",
 		["Hide vendor values"] = "Esconder preço de venda",
-		["Hide vendor values, except while interacting with a vendor."] = "Ocultar preço de venda, exceto quando interagem com um vendedor.",
+		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Ocultar preço de venda, exceto quando interagem com um vendedor, na casa de leilões, o da escolha uma recompensa de missão.",
 	}
 
 	namespace.patterns = {
@@ -221,7 +221,7 @@ return end
 
 ------------------------------------------------------------------------
 --	Russian | Русский
---	Last updated 2012-09-03 by Phanx
+--	Last updated 2012-09-06 by Phanx
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "ruRU" then
@@ -232,18 +232,18 @@ if GAME_LOCALE == "ruRU" then
 		["Enchantment Requires"] = "Для наложения чар",
 		["Socket Requires"] = "Для (использования )?гнезда [тп][ре][ер][бс][уо][ен][та][сж]я?( должен быть не младше)?",
 
-	--	["Enchantment color"] = "",
-	--	["Compact equipment bonuses"] = "",
-	--	["Hide item levels"] = "",
-	--	["Hide equipment sets"] = "",
-	--	["Hide %q lines"] = "",
+		["Enchantment color"] = "Цвет очарование",
+		["Compact equipment bonuses"] = "Сократить преимущества предметов",
+		["Hide item levels"] = "Скрыть уровней пунктов",
+		["Hide equipment sets"] = "Скрыть комплектов экипировки",
+		["Hide %q lines"] = "Скрыть текст %q",
 		["Made by"] = "Изготовитель",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide buying instructions"] = "",
-	--	["Hide socketing instructions"] = "",
-	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor."] = "",
+		["Hide requirements"] = "Скрыть требования",
+		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Скрыть требования к уровней, репутацию и профессии, на предметы, чары и гнезд.",
+		["Hide buying instructions"] = "Скрыть инструкцию о покупке",
+		["Hide socketing instructions"] = "Скрыть инструкции о инкрустация",
+		["Hide vendor values"] = "Скрыть торговцем цену",
+		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Скрыть торговцем цену исключением случаев, для взаимодействия с торговцем, в аукционном доме, или выбрать задание награду.",
 	}
 
 	namespace.patterns = {
@@ -292,7 +292,7 @@ if GAME_LOCALE == "koKR" then
 	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
 	--	["Hide socketing instructions"] = "",
 	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
 	}
 
 	namespace.patterns = {
@@ -335,7 +335,7 @@ if GAME_LOCALE == "zhCN" then
 	--	["Hide buying instructions"] = "",
 	--	["Hide socketing instructions"] = "",
 		["Hide vendor values"] = "隐藏卖价",
-		["Hide vendor values, except while interacting with a vendor."] = "除非和商人交易,否则隐藏卖价.",
+		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "除非和商人交易,否则隐藏卖价.",
 	}
 
 	namespace.patterns = {
@@ -379,7 +379,7 @@ if GAME_LOCALE == "zhTW" then
 	--	["Hide buying instructions"] = "",
 	--	["Hide socketing instructions"] = "",
 	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor."] = "",
+	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
 	}
 
 	namespace.patterns = {

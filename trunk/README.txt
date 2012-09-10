@@ -31,11 +31,11 @@ in the standard Interface Options window.
 Localization
 ------------
 
-Compatible with English, Deutsch (deDE), Español (esES/esMX),
-Français (frFR), Italiano (itIT), Português (ptBR), Русский (ruRU),
-한국어 (koKR), 简体中文 (zhCN), and 繁體中文 (zhTW) game clients.
+Compatible with English, Deutsch, Español (EU & AL), Français, Italiano,
+Português, Русский, 한국어, 简体中文, and 繁體中文 game clients.
 
-Translated into English, Deutsch, Español, Português, and 简体中文.
+Translated into English, Deutsch, Español, Português, Русский, and
+简体中文.
 
 To add or update translations for any language, enter them on the
 Localization tab on the CurseForge project page:

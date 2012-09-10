@@ -22,6 +22,7 @@ local settings = {
 	hideMadeBy = true,
 --	hideRaidFinder = false,
 --	hideReforged = false,
+--	hideRequirements = false,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
 --	hideSellValue = false,
@@ -96,14 +97,15 @@ local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
 local RAID_FINDER = RAID_FINDER
 local REFORGED = REFORGED
 
-local S_ARMOR_TEMPLATE = "^" .. ARMOR_TEMPLATE:gsub("%%%d?$?d", "%%d+") .. "$"
-local S_ITEM_CREATED_BY = "^" .. ITEM_CREATED_BY:gsub("%%%d?$?s", ".+") .. "$"
-local S_ITEM_LEVEL = "^" .. ITEM_LEVEL:gsub("%%%d?$?d", "%%d+") .. "$"
-local S_ITEM_MIN_LEVEL = ITEM_MIN_LEVEL:gsub("%%%d?$?d", "%%d+")
-local S_ITEM_REQ_REPUTATION = ITEM_REQ_REPUTATION:gsub("%%%d?$?s", ".+")
-local S_ITEM_REQ_SKILL = ITEM_REQ_SKILL:gsub("%%%d?$?s", ".+")
-local S_ITEM_SOCKET_BONUS = "^" .. ITEM_SOCKET_BONUS:gsub("%%%d?$?s", ""):trim()
-local S_ITEM_SPELL_TRIGGER_ONEQUIP = "^"..ITEM_SPELL_TRIGGER_ONEQUIP -- not use
+local S_ARMOR_TEMPLATE = "^" .. gsub(ARMOR_TEMPLATE, "%%%d?$?d", "%%d+") .. "$"
+local S_ITEM_CLASSES_ALLOWED = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", ".+") .. "$"
+local S_ITEM_CREATED_BY = "^" .. gsub(ITEM_CREATED_BY, "%%%d?$?s", ".+") .. "$"
+local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%%d?$?d", "%%d+") .. "$"
+local S_ITEM_MIN_LEVEL = gsub(ITEM_MIN_LEVEL, "%%%d?$?d", "%%d+")
+local S_ITEM_REQ_REPUTATION = gsub(ITEM_REQ_REPUTATION, "%%%d?$?s", ".+")
+local S_ITEM_REQ_SKILL = gsub(ITEM_REQ_SKILL, "%%%d?$?s", ".+")
+local S_ITEM_SOCKET_BONUS = "^" .. gsub(ITEM_SOCKET_BONUS, "%%%d?$?s", ""):trim()
+local S_ITEM_SPELL_TRIGGER_ONEQUIP = "^"..ITEM_SPELL_TRIGGER_ONEQUIP -- not used
 local S_ITEM_SPELL_TRIGGER_ONPROC = "^"..ITEM_SPELL_TRIGGER_ONPROC
 local S_ITEM_SPELL_TRIGGER_ONUSE = "^"..ITEM_SPELL_TRIGGER_ONUSE -- not used
 
@@ -123,14 +125,14 @@ local function ReformatItemTooltip(tooltip)
 			or (text == RAID_FINDER and settings.hideRaidFinder)
 			or (settings.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
 			or (settings.hideMadeBy and strmatch(text, S_ITEM_CREATED_BY))
-			or (settings.hideRequirements
-				and (strmatch(text, S_ITEM_MIN_LEVEL)
-					or strmatch(text, S_ITEM_REQ_REPUTATION)
-					or strmatch(text, S_ITEM_REQ_SKILL)
-					or strmatch(text, L["Enchantment Requires"])
-					or strmatch(text, L["Socket Requires"])
-				)
-			) then
+			or (settings.hideRequirements and (
+				strmatch(text, S_ITEM_CLASSES_ALLOWED)
+				or strmatch(text, S_ITEM_MIN_LEVEL)
+				or strmatch(text, S_ITEM_REQ_REPUTATION)
+				or strmatch(text, S_ITEM_REQ_SKILL)
+				or strmatch(text, L["Enchantment Requires"])
+				or strmatch(text, L["Socket Requires"])
+			)) then
 				line:SetText("")
 			elseif not strmatch(text, "<") then
 				local r, g, b = line:GetTextColor()
