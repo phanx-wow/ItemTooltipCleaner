@@ -129,7 +129,7 @@ panel.runOnce = function(self)
 	checkReqs.OnClick = OnClick
 	checkReqs.key = "hideRequirements"
 
-	local checkValue = CreateCheckbox(self, L["Hide vendor values"], L["Hide vendor values, except while iinteracting with a vendor, at the auction house, or choosing a quest reward."])
+	local checkValue = CreateCheckbox(self, L["Hide vendor values"], L["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."])
 	checkValue:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 0, -8)
 	checkValue.OnClick = OnClick
 	checkValue.key = "hideSellValue"
