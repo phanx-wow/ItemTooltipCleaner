@@ -40,9 +40,9 @@ if GAME_LOCALE == "deDE" then
 	}
 
 	namespace.patterns = {
-		"^Anlegen: Erhöht ?[Ed]?[uei]?[rne]?e? (.+) um ([%d%.]+).", -- "Eure" or "den" or "die"
+		"^Anlegen: Erhöht ?E?[ud]?[reai]?[ersn]? (.+) um ([%d%.]+).", -- "Eure" or "Euer" or "den" or "die" or "das"
 		"^Anlegen: (.+) um ([%d%.]+) erhöht.",
-		"^Anlegen: Stellt alle 5 Sek. (%d+) (.+) wieder her.",
+		"^Anlegen: Stellt alle 5 Sek. ([%d%.]+) (.+) wieder her.",
 	}
 
 	namespace.strings = {

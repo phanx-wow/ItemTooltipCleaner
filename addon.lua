@@ -65,7 +65,10 @@ local stat_names = setmetatable({ }, { __index = function(t, k)
 		return ""
 	end
 	local v
-	if GAME_LOCALE:match("^[de]") then
+	if GAME_LOCALE:match("^[efip][srt]") then
+		-- es, fr, it, pt: Lowercase everything.
+		v = k:lower()
+	elseif GAME_LOCALE:match("^[de]") then
 		-- de, en: Capitalize each word.
 		for word in k:gmatch("%S+") do
 			local i, c = 2, word:sub(1, 1)
@@ -75,10 +78,8 @@ local stat_names = setmetatable({ }, { __index = function(t, k)
 			word = c:upper() .. word:sub(i)
 			v = v and (v .. " " .. word) or word
 		end
-	elseif GAME_LOCALE:match("^[ef][sr]") then
-		-- es, fr, it, pt: Lowercase everything.
-		v = k:lower()
 	else
+		-- ru, ko, zh
 		v = k
 	end
 	rawset(t, k, v)
@@ -94,6 +95,7 @@ local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
 local ITEM_SOCKETABLE = ITEM_SOCKETABLE
 local ITEM_SOULBOUND = ITEM_SOULBOUND
 local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
+local LARGE_NUMBER_SEPERATOR = LARGE_NUMBER_SEPERATOR
 local RAID_FINDER = RAID_FINDER
 local REFORGED = REFORGED
 
@@ -146,9 +148,9 @@ local function ReformatItemTooltip(tooltip)
 								local stat, value = strmatch(text, pattern)
 								if stat then
 									if strmatch(value, L["[^%d,]"]) then
-										stat, value = gsub(value, ",", ""), stat
+										stat, value = gsub(value, LARGE_NUMBER_SEPERATOR, ""), stat
 									else
-										value = gsub(value, ",", "")
+										value = gsub(value, LARGE_NUMBER_SEPERATOR, "")
 									end
 									local str = stat_strings and stat_strings[j] or "+%d %s"
 									local result = str:format(value, stat_names[stat] or stat)
