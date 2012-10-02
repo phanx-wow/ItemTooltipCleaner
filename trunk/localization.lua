@@ -40,9 +40,9 @@ if GAME_LOCALE == "deDE" then
 	}
 
 	namespace.patterns = {
-		"^Anlegen: Erhöht ?E?[ud]?[reai]?[ersn]? (%w%s+) um ([%d%.]+)%.", -- "Eure" or "Euer" or "den" or "die" or "das"
-		"^Anlegen: (%w%s+) um ([%d%.]+) erhöht%.",
-		"^Anlegen: Stellt alle 5 Sek. ([%d%.]+) (%w%s+) wieder her%.",
+		"^Anlegen: Erhöht ?E?[ud]?[reai]?[ersn]? ([%w%s]+) um ([%d%.]+)%.", -- "Eure" or "Euer" or "den" or "die" or "das"
+		"^Anlegen: ([%w%s]+) um ([%d%.]+) erhöht%.",
+		"^Anlegen: Stellt alle 5 Sek. ([%d%.]+) ([%w%s]+) wieder her%.",
 	}
 
 	namespace.strings = {
@@ -81,9 +81,9 @@ if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	}
 
 	namespace.patterns = {
-		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] (%w%s+) ([%d,]+) p%.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
+		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] ([%w%s]+) ([%d,]+) p%.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
 		"^Equipar: Restaura (%d+) p%. de (salud cada 5 s)",
-		"^Equipar: (%w%s+) aumentada ([%d,]+) p%.",
+		"^Equipar: ([%w%s]+) aumentada ([%d,]+) p%.",
 	}
 
 	namespace.strings = {
@@ -122,9 +122,9 @@ if GAME_LOCALE == "frFR" then
 	}
 
 	namespace.patterns = {
-		"^Équipé : Augmente [dlv][eao]t?r?e? (%w%s+) de (%d+)%.", -- "de" or "la" or "votre"
-		"^Équipé : Augmente de (%d+) le (%w%s+)%.",
-		"^Équipé : (%w%s+) augmentée de (%d+)%.",
+		"^Équipé : Augmente [dlv][eao]t?r?e? ([%w%s]+) de (%d+)%.", -- "de" or "la" or "votre"
+		"^Équipé : Augmente de (%d+) le ([%w%s]+)%.",
+		"^Équipé : ([%w%s]+) augmentée de (%d+)%.",
 		"^Équipé : Rend (%d+) points de (vie toutes les 5 secondes)%.",
 	}
 
@@ -165,9 +165,9 @@ if GAME_LOCALE == "itIT" then
 	}
 
 	namespace.patterns = {
-		"^Equipaggia: Aumenta l['a] ?(%w%s+) di ([%d%.]+)%.", -- "l'" "la "
+		"^Equipaggia: Aumenta l['a] ?([%w%s]+) di ([%d%.]+)%.", -- "l'" "la "
 		"^Equipaggia: Aumenta (i danni) e gli effetti magici fino a ([%d%.]+)%.",
-		"^Equipaggia: Ripristina (%d+) (%w%s+) ogni 5 s%.",
+		"^Equipaggia: Ripristina (%d+) ([%w%s]+) ogni 5 s%.",
 	}
 
 	namespace.strings = {
@@ -207,8 +207,8 @@ if GAME_LOCALE == "ptBR" then
 
 	namespace.patterns = {
 		"^Equipado: Aumenta [ao] ?s?u?a?(?[ct][ha][ax][na]c?e? ?d?e? %w%s+) em ([%d,]+)%.",
-		"^Equipado: [AM][ue][ml][eh][no][tr]a o (%w%s+) em até ([%d,]+)%.",
-		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de (%w%s+) por 5 segundos%.",
+		"^Equipado: [AM][ue][ml][eh][no][tr]a o ([%w%s]+) em até ([%d,]+)%.",
+		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de ([%w%s]+) por 5 segundos%.",
 	}
 
 	namespace.strings = {
@@ -247,13 +247,13 @@ if GAME_LOCALE == "ruRU" then
 	}
 
 	namespace.patterns = {
-		"^Если на персонаже: Показатель (%w%s+) %+(%d+)%.",
-		"^Если на персонаже: Рейтинг (%w%s+) %+(%d+)%.",
-		"^Если на персонаже: Увеличивает силу (%w%s+) на (%d+)%.",
-		"^Если на персонаже: Сила (%w%s+) (%d+)%.",
+		"^Если на персонаже: Показатель ([%w%s]+) %+(%d+)%.",
+		"^Если на персонаже: Рейтинг ([%w%s]+) %+(%d+)%.",
+		"^Если на персонаже: Увеличивает силу ([%w%s]+) на (%d+)%.",
+		"^Если на персонаже: Сила ([%w%s]+) (%d+)%.",
 		"^Если на персонаже: Увеличивает (проникающую способность заклинаний) на (%d+)%.",
 		"^Если на персонаже: Вос%S+ (%d+) ?е?д?%.? (здоровья раз) в 5 секу?н?д?%.",
-		"^Если на персонаже: Навык (%w%s+) увеличивается на (%d+)%.",
+		"^Если на персонаже: Навык ([%w%s]+) увеличивается на (%d+)%.",
 	}
 
 	namespace.strings = {
