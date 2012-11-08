@@ -41,7 +41,7 @@ local L = setmetatable(namespace.L or {}, { __index = function(t, k)
 end })
 
 if not namespace.L then
-	L["[^%d,]"] = "[^%d" .. (LARGE_NUMBER_SEPERATOR or ",") .. "]"
+	L["[^%d,]"] = "[^%d" .. gsub(LARGE_NUMBER_SEPERATOR, "%.", "%%%.") .. "]"
 	namespace.L = L
 end
 
@@ -95,7 +95,7 @@ local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
 local ITEM_SOCKETABLE = ITEM_SOCKETABLE
 local ITEM_SOULBOUND = ITEM_SOULBOUND
 local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
-local LARGE_NUMBER_SEPERATOR = LARGE_NUMBER_SEPERATOR
+local LARGE_NUMBER_SEPERATOR = gsub(LARGE_NUMBER_SEPERATOR, "%.", "%%%.")
 local RAID_FINDER = RAID_FINDER
 local REFORGED = REFORGED
 
