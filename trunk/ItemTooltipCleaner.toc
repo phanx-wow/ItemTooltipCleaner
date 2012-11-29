@@ -8,7 +8,7 @@
 ## Notes-esES: Eliminar las líneas superfluas en los descripciones de objetos.
 ## Notes-esMX: Eliminar las líneas superfluas en los descripciones de objetos.
 ## Notes-ptBR: Remover o linhas supérfluos nas dicas de itens.
-## Notes-ruRU: Позволяет удалить лишний текст вид описанию предметов.
+## Notes-ruRU: Удалить лишний текст в описанию предметов.
 ## Notes-zhCN: 简化装备属性文本并从装备提示信息中移除多余的行。
 ## Notes-zhTW: 簡化裝備加成文字與移除物品提示多餘的代碼。
 
