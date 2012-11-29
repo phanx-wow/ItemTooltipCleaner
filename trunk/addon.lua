@@ -1,6 +1,6 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
-	Compacts equipment bonus text and removes extraneous lines from item tooltips.
+	Removes extraneous lines from item tooltips.
 	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
@@ -10,12 +10,15 @@
 local ADDON_NAME, namespace = ...
 
 local GAME_LOCALE = GetLocale()
+local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
 
 ------------------------------------------------------------------------
 
 local settings = {
-	compactBonuses = true,
+	bonusColor = { 0, 1, 0 },
 	enchantColor = { 0, 0.8, 1 },
+	hideBlank = true,
+--	hideDurability = false,
 	hideEquipmentSets = true,
 --	hideHeroic = false,
 	hideItemLevel = true,
@@ -27,6 +30,10 @@ local settings = {
 	hideRightClickSocket = true,
 --	hideSellValue = false,
 --	hideSoulbound = false,
+--	hideTransmog = false,
+--	hideTransmogLabel = false,
+--	hideUnique = false,
+--	hideUpgradeLevel = false,
 }
 
 namespace.settings = settings
@@ -41,75 +48,33 @@ local L = setmetatable(namespace.L or {}, { __index = function(t, k)
 end })
 
 if not namespace.L then
-	L["[^%d,]"] = "[^%d" .. gsub(LARGE_NUMBER_SEPERATOR, "%.", "%%%.") .. "]"
 	namespace.L = L
 end
 
 ------------------------------------------------------------------------
 
-if not namespace.patterns then
-	namespace.patterns = {
-		"^Equip: I[nm][cp]r[eo][av][se][es]s y?o?u?r? ?(.+) by ([%d,]+)%.", -- catches "Improves" and "Increases"
-		"^Equip: Restores (%d+) (health per 5 sec%.)",
-		"^Equip: (.+) increased by (%d+)%.",
-	}
-end
-
-local stat_patterns = namespace.patterns
-local stat_strings = namespace.strings
-
-------------------------------------------------------------------------
-
-local stat_names = setmetatable({ }, { __index = function(t, k)
-	if type(k) ~= "string" then
-		return ""
-	end
-	local v
-	if GAME_LOCALE:match("^[efip][srt]") then
-		-- es, fr, it, pt: Lowercase everything.
-		v = k:lower()
-	elseif GAME_LOCALE:match("^[de]") then
-		-- de, en: Capitalize each word.
-		for word in k:gmatch("%S+") do
-			local i, c = 2, word:sub(1, 1)
-			if c:byte() > 127 then
-				i, c = 3, word:sub(1, 2)
-			end
-			word = c:upper() .. word:sub(i)
-			v = v and (v .. " " .. word) or word
-		end
-	else
-		-- ru, ko, zh
-		v = k
-	end
-	rawset(t, k, v)
-	return v
-end })
-
-namespace.names = stat_names
-
-------------------------------------------------------------------------
-
-local ITEM_HEROIC = ITEM_HEROIC
+local ITEM_HEROIC      = ITEM_HEROIC
 local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
-local ITEM_SOCKETABLE = ITEM_SOCKETABLE
-local ITEM_SOULBOUND = ITEM_SOULBOUND
-local ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
-local LARGE_NUMBER_SEPERATOR = gsub(LARGE_NUMBER_SEPERATOR, "%.", "%%%.")
-local RAID_FINDER = RAID_FINDER
-local REFORGED = REFORGED
+local ITEM_SOCKETABLE  = ITEM_SOCKETABLE
+local ITEM_SOULBOUND   = ITEM_SOULBOUND
+local ITEM_UNIQUE      = ITEM_UNIQUE
+local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
+local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
+local RAID_FINDER      = RAID_FINDER
+local REFORGED         = REFORGED
 
-local S_ARMOR_TEMPLATE = "^" .. gsub(ARMOR_TEMPLATE, "%%%d?$?d", "%%d+") .. "$"
-local S_ITEM_CLASSES_ALLOWED = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", ".+") .. "$"
-local S_ITEM_CREATED_BY = "^" .. gsub(ITEM_CREATED_BY, "%%%d?$?s", ".+") .. "$"
-local S_ITEM_LEVEL = "^" .. gsub(ITEM_LEVEL, "%%%d?$?d", "%%d+") .. "$"
-local S_ITEM_MIN_LEVEL = gsub(ITEM_MIN_LEVEL, "%%%d?$?d", "%%d+")
-local S_ITEM_REQ_REPUTATION = gsub(ITEM_REQ_REPUTATION, "%%%d?$?s", ".+")
-local S_ITEM_REQ_SKILL = gsub(ITEM_REQ_SKILL, "%%%d?$?s", ".+")
-local S_ITEM_SOCKET_BONUS = "^" .. gsub(ITEM_SOCKET_BONUS, "%%%d?$?s", ""):trim()
-local S_ITEM_SPELL_TRIGGER_ONEQUIP = "^"..ITEM_SPELL_TRIGGER_ONEQUIP -- not used
-local S_ITEM_SPELL_TRIGGER_ONPROC = "^"..ITEM_SPELL_TRIGGER_ONPROC
-local S_ITEM_SPELL_TRIGGER_ONUSE = "^"..ITEM_SPELL_TRIGGER_ONUSE -- not used
+local S_DURABILITY      = "^" .. gsub(DURABILITY_TEMPLATE, "%%d", "%%d+")
+local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%%d?$?d", "%%d+") .. "$"
+local S_MADE_BY         = "^" .. gsub(ITEM_CREATED_BY, "%%%d?$?s", ".+") .. "$"
+local S_REQ_CLASS       = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", ".+") .. "$"
+local S_REQ_LEVEL       = "^" .. gsub(ITEM_MIN_LEVEL, "%%%d?$?d", "%%d+")
+local S_REQ_RACE        = "^" .. gsub(ITEM_RACES_ALLOWED, "%%s", ".+") .. "$"
+local S_REQ_REPUTATION  = "^" .. gsub(ITEM_REQ_REPUTATION, "%%%d?$?s", ".+")
+local S_REQ_SKILL       = "^" .. gsub(ITEM_REQ_SKILL, "%%%d?$?s", ".+")
+local S_TRANSMOGRIFIED  = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
+local S_UNIQUE_MULTIPLE = "^" .. gsub(ITEM_UNIQUE_MULTIPLE, "%%d", "%%d+")
+local S_UPGRADE_LEVEL   = "^" .. gsub(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d", "%%d+")
 
 local cache = setmetatable({ }, { __mode = "kv" }) -- weak table to enable garbage collection
 
@@ -119,51 +84,39 @@ local function ReformatItemTooltip(tooltip)
 		local line = _G[tooltipName .. "TextLeft" .. i]
 		local text = line:GetText()
 		if text then
-			if (text == ITEM_HEROIC and settings.hideHeroic)
+			if strmatch(text, S_ENCHANTED) then
+				line:SetText(strmatch(text, S_ENCHANTED))
+				line:SetTextColor(unpack(settings.enchantColor))
+
+			elseif settings.hideTransmog and strmatch(text, S_TRANSMOGRIFIED) then
+				if settings.hideTransmogLabelOnly then
+					line:SetText(strmatch(text, S_TRANSMOGRIFIED))
+				else
+					line:SetText(nil)
+				end
+
+			elseif (text == " " and settings.hideBlank)
+			or (text == ITEM_HEROIC and settings.hideHeroic)
 			or (text == ITEM_SOCKETABLE and settings.hideRightClickSocket)
 			or (text == ITEM_SOULBOUND and settings.hideSoulbound)
 			or (text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy)
 			or (text == REFORGED and settings.hideReforged)
 			or (text == RAID_FINDER and settings.hideRaidFinder)
+			or (settings.hideDurability and strmatch(text, S_DURABILITY))
 			or (settings.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
-			or (settings.hideMadeBy and strmatch(text, S_ITEM_CREATED_BY))
-			or (settings.hideRequirements and (
-				strmatch(text, S_ITEM_CLASSES_ALLOWED)
-				or strmatch(text, S_ITEM_MIN_LEVEL)
-				or strmatch(text, S_ITEM_REQ_REPUTATION)
-				or strmatch(text, S_ITEM_REQ_SKILL)
-				or strmatch(text, L["Enchantment Requires"])
-				or strmatch(text, L["Socket Requires"])
+			or (settings.hideMadeBy and strmatch(text, S_MADE_BY))
+			or (settings.hideUpgradeLevel and strmatch(text, S_UPGRADE_LEVEL))
+			or (settings.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strmatch(text, S_UNIQUE_MULTIPLE)))
+			or (settings.hideRequirements and (strmatch(text, S_REQ_CLASS) or strmatch(text, S_REQ_RACE)
+				or strmatch(text, S_REQ_LEVEL) or strmatch(text, S_REQ_REPUTATION) or strmatch(text, S_REQ_SKILL)
+				or strmatch(text, L.ENCHANT_REQUIRES) or strmatch(text, L.SOCKET_REQUIRES)
 			)) then
-				line:SetText("")
-			elseif not strmatch(text, "<") then
+				line:SetText(nil)
+
+			elseif strmatch(text, "^%+%d+") then
 				local r, g, b = line:GetTextColor()
-				if r > 0.05 or g < 0.95 or strmatch(text, "^.+:") or strmatch(text, S_ITEM_SPELL_TRIGGER_ONPROC) or strmatch(text, S_ARMOR_TEMPLATE) or strmatch(text, S_ITEM_SOCKET_BONUS) then
-					if settings.compactBonuses then
-						if cache[text] then
-							line:SetText(cache[text])
-							line:SetTextColor(0, 1, 0)
-						else
-							for j, pattern in ipairs(stat_patterns) do
-								local stat, value = strmatch(text, pattern)
-								if stat then
-									if strmatch(value, L["[^%d,]"]) then
-										stat, value = gsub(value, LARGE_NUMBER_SEPERATOR, ""), stat
-									else
-										value = gsub(value, LARGE_NUMBER_SEPERATOR, "")
-									end
-									local str = stat_strings and stat_strings[j] or "+%d %s"
-									local result = str:format(value, stat_names[stat] or stat)
-									cache[text] = result
-									line:SetText(result)
-									line:SetTextColor(0, 1, 0)
-									break
-								end
-							end
-						end
-					end
-				else
-					line:SetTextColor(unpack(settings.enchantColor))
+				if r < 0.1 and g > 0.9 and b < 0.1 then
+					line:SetTextColor(unpack(settings.bonusColor))
 				end
 			end
 		end

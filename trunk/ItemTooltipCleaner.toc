@@ -1,14 +1,16 @@
-## Interface: 50001
-## Version: 5.0.5.wowi:revision
+## Interface: 50100
+## Version: 5.1.0.wowi:revision
 
 ## Title: Item Tooltip Cleaner
-## Notes: Compacts equipment bonus text and removes extraneous lines from item tooltips.
-## Notes-deDE: Beschreibungen von Boni in Ausrüstungs-Tooltips verkürzen, und überflüssigen Text ausblenden.
-## Notes-esES: Acortar en los descripciones de objetos el texto de bonos equipos y eliminar textos superfluo.
-## Notes-esMX: Acortar en los descripciones de objetos el texto de bonos equipos y eliminar textos superfluo.
-## Notes-ptBR: Encurtar nas dicas de itens o texto de bônus em equipamentos e remover o texto supérfluo.
-## Notes-ruRU: Сократить преимущества предметов во всплывающих подсказках, и удалять чрезмерное текст.
-## Notes-zhCN: 简化装备属性文本并从装备提示信息中移除多余的行.
+## Notes: Removes extraneous lines from item tooltips.
+
+## Notes-deDE: Überflüssigen Linien in Ausrüstungs-Tooltips ausblenden.
+## Notes-esES: Eliminar las líneas superfluas en los descripciones de objetos.
+## Notes-esMX: Eliminar las líneas superfluas en los descripciones de objetos.
+## Notes-ptBR: Remover o linhas supérfluos nas dicas de itens.
+## Notes-ruRU: Позволяет удалить лишний текст вид описанию предметов.
+## Notes-zhCN: 简化装备属性文本并从装备提示信息中移除多余的行。
+## Notes-zhTW: 簡化裝備加成文字與移除物品提示多餘的代碼。
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
@@ -16,7 +18,7 @@
 ## X-Copyright: Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
 ## X-License: See accompanying LICENSE file for details.
 ## X-CompatibleLocales: enUS, deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW
-## X-Localizations: enUS, deDE, esES, esMX, ptBR, ruRU, zhCN
+## X-Localizations: enUS, deDE, esES, esMX, ptBR, ruRU, zhCN, zhTW
 ## X-Website: http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 ## X-Curse-Project-ID: itemtooltipcleaner
 ## X-WoWI-ID: 19129
