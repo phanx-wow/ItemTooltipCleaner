@@ -17,6 +17,7 @@ local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, u
 local settings = {
 	bonusColor = { 0, 1, 0 },
 	enchantColor = { 0, 0.8, 1 },
+	reforgeColor = { 1, 0.5, 1 },
 	hideBlank = true,
 --	hideDurability = false,
 	hideEquipmentSets = true,
@@ -24,7 +25,7 @@ local settings = {
 	hideItemLevel = true,
 	hideMadeBy = true,
 --	hideRaidFinder = false,
---	hideReforged = false,
+	hideReforged = true,
 --	hideRequirements = false,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
@@ -65,11 +66,12 @@ local REFORGED         = REFORGED
 
 local S_DURABILITY      = "^" .. gsub(DURABILITY_TEMPLATE, "%%d", "%%d+")
 local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
-local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%%d?$?d", "%%d+") .. "$"
-local S_MADE_BY         = "^" .. gsub(ITEM_CREATED_BY, "%%%d?$?s", ".+") .. "$"
-local S_REQ_CLASS       = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", ".+") .. "$"
+local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%%d?$?d", "%%d+")
+local S_MADE_BY         = "^" .. gsub(ITEM_CREATED_BY, "%%%d?$?s", ".+")
+local S_REFORGED        = "^(" .. gsub(strsub(REFORGE_TOOLTIP_LINE, 1, 7), "%%[cs]", ".-") .. ")" .. gsub(gsub(strsub(REFORGE_TOOLTIP_LINE, 8), "%%s", ".-"), "[%(%)]", "%%%1")
+local S_REQ_CLASS       = "^" .. gsub(ITEM_CLASSES_ALLOWED, "%%s", ".+")
 local S_REQ_LEVEL       = "^" .. gsub(ITEM_MIN_LEVEL, "%%%d?$?d", "%%d+")
-local S_REQ_RACE        = "^" .. gsub(ITEM_RACES_ALLOWED, "%%s", ".+") .. "$"
+local S_REQ_RACE        = "^" .. gsub(ITEM_RACES_ALLOWED, "%%s", ".+")
 local S_REQ_REPUTATION  = "^" .. gsub(ITEM_REQ_REPUTATION, "%%%d?$?s", ".+")
 local S_REQ_SKILL       = "^" .. gsub(ITEM_REQ_SKILL, "%%%d?$?s", ".+")
 local S_TRANSMOGRIFIED  = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
@@ -87,6 +89,12 @@ local function ReformatItemTooltip(tooltip)
 			if strmatch(text, S_ENCHANTED) then
 				line:SetText(strmatch(text, S_ENCHANTED))
 				line:SetTextColor(unpack(settings.enchantColor))
+
+			elseif strmatch(text, S_REFORGED) then
+				line:SetTextColor(unpack(settings.reforgeColor))
+				if settings.hideReforged then
+					line:SetText(strmatch(text, S_REFORGED))
+				end
 
 			elseif settings.hideTransmog and strmatch(text, S_TRANSMOGRIFIED) then
 				if settings.hideTransmogLabelOnly then

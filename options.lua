@@ -65,9 +65,20 @@ panel.runOnce = function(self)
 		settings.enchantColor[3] = b
 	end
 
+	local colorReforge = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.REFORGE_COLOR)
+	colorReforge:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -8)
+	colorReforge.GetValue = function()
+		return unpack(settings.reforgeColor)
+	end
+	colorReforge.OnValueChanged = function(self, r, g, b)
+		settings.reforgeColor[1] = r
+		settings.reforgeColor[2] = g
+		settings.reforgeColor[3] = b
+	end
+
 
 	local checkDura = CreateCheckbox(self, L.HIDE_DURABILITY)
-	checkDura:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -8)
+	checkDura:SetPoint("TOPLEFT", colorReforge, "BOTTOMLEFT", 0, -8)
 	checkDura.OnValueChanged = OnClick
 	checkDura.key = "hideDurability"
 
@@ -86,7 +97,7 @@ panel.runOnce = function(self)
 	checkILevel.OnValueChanged = OnClick
 	checkILevel.key = "hideItemLevel"
 
-	local checkReqs = CreateCheckbox(self, L.HIDE_REQUIRES, L.HIDE_REQUIRES_TIP)
+	local checkReqs = CreateCheckbox(self, L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
 	checkReqs:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
 	checkReqs.OnValueChanged = OnClick
 	checkReqs.key = "hideRequirements"
@@ -159,6 +170,7 @@ panel.runOnce = function(self)
 	self.refresh = function(self)
 		colorBonus:SetValue(unpack(settings.bonusColor))
 		colorEnchant:SetValue(unpack(settings.enchantColor))
+		colorReforge:SetValue(unpack(settings.reforgeColor))
 
 		checkILevel:SetValue(settings.hideItemLevel)
 		checkEquipSets:SetValue(GetCVarBool("dontShowEquipmentSetsOnItems"))
