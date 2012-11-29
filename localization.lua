@@ -1,16 +1,16 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
-	Compacts equipment bonus text and removes extraneous lines from item tooltips.
+	Removes extraneous lines from item tooltips.
 	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
 ----------------------------------------------------------------------]]
 
-local GAME_LOCALE = GetLocale()
-if GAME_LOCALE:match("^en") then return end
-
 local ADDON_NAME, namespace = ...
+local GAME_LOCALE = GetLocale()
+local L = {}
+namespace.L = L
 
 ------------------------------------------------------------------------
 --	German | Deutsch
@@ -19,379 +19,286 @@ local ADDON_NAME, namespace = ...
 
 if GAME_LOCALE == "deDE" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d%.]", -- LARGE_NUMBER_SEPERATOR = "."
+	L.ENCHANT_REQUIRES = "Verzauberung benötigt"
+	L.SOCKET_REQUIRES = "Sockel benötigt"
+	L.MADE_BY = "Hergestellt von"
 
-		["Enchantment Requires"] = "Verzauberung benötigt",
-		["Socket Requires"] = "Sockel benötigt",
+	L.BONUS_COLOR = "Bonusfarbe"
+	L.ENCHANT_COLOR = "Verzauberungenfarbe"
 
-		["Enchantment color"] = "Verzauberungenfarbe",
-		["Compact equipment bonuses"] = "Boni auf Ausrüstung verkürzen",
-		["Hide item levels"] = "Gegenstandsstufen ausblenden",
-		["Hide equipment sets"] = "Ausrüstungssets ausblenden",
-		["Hide %q tags"] = "Etikett %q ausblenden",
-		["Made by"] = "Hergestellt von",
-		["Hide requirements"] = "Anforderungen ausblenden",
-		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden.",
-		["Hide buying instructions"] = "Instruktionen zum Kauf ausblenden",
-		["Hide socketing instructions"] = "Instruktionen zum Sockeln ausblenden",
-		["Hide vendor values"] = "Händlerpreis ausblenden",
-		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster, oder Questbelohnungsfenster angezeigt wird.",
-	}
-
-	namespace.patterns = {
-		"^Anlegen: Erhöht ?E?[ud]?[reai]?[ersn]? ([%w%s]+) um ([%d%.]+)%.", -- "Eure" or "Euer" or "den" or "die" or "das"
-		"^Anlegen: ([%w%s]+) um ([%d%.]+) erhöht%.",
-		"^Anlegen: Stellt alle 5 Sek. ([%d%.]+) ([%w%s]+) wieder her%.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d %s",
-		"+%d %s pro 5 Sek.",
-	}
-
-return end
+	L.HIDE_CLICKBUY = "Instruktionen zum Kauf ausblenden"
+	L.HIDE_CLICKSOCKET = "Instruktionen zum Sockeln ausblenden"
+--	L.HIDE_DURABILITY = ""
+	L.HIDE_EQUIPSETS = "Ausrüstungssets ausblenden"
+	L.HIDE_ILEVEL = "Gegenstandsstufen ausblenden"
+	L.HIDE_REQUIRES = "Anforderungen ausblenden"
+	L.HIDE_REQUIRES_TIP = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden."
+	L.HIDE_TAG = "Etikett %q ausblenden"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "Händlerpreis ausblenden"
+	L.HIDE_VALUE_TIP = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster, oder Questbelohnungsfenster angezeigt wird."
 
 ------------------------------------------------------------------------
 --	Spanish | Español
 --	Last updated 2012-07-21 by Phanx
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
+elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = "" in ES, "," in MX
+	L.ENCHANT_REQUIRES = "Encantamiento requiere"
+	L.SOCKET_REQUIRES = "Ranura requiere"
+	L.MADE_BY = "Hecho por"
 
-		["Enchantment Requires"] = "Encantamiento requiere",
-		["Socket Requires"] = "Ranura requiere",
+	L.BONUS_COLOR = "Color de bonos"
+	L.ENCHANT_COLOR = "Color de encantamientos"
 
-		["Enchantment color"] = "Color de encantamientos",
-		["Compact equipment bonuses"] = "Compacto texto de bonos equipos",
-		["Hide item levels"] = "Ocultar niveles de objecto",
-		["Hide equipment sets"] = "Ocultar equipamientos",
-		["Hide %q tags"] = "Ocultar texto %q",
-		["Made by"] = "Hecho por",
-		["Hide requirements"] = "Ocultar requerimientos",
-		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Ocultar los requerimientos de nivel, reputación y habilidad para objetos, encantamientos y ranuras.",
-		["Hide buying instructions"] = "Ocultar instrucciones para comprar",
-		["Hide socketing instructions"] = "Ocultar instrucciones para insertar gemas",
-		["Hide vendor values"] = "Ocultar precio de venta",
-		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Ocultar los precios de venta, Ocultar los precios de venta, excepto en la interacción con con un vendedor, en la casa de subastas, o en la elección de una recompensa de una misión.",
-	}
-
-	namespace.patterns = {
-		"^Equipar: [AM][ue][mj][eo][rn]t?a [tel][ula] ([%w%s]+) ([%d,]+) p%.", -- "Aumentar" or "Mejora", "tu" or "el" or "la"
-		"^Equipar: Restaura (%d+) p%. de (salud cada 5 s)",
-		"^Equipar: ([%w%s]+) aumentada ([%d,]+) p%.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d salud cada 5 s",
-		"+%d habilidad de %s",
-	}
-
-return end
+	L.HIDE_CLICKBUY = "Ocultar instrucciones para comprar"
+	L.HIDE_CLICKSOCKET = "Ocultar instrucciones para insertar gemas"
+	L.HIDE_DURABILITY = "Ocultar durabilidad"
+	L.HIDE_EQUIPSETS = "Ocultar equipamientos"
+	L.HIDE_ILEVEL = "Ocultar niveles de objecto"
+	L.HIDE_REQUIRES = "Ocultar requerimientos"
+	L.HIDE_REQUIRES_TIP = "Ocultar los requerimientos de nivel, reputación y habilidad para objetos, encantamientos y ranuras."
+	L.HIDE_TAG = "Ocultar texto %q"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "Ocultar precio de venta"
+	L.HIDE_VALUE_TIP = "Ocultar los precios de venta, Ocultar los precios de venta, excepto en la interacción con con un vendedor, en la casa de subastas, o en la elección de una recompensa de una misión."
 
 ------------------------------------------------------------------------
 --	French | Français
 --	Last updated YYYY-MM-DD by NAME
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "frFR" then
+elseif GAME_LOCALE == "frFR" then
 
-	namespace.L = {
-		["[^%d,]"] = "%D", -- LARGE_NUMBER_SEPERATOR = ""
+	L.ENCHANT_REQUIRES = "L'enchantement requiert"
+	L.SOCKET_REQUIRES = "Le sertissage requiert"
+	L.MADE_BY = "Artisan"
 
-		["Enchantment Requires"] = "L'enchantement requiert",
-		["Socket Requires"] = "Le sertissage requiert",
+--	L.BONUS_COLOR = ""
+--	L.ENCHANT_COLOR = ""
 
-	--	["Enchantment color"] = "",
-	--	["Compact equipment bonuses"] = "",
-	--	["Hide item levels"] = "",
-	--	["Hide equipment sets"] = "",
-	--	["Hide %q tags"] = "",
-		["Made by"] = "Artisan",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide buying instructions"] = "",
-	--	["Hide socketing instructions"] = "",
-	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
-	}
-
-	namespace.patterns = {
-		"^Équipé : Augmente [dlv][eao]t?r?e? ([%w%s]+) de (%d+)%.", -- "de" or "la" or "votre"
-		"^Équipé : Augmente de (%d+) le ([%w%s]+)%.",
-		"^Équipé : ([%w%s]+) augmentée de (%d+)%.",
-		"^Équipé : Rend (%d+) points de (vie toutes les 5 secondes)%.",
-	}
-
-	namespace.strings = {
-		"+%d au %s",
-		"+%d au %s",
-		"+%d au %s",
-		"+%d de vie toutes les 5 s",
-	}
-
-return end
+--	L.HIDE_CLICKBUY = ""
+--	L.HIDE_CLICKSOCKET = ""
+--	L.HIDE_DURABILITY = ""
+--	L.HIDE_EQUIPSETS = ""
+--	L.HIDE_ILEVEL = ""
+--	L.HIDE_REQUIRES = ""
+--	L.HIDE_REQUIRES_TIP = ""
+--	L.HIDE_TAG = ""
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+--	L.HIDE_VALUE = ""
+--	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
 --	Italian | Italiano
 --	Last updated YYYY-MM-DD by NAME
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "itIT" then
+elseif GAME_LOCALE == "itIT" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d%.]", -- LARGE_NUMBER_SEPERATOR = "."
+	L.ENCHANT_REQUIRES = "L'incantamento richiede"
+	L.SOCKET_REQUIRES = "L'incavo richiede"
+	L.MADE_BY = "Creazione di"
 
-		["Enchantment Requires"] = "L'incantamento richiede",
-		["Socket Requires"] = "L'incavo richiede",
+--	L.BONUS_COLOR = ""
+--	L.ENCHANT_COLOR = ""
 
-	--	["Enchantment color"] = "",
-	--	["Compact equipment bonuses"] = "",
-	--	["Hide item levels"] = "",
-	--	["Hide equipment sets"] = "",
-	--	["Hide %q tags"] = "",
-		["Made by"] = "Creazione di",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide buying instructions"] = "",
-	--	["Hide socketing instructions"] = "",
-	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
-	}
-
-	namespace.patterns = {
-		"^Equipaggia: Aumenta l['a] ?([%w%s]+) di ([%d%.]+)%.", -- "l'" "la "
-		"^Equipaggia: Aumenta (i danni) e gli effetti magici fino a ([%d%.]+)%.",
-		"^Equipaggia: Ripristina (%d+) ([%w%s]+) ogni 5 s%.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d Bonus ai danni",
-		"+%d %s ogni 5 s"
-	}
-
-return end
+--	L.HIDE_CLICKBUY = ""
+--	L.HIDE_CLICKSOCKET = ""
+	L.HIDE_DURABILITY = "Nascondere durabilità"
+--	L.HIDE_EQUIPSETS = ""
+--	L.HIDE_ILEVEL = ""
+--	L.HIDE_REQUIRES = ""
+--	L.HIDE_REQUIRES_TIP = ""
+--	L.HIDE_TAG = ""
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+--	L.HIDE_VALUE = ""
+--	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
 --	Portuguese | Português
 --	Last updated 2011-12-11 by Phanx
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "ptBR" then
+elseif GAME_LOCALE == "ptBR" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+	L.ENCHANT_REQUIRES = "Encantamento requer"
+	L.SOCKET_REQUIRES = "Engaste requer"
+	L.MADE_BY = "Criado por"
 
-		["Enchantment Requires"] = "Encantamento requer",
-		["Socket Requires"] = "Engaste requer",
+	L.BONUS_COLOR = "Cor do bônus"
+	L.ENCHANT_COLOR = "Cor do encantamentos"
 
-		["Enchantment color"] = "Cor do encantamentos",
-		["Compact equipment bonuses"] = "Encurtar bônus de equipamentos",
-		["Hide equipment sets"] = "Ocultar conjunto de equipamentos",
-		["Hide item levels"] = "Ocultar níveis de itens",
-		["Hide %q tags"] = "Ocultar texto %q",
-		["Made by"] = "Criado por",
-		["Hide requirements"] = "Ocultar requisitos",
-		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Ocultar os requisitos de nível, reputação e habilidade para os itens, encantamentos e engastes.",
-		["Hide buying instructions"] = "Ocultar instruções para comprar",
-		["Hide socketing instructions"] = "Ocultar instruções para engastar",
-		["Hide vendor values"] = "Esconder preço de venda",
-		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Ocultar preço de venda, exceto quando interagem com um vendedor, na casa de leilões, o da escolha uma recompensa de missão.",
-	}
-
-	namespace.patterns = {
-		"^Equipado: Aumenta [ao] ?s?u?a?(?[ct][ha][ax][na]c?e? ?d?e? %w%s+) em ([%d,]+)%.",
-		"^Equipado: [AM][ue][ml][eh][no][tr]a o ([%w%s]+) em até ([%d,]+)%.",
-		"^Equipado: Recupera (%d+) ?p?o?n?t?o?s? de ([%w%s]+) por 5 segundos%.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d %s",
-		"+%d %s por 5 s",
-	}
-
-return end
+	L.HIDE_CLICKBUY = "Ocultar instruções para comprar"
+	L.HIDE_CLICKSOCKET = "Ocultar instruções para engastar"
+	L.HIDE_DURABILITY = "Ocultar durabilidade"
+	L.HIDE_EQUIPSETS = "Ocultar conjunto de equipamentos"
+	L.HIDE_ILEVEL = "Ocultar níveis de itens"
+	L.HIDE_REQUIRES = "Ocultar requisitos"
+	L.HIDE_REQUIRES_TIP = "Ocultar os requisitos de nível, reputação e habilidade para os itens, encantamentos e engastes."
+	L.HIDE_TAG = "Ocultar texto %q"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "Esconder preço de venda"
+	L.HIDE_VALUE_TIP = "Ocultar preço de venda, exceto quando interagem com um vendedor, na casa de leilões, o da escolha uma recompensa de missão."
 
 ------------------------------------------------------------------------
 --	Russian | Русский
---	Last updated 2012-09-06 by Phanx
+--	Last updated 2012-09-11 by D_Angel
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "ruRU" then
+elseif GAME_LOCALE == "ruRU" then
 
-	namespace.L = {
-		["[^%d,]"] = "%D", -- LARGE_NUMBER_SEPERATOR = ""
+	L.ENCHANT_REQUIRES = "Для наложения чар"
+	L.SOCKET_REQUIRES = "Для (использования )?гнезда [тп][ре][ер][бс][уо][ен][та][сж]я?( должен быть не младше)?"
+	L.MADE_BY = "Изготовитель"
 
-		["Enchantment Requires"] = "Для наложения чар",
-		["Socket Requires"] = "Для (использования )?гнезда [тп][ре][ер][бс][уо][ен][та][сж]я?( должен быть не младше)?",
+	L.BONUS_COLOR = "Цвет бонусы"
+	L.ENCHANT_COLOR = "Цвет зачарования"
 
-		["Enchantment color"] = "Цвет очарование",
-		["Compact equipment bonuses"] = "Сократить преимущества предметов",
-		["Hide item levels"] = "Скрыть уровней пунктов",
-		["Hide equipment sets"] = "Скрыть комплектов экипировки",
-		["Hide %q tags"] = "Скрыть текст %q",
-		["Made by"] = "Изготовитель",
-		["Hide requirements"] = "Скрыть требования",
-		["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "Скрыть требования к уровней, репутацию и профессии, на предметы, чары и гнезд.",
-		["Hide buying instructions"] = "Скрыть инструкцию о покупке",
-		["Hide socketing instructions"] = "Скрыть инструкции о инкрустация",
-		["Hide vendor values"] = "Скрыть торговцем цену",
-		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "Скрыть торговцем цену исключением случаев, для взаимодействия с торговцем, в аукционном доме, или выбрать задание награду.",
-	}
-
-	namespace.patterns = {
-		"^Если на персонаже: Показатель ([%w%s]+) %+(%d+)%.",
-		"^Если на персонаже: Рейтинг ([%w%s]+) %+(%d+)%.",
-		"^Если на персонаже: Увеличивает силу ([%w%s]+) на (%d+)%.",
-		"^Если на персонаже: Сила ([%w%s]+) (%d+)%.",
-		"^Если на персонаже: Увеличивает (проникающую способность заклинаний) на (%d+)%.",
-		"^Если на персонаже: Вос%S+ (%d+) ?е?д?%.? (здоровья раз) в 5 секу?н?д?%.",
-		"^Если на персонаже: Навык ([%w%s]+) увеличивается на (%d+)%.",
-	}
-
-	namespace.strings = {
-		"+%d к %s",
-		"+%d к рейтингу %s",
-		"+%d к силе %s",
-		"+%d к силе %s",
-		"+%d проникающая способность заклинаний",
-		"+%d здоровья в 5 сек.",
-		"+%d к навыка %s",
-	}
-
-return end
+	L.HIDE_CLICKBUY = "Скрыть инструкцию о покупке"
+	L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
+--	L.HIDE_DURABILITY = ""
+	L.HIDE_EQUIPSETS = "Скрыть комплекты экипировки"
+	L.HIDE_ILEVEL = "Скрыть уровень предметов"
+	L.HIDE_REQUIRES = "Скрыть требования"
+	L.HIDE_REQUIRES_TIP = "Скрыть требования уровня, репутации и навыка профессии для предметов, чар и гнезд."
+	L.HIDE_TAG = "Скрыть текст %q"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "Скрыть цену торговцев"
+	L.HIDE_VALUE_TIP = "Скрыть цену торговцев, кроме случаев взаимодействия с торговцем, в аукционном доме, или при выборе награды за задание."
 
 ------------------------------------------------------------------------
 --	Korean | 한국어
 --	Last updated YYYY-MM-DD by NAME
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "koKR" then
+elseif GAME_LOCALE == "koKR" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+	L.ENCHANT_REQUIRES = "마법부여"
+	L.SOCKET_REQUIRES = "보석 홈"
+	L.MADE_BY = "제작자"
 
-		["Enchantment Requires"] = "마법부여",
-		["Socket Requires"] = "보석 홈",
+--	L.BONUS_COLOR = ""
+--	L.ENCHANT_COLOR = ""
 
-	--	["Enchantment color"] = "",
-	--	["Compact equipment bonuses"] = "",
-	--	["Hide item levels"] = "",
-	--	["Hide equipment sets"] = "",
-	--	["Hide %q tags"] = "",
-		["Made by"] = "제작자",
-	--	["Hide buying instructions"] = "",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide socketing instructions"] = "",
-	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
-	}
-
-	namespace.patterns = {
-		"^착용 효과: (.+)가 ([%d,]+)만큼 증가합니다%.",
-		"^착용 효과: (.+)이 ([%d,]+)만큼 증가합니다%.", -- maybe can be combined with #1, depending on how string.match works in koKR
-		"^착용 효과: (.+) ([%d,]+)만큼 증가합니다%.",
-		"^착용 효과: 매 5초마다 (%d+)의 (.+)을 회복합니다%.",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d %s",
-		"+%d %s",
-		"+%d 5초당 %s",
-	}
-
-return end
+--	L.HIDE_CLICKBUY = ""
+--	L.HIDE_CLICKSOCKET = ""
+--	L.HIDE_DURABILITY = ""
+--	L.HIDE_EQUIPSETS = ""
+--	L.HIDE_ILEVEL = ""
+--	L.HIDE_REQUIRES = ""
+--	L.HIDE_REQUIRES_TIP = ""
+--	L.HIDE_TAG = ""
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+--	L.HIDE_VALUE = ""
+--	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
 --	Simplified Chinese | 简体中文
---	Last updated 2011-12-15 by hydra0
+--	Last updated 2012-10-05 by digmouse
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "zhCN" then
+elseif GAME_LOCALE == "zhCN" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+	L.ENCHANT_REQUIRES = "附魔要求"
+	L.SOCKET_REQUIRES = "插槽要求"
+	L.MADE_BY = "由谁制造"
 
-		["Enchantment Requires"] = "附魔要求",
-		["Socket Requires"] = "插槽要求",
+--	L.BONUS_COLOR = ""
+	L.ENCHANT_COLOR = "强化属性颜色"
 
-		["Enchantment color"] = "强化属性颜色",
-		["Compact equipment bonuses"] = "简化装备属性",
-		["Hide item levels"] = "隐藏物品等级",
-		["Hide equipment sets"] = "隐藏装备方案",
-		["Hide %q tags"] = "隐藏 %q 标签",
-		["Made by"] = "由谁制造",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide buying instructions"] = "",
-	--	["Hide socketing instructions"] = "",
-		["Hide vendor values"] = "隐藏卖价",
-		["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "除非和商人交易,否则隐藏卖价.",
-	}
-
-	namespace.patterns = {
-		"^装备：%s*(.+)提高([%d,]+)点。",
-		"^装备：%s*使你的(.+)提高([%d,]+)。",
-		"^装备：%s*每5秒恢复(%d+)点生命值。",
---		"^装备：使你的(.+)提高(%d+)点。",
---		"^装备：使你的盾牌(.+)提高(%d+)点。" -- maybe can be combined with #1, depending on how string.match works in zhCN
---		"^装备：(.+)提高(%d+)点。",
-	}
-
-	namespace.strings = {
-		"+%d %s",
-		"+%d %s",
-		"+%d HP/5s",
-	}
-
-return end
+	L.HIDE_CLICKBUY = "隐藏购买提示"
+	L.HIDE_CLICKSOCKET = "隐藏镶嵌宝石提示"
+--	L.HIDE_DURABILITY = ""
+	L.HIDE_EQUIPSETS = "隐藏装备方案"
+	L.HIDE_ILEVEL = "隐藏物品等级"
+	L.HIDE_REQUIRES = "隐藏需求"
+	L.HIDE_REQUIRES_TIP = "隐藏物品、附魔和插槽的等级、声望和技能需求。"
+	L.HIDE_TAG = "隐藏 %q 标签"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "隐藏卖价"
+	L.HIDE_VALUE_TIP = "除非和商人交易，否则隐藏卖价。"
 
 ------------------------------------------------------------------------
 --	Traditional Chinese | 繁體中文
---	Last updated YYYY-MM-DD by NAME
+--	Last updated 2012-09-11 by BNSSNB
 ------------------------------------------------------------------------
 
-if GAME_LOCALE == "zhTW" then
+elseif GAME_LOCALE == "zhTW" then
 
-	namespace.L = {
-		["[^%d,]"] = "[^%d,]", -- LARGE_NUMBER_SEPERATOR = ","
+	L.ENCHANT_REQUIRES = "附魔需求"
+	L.SOCKET_REQUIRES = "插槽需求"
+	L.MADE_BY = "製造於"
 
-		["Enchantment Requires"] = "(此)?附魔需要",
-		["Socket Requires"] = "插槽需要",
+--	L.BONUS_COLOR = ""
+	L.ENCHANT_COLOR = "附魔顏色"
 
-	--	["Enchantment color"] = "",
-	--	["Compact equipment bonuses"] = "",
-	--	["Hide item levels"] = "",
-	--	["Hide equipment sets"] = "",
-		["Hide %q tags"] = "隐藏 %q 行",
-		["Made by"] = "灵魂绑定",
-	--	["Hide requirements"] = "",
-	--	["Hide level, reputation, and skill requirements for items, enchantements, and sockets."] = "",
-	--	["Hide buying instructions"] = "",
-	--	["Hide socketing instructions"] = "",
-	--	["Hide vendor values"] = "",
-	--	["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."] = "",
-	}
+	L.HIDE_CLICKBUY = "隱藏購買說明"
+	L.HIDE_CLICKSOCKET = "隱藏插槽說明"
+--	L.HIDE_DURABILITY = ""
+	L.HIDE_EQUIPSETS = "隱藏套裝資訊"
+	L.HIDE_ILEVEL = "隱藏物品等級"
+	L.HIDE_REQUIRES = "隱藏需求條件"
+	L.HIDE_REQUIRES_TIP = "隱藏物品等級，聲望，與技能需求，附魔與插槽。"
+	L.HIDE_TAG = "隐藏%q行"
+--	L.HIDE_TRANSMOG = ""
+--	L.HIDE_TRANSMOG_LABEL = ""
+--	L.HIDE_TRANSMOG_LABEL_TIP = ""
+--	L.HIDE_UPGRADE = ""
+	L.HIDE_VALUE = "隱藏商店價格"
+	L.HIDE_VALUE_TIP = "隱藏商店價格，除非與商店互動，或是在拍賣場，或是選擇任務獎賞的時候。"
 
-	namespace.patterns = {
-		"^裝備:%s*提高([%d,]+)點(.+)。",
-		"^裝備:%s*使你的(.+)提高([%d,]+)(點)?。",
-		"^裝備:%s*每5秒恢復(%d+)(點)?生命力。", -- Restores (%d+) health per 5 seconds.
-	}
+------------------------------------------------------------------------
+--	English
+------------------------------------------------------------------------
 
-	namespace.strings = {
-		"+%d %s",
-		"+%d %s",
-		"+%d 生命力每5秒",
-	}
+else
 
-return end
+	L.ENCHANT_REQUIRES = "Enchantment Requires"
+	L.SOCKET_REQUIRES = "Socket Requires"
+	L.MADE_BY = "Made by"
+
+	L.BONUS_COLOR = "Bonus color"
+	L.ENCHANT_COLOR = "Enchant color"
+
+	L.HIDE_CLICKBUY = "Hide buying instructions"
+	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+	L.HIDE_DURABILITY = "Hide durability"
+	L.HIDE_EQUIPSETS = "Hide equipment sets"
+	L.HIDE_ILEVEL = "Hide item levels"
+	L.HIDE_REQUIRES = "Hide requirements"
+	L.HIDE_REQUIRES_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+	L.HIDE_TAG = "Hide %q tags"
+	L.HIDE_TRANSMOG = "Hide transmogrified info"
+	L.HIDE_TRANSMOG_LABEL = "Label only"
+	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
+	L.HIDE_UPGRADE = "Hide upgrade level"
+	L.HIDE_VALUE = "Hide vendor values"
+	L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
+
+end

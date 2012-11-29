@@ -1,6 +1,6 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
-	Compacts equipment bonus text and removes extraneous lines from item tooltips.
+	Removes extraneous lines from item tooltips.
 	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
@@ -29,22 +29,6 @@ panel:SetScript("OnEvent", function(self, event, addon)
 	end
 	ItemTooltipCleanerSettings = settings
 
-	local stat_names = namespace.names
-	local stat_patterns = namespace.patterns
---[[
-	for k, v in pairs(_G) do
-		if type(v) == "string" and v:match("%%d") and k:match("^ITEM_MOD") and not k:match("_SHORT$") then
-			local str = v:gsub("%%d", 13)
-			for i, pattern in ipairs(stat_patterns) do
-				local stat, amount = str:match(pattern:gsub("^" .. ITEM_SPELL_TRIGGER_ONEQUIP, ""):trim())
-				if stat and amount then
-					if stat == "13" then stat = amount end
-					stat_names[stat] = _G[k .. "_SHORT"]
-				end
-			end
-		end
-	end
---]]
 	self:UnregisterAllEvents()
 	self:SetScript("OnEvent", nil)
 end)
@@ -52,36 +36,44 @@ end)
 panel.runOnce = function(self)
 	local title, notes = LibStub("PhanxConfig-Header").CreateHeader(self, ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Notes"))
 
-	local colorEnchant = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L["Enchantment color"])
-	colorEnchant:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 4, -12)
-	colorEnchant:SetColor(unpack(settings.enchantColor))
-	colorEnchant.GetColor = function()
-		return unpack(settings.enchantColor)
-	end
-	colorEnchant.OnColorChanged = function(self, r, g, b)
-		settings.enchantColor[1] = r
-		settings.enchantColor[2] = g
-		settings.enchantColor[3] = b
-	end
 
 	local CreateCheckbox = LibStub("PhanxConfig-Checkbox").CreateCheckbox
 	local function OnClick(self, checked)
 		settings[self.key] = checked
 	end
 
-	local checkBonus = CreateCheckbox(self, L["Compact equipment bonuses"])
-	checkBonus:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", -3, -10)
-	checkBonus.OnClick = OnClick
-	checkBonus.key = "compactBonuses"
 
-	local checkILevel = CreateCheckbox(self, L["Hide item levels"])
-	checkILevel:SetPoint("TOPLEFT", checkBonus, "BOTTOMLEFT", 0, -8)
-	checkILevel.OnClick = OnClick
-	checkILevel.key = "hideItemLevel"
+	local colorBonus = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.BONUS_COLOR)
+	colorBonus:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 0, -8)
+	colorBonus.GetValue = function()
+		return unpack(settings.bonusColor)
+	end
+	colorBonus.OnValueChanged = function(self, r, g, b)
+		settings.bonusColor[1] = r
+		settings.bonusColor[2] = g
+		settings.bonusColor[3] = b
+	end
 
-	local checkEquipSets = CreateCheckbox(self, L["Hide equipment sets"])
-	checkEquipSets:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
-	checkEquipSets.OnClick = function(self, checked)
+	local colorEnchant = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.ENCHANT_COLOR)
+	colorEnchant:SetPoint("TOPLEFT", colorBonus, "BOTTOMLEFT", 0, -8)
+	colorEnchant.GetValue = function()
+		return unpack(settings.enchantColor)
+	end
+	colorEnchant.OnValueChanged = function(self, r, g, b)
+		settings.enchantColor[1] = r
+		settings.enchantColor[2] = g
+		settings.enchantColor[3] = b
+	end
+
+
+	local checkDura = CreateCheckbox(self, L.HIDE_DURABILITY)
+	checkDura:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -8)
+	checkDura.OnValueChanged = OnClick
+	checkDura.key = "hideDurability"
+
+	local checkEquipSets = CreateCheckbox(self, L.HIDE_EQUIPSETS)
+	checkEquipSets:SetPoint("TOPLEFT", checkDura, "BOTTOMLEFT", 0, -8)
+	checkEquipSets.OnValueChanged = function(self, checked)
 		if checked then
 			SetCVar("dontShowEquipmentSetsOnItems", 1)
 		else
@@ -89,64 +81,103 @@ panel.runOnce = function(self)
 		end
 	end
 
-	local checkHeroic = CreateCheckbox(self, string.format(L["Hide %q tags"], ITEM_HEROIC))
-	checkHeroic:SetPoint("TOPLEFT", checkEquipSets, "BOTTOMLEFT", 0, -8)
-	checkHeroic.OnClick = OnClick
-	checkHeroic.key = "hideHeroic"
+	local checkILevel = CreateCheckbox(self, L.HIDE_ILEVEL)
+	checkILevel:SetPoint("TOPLEFT", checkEquipSets, "BOTTOMLEFT", 0, -8)
+	checkILevel.OnValueChanged = OnClick
+	checkILevel.key = "hideItemLevel"
 
-	local checkMadeBy = CreateCheckbox(self, string.format(L["Hide %q tags"], L["Made by"]))
-	checkMadeBy:SetPoint("TOPLEFT", checkHeroic, "BOTTOMLEFT", 0, -8)
-	checkMadeBy.OnClick = OnClick
-	checkMadeBy.key = "hideMadeBy"
-
-	local checkRaidFinder = CreateCheckbox(self, string.format(L["Hide %q tags"], RAID_FINDER))
-	checkRaidFinder:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
-	checkRaidFinder.OnClick = OnClick
-	checkRaidFinder.key = "hideRaidFinder"
-
-	local checkReforged = CreateCheckbox(self, string.format(L["Hide %q tags"], REFORGED))
-	checkReforged:SetPoint("TOPLEFT", checkRaidFinder, "BOTTOMLEFT", 0, -8)
-	checkReforged.OnClick = OnClick
-	checkReforged.key = "hideReforged"
-
-	local checkSoulbound = CreateCheckbox(self, string.format(L["Hide %q tags"], ITEM_SOULBOUND))
-	checkSoulbound:SetPoint("TOPLEFT", checkReforged, "BOTTOMLEFT", 0, -8)
-	checkSoulbound.OnClick = OnClick
-	checkSoulbound.key = "hideSoulbound"
-
-	local checkBuy = CreateCheckbox(self, L["Hide buying instructions"])
-	checkBuy:SetPoint("TOPLEFT", checkSoulbound, "BOTTOMLEFT", 0, -8)
-	checkBuy.OnClick = OnClick
-	checkBuy.key = "hideRightClickBuy"
-
-	local checkSocket = CreateCheckbox(self, L["Hide socketing instructions"])
-	checkSocket:SetPoint("TOPLEFT", checkBuy, "BOTTOMLEFT", 0, -8)
-	checkSocket.OnClick = OnClick
-	checkSocket.key = "hideRightClickSocket"
-
-	local checkReqs = CreateCheckbox(self, L["Hide requirements"], L["Hide level, reputation, and skill requirements for items, enchantements, and sockets."])
-	checkReqs:SetPoint("TOPLEFT", checkSocket, "BOTTOMLEFT", 0, -8)
-	checkReqs.OnClick = OnClick
+	local checkReqs = CreateCheckbox(self, L.HIDE_REQUIRES, L.HIDE_REQUIRES_TIP)
+	checkReqs:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
+	checkReqs.OnValueChanged = OnClick
 	checkReqs.key = "hideRequirements"
 
-	local checkValue = CreateCheckbox(self, L["Hide vendor values"], L["Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."])
-	checkValue:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 0, -8)
-	checkValue.OnClick = OnClick
+	local checkUpgrade = CreateCheckbox(self, L.HIDE_UPGRADE)
+	checkUpgrade:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 0, -8)
+	checkUpgrade.OnValueChanged = OnClick
+	checkUpgrade.key = "hideUpgradeLevel"
+
+	local checkBuy = CreateCheckbox(self, L.HIDE_CLICKBUY)
+	checkBuy:SetPoint("TOPLEFT", checkUpgrade, "BOTTOMLEFT", 0, -8)
+	checkBuy.OnValueChanged = OnClick
+	checkBuy.key = "hideRightClickBuy"
+
+	local checkSocket = CreateCheckbox(self, L.HIDE_CLICKSOCKET)
+	checkSocket:SetPoint("TOPLEFT", checkBuy, "BOTTOMLEFT", 0, -8)
+	checkSocket.OnValueChanged = OnClick
+	checkSocket.key = "hideRightClickSocket"
+
+	local checkValue = CreateCheckbox(self, L.HIDE_VALUE, L.HIDE_VALUE_TIP)
+	checkValue:SetPoint("TOPLEFT", checkSocket, "BOTTOMLEFT", 0, -8)
+	checkValue.OnValueChanged = OnClick
 	checkValue.key = "hideSellValue"
 
+
+	local checkHeroic = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_HEROIC))
+	checkHeroic:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -76)
+	checkHeroic.OnValueChanged = OnClick
+	checkHeroic.key = "hideHeroic"
+
+	local checkMadeBy = CreateCheckbox(self, format(L.HIDE_TAG, L.MADE_BY))
+	checkMadeBy:SetPoint("TOPLEFT", checkHeroic, "BOTTOMLEFT", 0, -8)
+	checkMadeBy.OnValueChanged = OnClick
+	checkMadeBy.key = "hideMadeBy"
+
+	local checkRaidFinder = CreateCheckbox(self, format(L.HIDE_TAG, RAID_FINDER))
+	checkRaidFinder:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
+	checkRaidFinder.OnValueChanged = OnClick
+	checkRaidFinder.key = "hideRaidFinder"
+
+	local checkReforged = CreateCheckbox(self, format(L.HIDE_TAG, REFORGED))
+	checkReforged:SetPoint("TOPLEFT", checkRaidFinder, "BOTTOMLEFT", 0, -8)
+	checkReforged.OnValueChanged = OnClick
+	checkReforged.key = "hideReforged"
+
+	local checkSoulbound = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_SOULBOUND))
+	checkSoulbound:SetPoint("TOPLEFT", checkReforged, "BOTTOMLEFT", 0, -8)
+	checkSoulbound.OnValueChanged = OnClick
+	checkSoulbound.key = "hideSoulbound"
+
+	local checkUnique = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_UNIQUE))
+	checkUnique:SetPoint("TOPLEFT", checkSoulbound, "BOTTOMLEFT", 0, -8)
+	checkUnique.OnValueChanged = OnClick
+	checkUnique.key = "hideUnique"
+
+
+	local checkTransmog, checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG)
+	checkTransmog:SetPoint("TOPLEFT", checkUnique, "BOTTOMLEFT", 0, -42)
+	checkTransmog.OnValueChanged = function(self, checked)
+		settings.hideTransmog = checked
+		checkTransmogLabel:SetEnabled(checked)
+	end
+
+	checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG_LABEL, L.HIDE_TRANSMOG_LABEL_TIP)
+	checkTransmogLabel:SetPoint("TOPLEFT", checkTransmog, "BOTTOMLEFT", 26, -8)
+	checkTransmogLabel.OnValueChanged = OnClick
+	checkTransmogLabel.key = "hideTransmogLabelOnly"
+
+
 	self.refresh = function(self)
-		checkBonus:SetChecked(settings.compactBonuses)
-		checkILevel:SetChecked(settings.hideItemLevel)
-		checkEquipSets:SetChecked(GetCVarBool("dontShowEquipmentSetsOnItems"))
-		checkHeroic:SetChecked(settings.hideHeroic)
-		checkMadeBy:SetChecked(settings.hideMadeBy)
-		checkRaidFinder:SetChecked(settings.hideRaidFinder)
-		checkReforged:SetChecked(settings.hideReforged)
-		checkSoulbound:SetChecked(settings.hideSoulbound)
-		checkBuy:SetChecked(settings.hideRightClickBuy)
-		checkSocket:SetChecked(settings.hideRightClickSocket)
-		checkReqs:SetChecked(settings.hideRequirements)
-		checkValue:SetChecked(settings.hideSellValue)
+		colorBonus:SetValue(unpack(settings.bonusColor))
+		colorEnchant:SetValue(unpack(settings.enchantColor))
+
+		checkILevel:SetValue(settings.hideItemLevel)
+		checkEquipSets:SetValue(GetCVarBool("dontShowEquipmentSetsOnItems"))
+		checkBuy:SetValue(settings.hideRightClickBuy)
+		checkSocket:SetValue(settings.hideRightClickSocket)
+		checkDura:SetValue(settings.hideDurability)
+		checkReqs:SetValue(settings.hideRequirements)
+		checkValue:SetValue(settings.hideSellValue)
+
+		checkHeroic:SetValue(settings.hideHeroic)
+		checkMadeBy:SetValue(settings.hideMadeBy)
+		checkRaidFinder:SetValue(settings.hideRaidFinder)
+		checkReforged:SetValue(settings.hideReforged)
+		checkSoulbound:SetValue(settings.hideSoulbound)
+		checkUnique:SetValue(settings.hideUnique)
+
+		checkTransmog:SetValue(settings.hideTransmog)
+		checkTransmogLabel:SetValue(settings.hideTransmogLabelOnly)
+		checkTransmogLabel:SetEnabled(settings.hideTransmog)
 	end
 end
 
