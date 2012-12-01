@@ -27,6 +27,7 @@ if GAME_LOCALE == "deDE" then
 	L.ENCHANT_COLOR = "Verzauberungenfarbe"
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Leerzeilen ausblenden"
 	L.HIDE_CLICKBUY = "Instruktionen zum Kauf ausblenden"
 	L.HIDE_CLICKSOCKET = "Instruktionen zum Sockeln ausblenden"
 --	L.HIDE_DURABILITY = ""
@@ -57,6 +58,7 @@ elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	L.ENCHANT_COLOR = "Color de encantamientos"
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Ocultar líneas vacias"
 	L.HIDE_CLICKBUY = "Ocultar instrucciones para comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instrucciones para insertar gemas"
 	L.HIDE_DURABILITY = "Ocultar durabilidad"
@@ -87,6 +89,7 @@ elseif GAME_LOCALE == "frFR" then
 --	L.ENCHANT_COLOR = ""
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Masquer lignes vides"
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
 --	L.HIDE_DURABILITY = ""
@@ -117,6 +120,7 @@ elseif GAME_LOCALE == "itIT" then
 --	L.ENCHANT_COLOR = ""
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Nascondere righe vuote"
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
 	L.HIDE_DURABILITY = "Nascondere durabilità"
@@ -147,6 +151,7 @@ elseif GAME_LOCALE == "ptBR" then
 	L.ENCHANT_COLOR = "Cor do encantamentos"
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Ocultar linhas vazias"
 	L.HIDE_CLICKBUY = "Ocultar instruções para comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instruções para engastar"
 	L.HIDE_DURABILITY = "Ocultar durabilidade"
@@ -177,6 +182,7 @@ elseif GAME_LOCALE == "ruRU" then
 	L.ENCHANT_COLOR = "Цвет зачарования"
 --	L.REFORGE_COLOR = ""
 
+	L.HIDE_BLANK = "Скрыть пустые строки"
 	L.HIDE_CLICKBUY = "Скрыть инструкцию о покупке"
 	L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
 --	L.HIDE_DURABILITY = ""
@@ -207,6 +213,7 @@ elseif GAME_LOCALE == "koKR" then
 --	L.ENCHANT_COLOR = ""
 --	L.REFORGE_COLOR = ""
 
+--	L.HIDE_BLANK = ""
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
 --	L.HIDE_DURABILITY = ""
@@ -237,6 +244,7 @@ elseif GAME_LOCALE == "zhCN" then
 	L.ENCHANT_COLOR = "强化属性颜色"
 --	L.REFORGE_COLOR = ""
 
+--	L.HIDE_BLANK = ""
 	L.HIDE_CLICKBUY = "隐藏购买提示"
 	L.HIDE_CLICKSOCKET = "隐藏镶嵌宝石提示"
 --	L.HIDE_DURABILITY = ""
@@ -267,6 +275,7 @@ elseif GAME_LOCALE == "zhTW" then
 	L.ENCHANT_COLOR = "附魔顏色"
 --	L.REFORGE_COLOR = ""
 
+--	L.HIDE_BLANK = ""
 	L.HIDE_CLICKBUY = "隱藏購買說明"
 	L.HIDE_CLICKSOCKET = "隱藏插槽說明"
 --	L.HIDE_DURABILITY = ""
@@ -296,6 +305,7 @@ else
 	L.ENCHANT_COLOR = "Enchant color"
 	L.REFORGE_COLOR = "Reforge color"
 
+	L.HIDE_BLANK = "Hide blank lines"
 	L.HIDE_CLICKBUY = "Hide buying instructions"
 	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
 	L.HIDE_DURABILITY = "Hide durability"

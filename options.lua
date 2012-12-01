@@ -123,8 +123,14 @@ panel.runOnce = function(self)
 	checkValue.key = "hideSellValue"
 
 
+	local checkBlank = CreateCheckbox(self, L.HIDE_BLANK)
+	checkBlank:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -8)
+	checkBlank.OnValueChanged = OnClick
+	checkBlank.key = "hideBlank"
+
+
 	local checkHeroic = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_HEROIC))
-	checkHeroic:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -76)
+	checkHeroic:SetPoint("TOPLEFT", checkBlank, "BOTTOMLEFT", 0, -42)
 	checkHeroic.OnValueChanged = OnClick
 	checkHeroic.key = "hideHeroic"
 

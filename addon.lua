@@ -80,6 +80,16 @@ local S_UPGRADE_LEVEL   = "^" .. gsub(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d", "%%d+"
 
 local cache = setmetatable({ }, { __mode = "kv" }) -- weak table to enable garbage collection
 
+local lines = setmetatable({ }, { __index = function(lines, tooltip)
+	local lines_tooltip = setmetatable({ name = tooltip:GetName() }, { __index = function(lines_tooltip, line)
+		local obj = _G[lines_tooltip.name .. "TextLeft" .. i]
+		lines_tooltip[line] = obj
+		return obj
+	end })
+	lines[tooltip] = lines_tooltip
+	return lines_tooltip
+end })
+
 local function ReformatItemTooltip(tooltip)
 	local tooltipName = tooltip:GetName()
 	for i = 2, tooltip:NumLines() do
@@ -100,11 +110,24 @@ local function ReformatItemTooltip(tooltip)
 				if settings.hideTransmogLabelOnly then
 					line:SetText(strmatch(text, S_TRANSMOGRIFIED))
 				else
-					line:SetText(nil)
+					line:SetText("")
 				end
 
-			elseif (text == " " and settings.hideBlank)
-			or (text == ITEM_HEROIC and settings.hideHeroic)
+			elseif (text == " " and settings.hideBlank) then
+				local isAnchor
+				if tooltip.shownMoneyFrames then
+					for j = 1, tooltip.shownMoneyFrames do
+						if select(2,_G[tooltip:GetName().."MoneyFrame"..j]:GetPoint("LEFT")) == line then
+							isAnchor = true
+							break
+						end
+					end
+				end
+				if not isAnchor then
+					line:SetText("")
+				end
+
+			elseif (text == ITEM_HEROIC and settings.hideHeroic)
 			or (text == ITEM_SOCKETABLE and settings.hideRightClickSocket)
 			or (text == ITEM_SOULBOUND and settings.hideSoulbound)
 			or (text == ITEM_VENDOR_STACK_BUY and settings.hideRightClickBuy)
@@ -119,7 +142,7 @@ local function ReformatItemTooltip(tooltip)
 				or strmatch(text, S_REQ_LEVEL) or strmatch(text, S_REQ_REPUTATION) or strmatch(text, S_REQ_SKILL)
 				or strmatch(text, L.ENCHANT_REQUIRES) or strmatch(text, L.SOCKET_REQUIRES)
 			)) then
-				line:SetText(nil)
+				line:SetText("")
 
 			elseif strmatch(text, "^%+%d+") then
 				local r, g, b = line:GetTextColor()
