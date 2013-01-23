@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
+	Copyright (c) 2010-2013 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
@@ -102,8 +102,13 @@ panel.runOnce = function(self)
 	checkReqs.OnValueChanged = OnClick
 	checkReqs.key = "hideRequirements"
 
+	local checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS_MET)
+	checkReqsMet:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 16, -8)
+	checkReqsMet.OnValueChanged = OnClick
+	checkReqsMet.key = "hideRequirementsMetOnly"
+
 	local checkUpgrade = CreateCheckbox(self, L.HIDE_UPGRADE)
-	checkUpgrade:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 0, -8)
+	checkUpgrade:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", -16, -8)
 	checkUpgrade.OnValueChanged = OnClick
 	checkUpgrade.key = "hideUpgradeLevel"
 
@@ -184,6 +189,8 @@ panel.runOnce = function(self)
 		checkSocket:SetValue(settings.hideRightClickSocket)
 		checkDura:SetValue(settings.hideDurability)
 		checkReqs:SetValue(settings.hideRequirements)
+		checkReqsMet:SetValue(settings.hideRequirementsMetOnly)
+		checkReqsMet:SetEnabled(settings.hideRequirements)
 		checkValue:SetValue(settings.hideSellValue)
 
 		checkHeroic:SetValue(settings.hideHeroic)
