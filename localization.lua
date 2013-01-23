@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
+	Copyright (c) 2010-2013 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
@@ -35,6 +35,7 @@ if GAME_LOCALE == "deDE" then
 	L.HIDE_ILEVEL = "Gegenstandsstufen ausblenden"
 	L.HIDE_REQUIREMENTS = "Anforderungen ausblenden"
 	L.HIDE_REQUIREMENTS_TIP = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden."
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "Etikett %q ausblenden"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -66,6 +67,7 @@ elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	L.HIDE_ILEVEL = "Ocultar niveles de objecto"
 	L.HIDE_REQUIREMENTS = "Ocultar requerimientos"
 	L.HIDE_REQUIREMENTS_TIP = "Ocultar los requerimientos de nivel, reputación y habilidad para objetos, encantamientos y ranuras."
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "Ocultar texto %q"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -97,6 +99,7 @@ elseif GAME_LOCALE == "frFR" then
 --	L.HIDE_ILEVEL = ""
 --	L.HIDE_REQUIREMENTS = ""
 --	L.HIDE_REQUIREMENTS_TIP = ""
+--	L.HIDE_REQUIREMENTS_MET = ""
 --	L.HIDE_TAG = ""
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -128,6 +131,7 @@ elseif GAME_LOCALE == "itIT" then
 --	L.HIDE_ILEVEL = ""
 --	L.HIDE_REQUIREMENTS = ""
 --	L.HIDE_REQUIREMENTS_TIP = ""
+--	L.HIDE_REQUIREMENTS_MET = ""
 --	L.HIDE_TAG = ""
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -159,6 +163,7 @@ elseif GAME_LOCALE == "ptBR" then
 	L.HIDE_ILEVEL = "Ocultar níveis de itens"
 	L.HIDE_REQUIREMENTS = "Ocultar requisitos"
 	L.HIDE_REQUIREMENTS_TIP = "Ocultar os requisitos de nível, reputação e habilidade para os itens, encantamentos e engastes."
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "Ocultar texto %q"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -190,6 +195,7 @@ elseif GAME_LOCALE == "ruRU" then
 	L.HIDE_ILEVEL = "Скрыть уровень предметов"
 	L.HIDE_REQUIREMENTS = "Скрыть требования"
 	L.HIDE_REQUIREMENTS_TIP = "Скрыть требования уровня, репутации и навыка профессии для предметов, чар и гнезд."
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "Скрыть текст %q"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -221,6 +227,7 @@ elseif GAME_LOCALE == "koKR" then
 --	L.HIDE_ILEVEL = ""
 --	L.HIDE_REQUIREMENTS = ""
 --	L.HIDE_REQUIREMENTS_TIP = ""
+--	L.HIDE_REQUIREMENTS_MET = ""
 --	L.HIDE_TAG = ""
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -252,6 +259,7 @@ elseif GAME_LOCALE == "zhCN" then
 	L.HIDE_ILEVEL = "隐藏物品等级"
 	L.HIDE_REQUIREMENTS = "隐藏需求"
 	L.HIDE_REQUIREMENTS_TIP = "隐藏物品、附魔和插槽的等级、声望和技能需求。"
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "隐藏 %q 标签"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -283,6 +291,7 @@ elseif GAME_LOCALE == "zhTW" then
 	L.HIDE_ILEVEL = "隱藏物品等級"
 	L.HIDE_REQUIREMENTS = "隱藏需求條件"
 	L.HIDE_REQUIREMENTS_TIP = "隱藏物品等級，聲望，與技能需求，附魔與插槽。"
+--	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "隐藏%q行"
 --	L.HIDE_TRANSMOG = ""
 --	L.HIDE_TRANSMOG_LABEL = ""
@@ -313,9 +322,10 @@ else
 	L.HIDE_ILEVEL = "Hide item levels"
 	L.HIDE_REQUIREMENTS = "Hide requirements"
 	L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
 	L.HIDE_TAG = "Hide %q tags"
 	L.HIDE_TRANSMOG = "Hide transmogrified info"
-	L.HIDE_TRANSMOG_LABEL = "Label only"
+	L.HIDE_TRANSMOG_LABEL = "Only label"
 	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
 	L.HIDE_UPGRADE = "Hide upgrade level"
 	L.HIDE_VALUE = "Hide vendor values"

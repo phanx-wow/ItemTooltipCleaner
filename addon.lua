@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2012 Akkorian, Phanx. All rights reserved.
+	Copyright (c) 2010-2013 Akkorian, Phanx. All rights reserved.
 	See the accompanying README and LICENSE files for more information.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
@@ -26,7 +26,8 @@ local settings = {
 	hideMadeBy = true,
 --	hideRaidFinder = false,
 	hideReforged = true,
---	hideRequirements = false,
+	hideRequirements = true,
+	hideRequirementsMet = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
 --	hideSellValue = false,
@@ -113,6 +114,25 @@ local function ReformatItemTooltip(tooltip)
 					line:SetText("")
 				end
 
+			elseif settings.hideRequirements and
+			(strmatch(text, S_REQ_CLASS)
+				or strmatch(text, S_REQ_RACE)
+				or strmatch(text, S_REQ_LEVEL)
+				or strmatch(text, S_REQ_REPUTATION)
+				or strmatch(text, S_REQ_SKILL)
+				or strmatch(text, L.ENCHANT_REQUIRES)
+				or strmatch(text, L.SOCKET_REQUIRES)
+			) then
+				if settings.hideRequirementsMet then
+					-- hide only if met
+					local r, g, b = line:GetTextColor()
+					if g > 0.9 and b > 0.9 then
+						line:SetText("")
+					end
+				else
+					line:SetText()
+				end
+
 			elseif (text == " " and settings.hideBlank) then
 				local isAnchor
 				if tooltip.shownMoneyFrames then
@@ -138,10 +158,6 @@ local function ReformatItemTooltip(tooltip)
 			or (settings.hideMadeBy and strmatch(text, S_MADE_BY))
 			or (settings.hideUpgradeLevel and strmatch(text, S_UPGRADE_LEVEL))
 			or (settings.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strmatch(text, S_UNIQUE_MULTIPLE)))
-			or (settings.hideRequirements and (strmatch(text, S_REQ_CLASS) or strmatch(text, S_REQ_RACE)
-				or strmatch(text, S_REQ_LEVEL) or strmatch(text, S_REQ_REPUTATION) or strmatch(text, S_REQ_SKILL)
-				or strmatch(text, L.ENCHANT_REQUIRES) or strmatch(text, L.SOCKET_REQUIRES)
-			)) then
 				line:SetText("")
 
 			elseif strmatch(text, "^%+%d+") then
