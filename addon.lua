@@ -157,7 +157,7 @@ local function ReformatItemTooltip(tooltip)
 			or (settings.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
 			or (settings.hideMadeBy and strmatch(text, S_MADE_BY))
 			or (settings.hideUpgradeLevel and strmatch(text, S_UPGRADE_LEVEL))
-			or (settings.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strmatch(text, S_UNIQUE_MULTIPLE)))
+			or (settings.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strmatch(text, S_UNIQUE_MULTIPLE))) then
 				line:SetText("")
 
 			elseif strmatch(text, "^%+%d+") then
