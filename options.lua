@@ -97,18 +97,21 @@ panel.runOnce = function(self)
 	checkILevel.OnValueChanged = OnClick
 	checkILevel.key = "hideItemLevel"
 
-	local checkReqs = CreateCheckbox(self, L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
+	local checkReqs, checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
 	checkReqs:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
 	checkReqs.OnValueChanged = OnClick
-	checkReqs.key = "hideRequirements"
+	checkReqs.OnValueChanged = function(self, checked)
+		settings.hideRequirements = checked
+		checkReqsMet:SetEnabled(checked)
+	end
 
-	local checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS_MET)
-	checkReqsMet:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 16, -8)
+	checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS_MET)
+	checkReqsMet:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 26, -8)
 	checkReqsMet.OnValueChanged = OnClick
 	checkReqsMet.key = "hideRequirementsMetOnly"
 
 	local checkUpgrade = CreateCheckbox(self, L.HIDE_UPGRADE)
-	checkUpgrade:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", -16, -8)
+	checkUpgrade:SetPoint("TOPLEFT", checkReqsMet, "BOTTOMLEFT", -26, -8)
 	checkUpgrade.OnValueChanged = OnClick
 	checkUpgrade.key = "hideUpgradeLevel"
 
