@@ -12,6 +12,31 @@ local GAME_LOCALE = GetLocale()
 local L = {}
 namespace.L = L
 
+L.ENCHANT_REQUIRES = "Enchantment Requires"
+L.SOCKET_REQUIRES = "Socket Requires"
+L.MADE_BY = "Made by"
+
+L.BONUS_COLOR = "Bonus color"
+L.ENCHANT_COLOR = "Enchant color"
+L.REFORGE_COLOR = "Reforge color"
+
+L.HIDE_BLANK = "Hide blank lines"
+L.HIDE_CLICKBUY = "Hide buying instructions"
+L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+L.HIDE_DURABILITY = "Hide durability"
+L.HIDE_EQUIPSETS = "Hide equipment sets"
+L.HIDE_ILEVEL = "Hide item levels"
+L.HIDE_REQUIREMENTS = "Hide requirements"
+L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+L.HIDE_TAG = "Hide %q tags"
+L.HIDE_TRANSMOG = "Hide transmogrified info"
+L.HIDE_TRANSMOG_LABEL = "Only label"
+L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
+L.HIDE_UPGRADE = "Hide upgrade level"
+L.HIDE_VALUE = "Hide vendor values"
+L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
+
 ------------------------------------------------------------------------
 --	German | Deutsch
 --	Last updated 2012-09-04 by litastep @ CurseForge
@@ -270,7 +295,7 @@ elseif GAME_LOCALE == "zhCN" then
 
 ------------------------------------------------------------------------
 --	Traditional Chinese | 繁體中文
---	Last updated 2012-09-11 by BNSSNB
+--	Last updated 2013-03-05 by BNSSNB
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "zhTW" then
@@ -279,56 +304,25 @@ elseif GAME_LOCALE == "zhTW" then
 	L.SOCKET_REQUIRES = "插槽需求"
 	L.MADE_BY = "製造於"
 
---	L.BONUS_COLOR = ""
+	L.BONUS_COLOR = "加成顏色"
 	L.ENCHANT_COLOR = "附魔顏色"
---	L.REFORGE_COLOR = ""
+	L.REFORGE_COLOR = "重鑄顏色"
 
---	L.HIDE_BLANK = ""
+	L.HIDE_BLANK = "隱藏空白行"
 	L.HIDE_CLICKBUY = "隱藏購買說明"
 	L.HIDE_CLICKSOCKET = "隱藏插槽說明"
---	L.HIDE_DURABILITY = ""
+	L.HIDE_DURABILITY = "隱藏耐久度"
 	L.HIDE_EQUIPSETS = "隱藏套裝資訊"
 	L.HIDE_ILEVEL = "隱藏物品等級"
 	L.HIDE_REQUIREMENTS = "隱藏需求條件"
 	L.HIDE_REQUIREMENTS_TIP = "隱藏物品等級，聲望，與技能需求，附魔與插槽。"
 --	L.HIDE_REQUIREMENTS_MET = ""
 	L.HIDE_TAG = "隐藏%q行"
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
+	L.HIDE_TRANSMOG = "隱藏塑型訊息"
+	L.HIDE_TRANSMOG_LABEL = "只有標籤"
+	L.HIDE_TRANSMOG_LABEL_TIP = "隱藏"塑型為"的標籤，但保留塑型物品的名稱。"
+	L.HIDE_UPGRADE = "隱藏升級的等級"
 	L.HIDE_VALUE = "隱藏商店價格"
 	L.HIDE_VALUE_TIP = "隱藏商店價格，除非與商店互動，或是在拍賣場，或是選擇任務獎賞的時候。"
-
-------------------------------------------------------------------------
---	English
-------------------------------------------------------------------------
-
-else
-
-	L.ENCHANT_REQUIRES = "Enchantment Requires"
-	L.SOCKET_REQUIRES = "Socket Requires"
-	L.MADE_BY = "Made by"
-
-	L.BONUS_COLOR = "Bonus color"
-	L.ENCHANT_COLOR = "Enchant color"
-	L.REFORGE_COLOR = "Reforge color"
-
-	L.HIDE_BLANK = "Hide blank lines"
-	L.HIDE_CLICKBUY = "Hide buying instructions"
-	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
-	L.HIDE_DURABILITY = "Hide durability"
-	L.HIDE_EQUIPSETS = "Hide equipment sets"
-	L.HIDE_ILEVEL = "Hide item levels"
-	L.HIDE_REQUIREMENTS = "Hide requirements"
-	L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
-	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
-	L.HIDE_TAG = "Hide %q tags"
-	L.HIDE_TRANSMOG = "Hide transmogrified info"
-	L.HIDE_TRANSMOG_LABEL = "Only label"
-	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
-	L.HIDE_UPGRADE = "Hide upgrade level"
-	L.HIDE_VALUE = "Hide vendor values"
-	L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
 
 end
