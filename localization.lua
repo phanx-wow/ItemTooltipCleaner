@@ -38,8 +38,8 @@ L.HIDE_VALUE = "Hide vendor values"
 L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
 
 ------------------------------------------------------------------------
---	German | Deutsch
---	Last updated 2012-09-04 by litastep @ CurseForge
+--	German
+--	Last updated 2012-09-04 by litastep
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "deDE" then
@@ -70,7 +70,7 @@ if GAME_LOCALE == "deDE" then
 	L.HIDE_VALUE_TIP = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster, oder Questbelohnungsfenster angezeigt wird."
 
 ------------------------------------------------------------------------
---	Spanish | Español
+--	Spanish
 --	Last updated 2012-07-21 by Phanx
 ------------------------------------------------------------------------
 
@@ -102,8 +102,8 @@ elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	L.HIDE_VALUE_TIP = "Ocultar los precios de venta, Ocultar los precios de venta, excepto en la interacción con con un vendedor, en la casa de subastas, o en la elección de una recompensa de una misión."
 
 ------------------------------------------------------------------------
---	French | Français
---	Last updated YYYY-MM-DD by NAME
+--	French
+--	Last updated ...
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "frFR" then
@@ -134,8 +134,8 @@ elseif GAME_LOCALE == "frFR" then
 --	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
---	Italian | Italiano
---	Last updated YYYY-MM-DD by NAME
+--	Italian
+--	Last updated ...
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "itIT" then
@@ -166,7 +166,7 @@ elseif GAME_LOCALE == "itIT" then
 --	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
---	Portuguese | Português
+--	Portuguese
 --	Last updated 2011-12-11 by Phanx
 ------------------------------------------------------------------------
 
@@ -198,7 +198,7 @@ elseif GAME_LOCALE == "ptBR" then
 	L.HIDE_VALUE_TIP = "Ocultar preço de venda, exceto quando interagem com um vendedor, na casa de leilões, o da escolha uma recompensa de missão."
 
 ------------------------------------------------------------------------
---	Russian | Русский
+--	Russian
 --	Last updated 2012-09-11 by D_Angel
 ------------------------------------------------------------------------
 
@@ -230,8 +230,8 @@ elseif GAME_LOCALE == "ruRU" then
 	L.HIDE_VALUE_TIP = "Скрыть цену торговцев, кроме случаев взаимодействия с торговцем, в аукционном доме, или при выборе награды за задание."
 
 ------------------------------------------------------------------------
---	Korean | 한국어
---	Last updated YYYY-MM-DD by NAME
+--	Korean
+--	Last updated ...
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "koKR" then
@@ -262,7 +262,7 @@ elseif GAME_LOCALE == "koKR" then
 --	L.HIDE_VALUE_TIP = ""
 
 ------------------------------------------------------------------------
---	Simplified Chinese | 简体中文
+--	Simplified Chinese
 --	Last updated 2012-10-05 by digmouse
 ------------------------------------------------------------------------
 
@@ -294,7 +294,7 @@ elseif GAME_LOCALE == "zhCN" then
 	L.HIDE_VALUE_TIP = "除非和商人交易，否则隐藏卖价。"
 
 ------------------------------------------------------------------------
---	Traditional Chinese | 繁體中文
+--	Traditional Chinese
 --	Last updated 2013-03-05 by BNSSNB
 ------------------------------------------------------------------------
 
@@ -320,7 +320,7 @@ elseif GAME_LOCALE == "zhTW" then
 	L.HIDE_TAG = "隐藏%q行"
 	L.HIDE_TRANSMOG = "隱藏塑型訊息"
 	L.HIDE_TRANSMOG_LABEL = "只有標籤"
-	L.HIDE_TRANSMOG_LABEL_TIP = "隱藏"塑型為"的標籤，但保留塑型物品的名稱。"
+	L.HIDE_TRANSMOG_LABEL_TIP = "隱藏\"塑型為\"的標籤，但保留塑型物品的名稱。"
 	L.HIDE_UPGRADE = "隱藏升級的等級"
 	L.HIDE_VALUE = "隱藏商店價格"
 	L.HIDE_VALUE_TIP = "隱藏商店價格，除非與商店互動，或是在拍賣場，或是選擇任務獎賞的時候。"
