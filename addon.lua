@@ -8,11 +8,7 @@
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
-
-local GAME_LOCALE = GetLocale()
-local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
-
-------------------------------------------------------------------------
+local L = namespace.L
 
 local settings = {
 	bonusColor = { 0, 1, 0 },
@@ -42,18 +38,7 @@ namespace.settings = settings
 
 ------------------------------------------------------------------------
 
-local L = setmetatable(namespace.L or {}, { __index = function(t, k)
-	if k == nil then return "" end
-	local v = tostring(k)
-	t[k] = v
-	return v
-end })
-
-if not namespace.L then
-	namespace.L = L
-end
-
-------------------------------------------------------------------------
+local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
 
 local ITEM_HEROIC      = ITEM_HEROIC
 local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
@@ -171,7 +156,10 @@ local function ReformatItemTooltip(tooltip)
 	tooltip:Show()
 end
 
-for _, tooltip in pairs({
+------------------------------------------------------------------------
+
+local itemTooltips = {
+	-- Default UI
 	"GameTooltip",
 	"ItemRefTooltip",
 	"ItemRefShoppingTooltip1",
@@ -183,11 +171,40 @@ for _, tooltip in pairs({
 	"WorldMapCompareTooltip1",
 	"WorldMapCompareTooltip2",
 	"WorldMapCompareTooltip3",
-}) do
-	if _G[tooltip] then
-		_G[tooltip]:HookScript("OnTooltipSetItem", ReformatItemTooltip)
+	-- Addons
+	"AtlasLootTooltipTEMP",
+}
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(f, e)
+	-- Initialize addon settings:
+	if addon == ADDON_NAME then
+		if ItemTooltipCleanerSettings then
+			for k, v in pairs(settings) do
+				if type(v) ~= type(ItemTooltipCleanerSettings[k]) then
+					ItemTooltipCleanerSettings[k] = v
+				end
+			end
+			for k, v in pairs(ItemTooltipCleanerSettings) do
+				settings[k] = v
+			end
+		end
+		ItemTooltipCleanerSettings = settings
 	end
-end
+
+	-- Hook tooltips:
+	for i, tooltip in pairs(itemTooltips) do
+		if _G[tooltip] then
+			_G[tooltip]:HookScript("OnTooltipSetItem", ReformatItemTooltip)
+			itemTooltips[i] = nil
+		end
+	end
+	if not next(itemTooltips) then
+		f:UnregisterEvent(e)
+		f:SetScript("OnEvent", nil)
+	end
+end)
 
 ------------------------------------------------------------------------
 

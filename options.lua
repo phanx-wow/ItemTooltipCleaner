@@ -11,29 +11,7 @@ local ADDON_NAME, namespace = ...
 local settings = namespace.settings
 local L = namespace.L
 
-local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME)
-
-panel:RegisterEvent("ADDON_LOADED")
-panel:SetScript("OnEvent", function(self, event, addon)
-	if addon ~= ADDON_NAME then return end
-
-	if ItemTooltipCleanerSettings then
-		for k, v in pairs(settings) do
-			if type(v) ~= type(ItemTooltipCleanerSettings[k]) then
-				ItemTooltipCleanerSettings[k] = v
-			end
-		end
-		for k, v in pairs(ItemTooltipCleanerSettings) do
-			settings[k] = v
-		end
-	end
-	ItemTooltipCleanerSettings = settings
-
-	self:UnregisterAllEvents()
-	self:SetScript("OnEvent", nil)
-end)
-
-panel.runOnce = function(self)
+local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function(self)
 	local title, notes = LibStub("PhanxConfig-Header").CreateHeader(self, ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Notes"))
 
 
@@ -181,6 +159,9 @@ panel.runOnce = function(self)
 	checkTransmogLabel.key = "hideTransmogLabelOnly"
 
 
+	LibStub("LibAboutPanel").new(ADDON_NAME, ADDON_NAME)
+
+
 	self.refresh = function(self)
 		colorBonus:SetValue(unpack(settings.bonusColor))
 		colorEnchant:SetValue(unpack(settings.enchantColor))
@@ -207,13 +188,7 @@ panel.runOnce = function(self)
 		checkTransmogLabel:SetValue(settings.hideTransmogLabelOnly)
 		checkTransmogLabel:SetEnabled(settings.hideTransmog)
 	end
-end
-
-local about = LibStub("LibAboutPanel").new(ADDON_NAME, ADDON_NAME)
+end)
 
 SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
-
-SlashCmdList["ITEMTOOLTIPCLEANER"] = function()
-	InterfaceOptionsFrame_OpenToCategory(about)
-	InterfaceOptionsFrame_OpenToCategory(panel)
-end
+SlashCmdList["ITEMTOOLTIPCLEANER"] = function() InterfaceOptionsFrame_OpenToCategory(panel) end
