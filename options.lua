@@ -57,7 +57,6 @@ LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function
 	local checks = {}
 	local CreateCheckbox = LibStub("PhanxConfig-Checkbox").CreateCheckbox
 	local function OnClick(this, checked)
-		print("CLICK", this.key, checked)
 		db[this.key] = not not checked
 	end
 
