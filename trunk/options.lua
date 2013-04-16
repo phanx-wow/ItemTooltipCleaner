@@ -9,10 +9,7 @@
 
 local ADDON_NAME, namespace = ...
 
-SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
-SlashCmdList["ITEMTOOLTIPCLEANER"] = function() InterfaceOptionsFrame_OpenToCategory(
-
-LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function(self)
+local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function(self)
 	local db = ItemTooltipCleanerSettings
 	local L = namespace.L
 
@@ -204,13 +201,17 @@ LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function
 		end
 
 		checkEquipSets:SetChecked(GetCVarBool("dontShowEquipmentSetsOnItems"))
+
+		checkReqs:SetEnabled(db.hideRequirements)
+		checkReqsMet:SetEnabled(db.hideRequirements)
+
 		checkTransmog:SetChecked(db.hideTransmog)
 		checkTransmogLabel:SetEnabled(db.hideTransmog)
 	end
 
 
 	hooksecurefunc(self, "okay", function() wipe(namespace.cache) end)
-
 end)
 
-) end
+SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
+SlashCmdList["ITEMTOOLTIPCLEANER"] = function() InterfaceOptionsFrame_OpenToCategory(panel) end
