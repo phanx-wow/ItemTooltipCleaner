@@ -245,13 +245,11 @@ Loader:SetScript("OnEvent", function(self, event, arg)
 			ItemTooltipCleanerSettings = {}
 		end
 		db = ItemTooltipCleanerSettings
-		--[[
 		for k, v in pairs(defaults) do
 			if type(db[k]) ~= type(v) then
 				db[k] = v
 			end
 		end
-		]]
 	end
 
 	-- Hook tooltips:
