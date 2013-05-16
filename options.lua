@@ -163,6 +163,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	local checkReqs, checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
 	checkReqs:SetPoint("TOPLEFT", checkSetItems, "BOTTOMLEFT", 0, -8)
 	checkReqs.OnValueChanged = OnClick
+	checkReqs.key = "hideRequirements"
+	tinsert(checks, checkReqs)
 	checkReqs.OnValueChanged = function(self, checked)
 		db.hideRequirements = checked
 		checkReqsMet:SetEnabled(checked)
@@ -176,6 +178,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 
 	local checkTransmog, checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG)
 	checkTransmog:SetPoint("TOPLEFT", checkReqsMet, "BOTTOMLEFT", -26, -8)
+	checkTransmog.key = "hideTransmog"
+	tinsert(checks, checkTransmog)
 	checkTransmog.OnValueChanged = function(self, checked)
 		db.hideTransmog = checked
 		checkTransmogLabel:SetEnabled(checked)
@@ -202,10 +206,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 
 		checkEquipSets:SetChecked(GetCVarBool("dontShowEquipmentSetsOnItems"))
 
-		checkReqs:SetEnabled(db.hideRequirements)
 		checkReqsMet:SetEnabled(db.hideRequirements)
-
-		checkTransmog:SetChecked(db.hideTransmog)
 		checkTransmogLabel:SetEnabled(db.hideTransmog)
 	end
 
