@@ -295,12 +295,12 @@ elseif GAME_LOCALE == "zhCN" then
 
 ------------------------------------------------------------------------
 --	Traditional Chinese
---	Last updated 2013-03-05 by BNSSNB
+--	Last updated 2013-04-17 by BNSSNB
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "zhTW" then
 
-	L.ENCHANT_REQUIRES = "附魔需求"
+	L.ENCHANT_REQUIRES = "附魔需要"
 	L.SOCKET_REQUIRES = "插槽需求"
 	L.MADE_BY = "製造於"
 
@@ -314,9 +314,9 @@ elseif GAME_LOCALE == "zhTW" then
 	L.HIDE_DURABILITY = "隱藏耐久度"
 	L.HIDE_EQUIPSETS = "隱藏套裝資訊"
 	L.HIDE_ILEVEL = "隱藏物品等級"
-	L.HIDE_REQUIREMENTS = "隱藏需求條件"
-	L.HIDE_REQUIREMENTS_TIP = "隱藏物品等級，聲望，與技能需求，附魔與插槽。"
---	L.HIDE_REQUIREMENTS_MET = ""
+	L.HIDE_REQUIREMENTS = "隱藏需要條件"
+	L.HIDE_REQUIREMENTS_TIP = "隱藏職業、等級、種族、聲望與專業技能的需要。"
+	L.HIDE_REQUIREMENTS_MET = "僅符合需求"
 	L.HIDE_TAG = "隐藏%q行"
 	L.HIDE_TRANSMOG = "隱藏塑型訊息"
 	L.HIDE_TRANSMOG_LABEL = "只有標籤"
