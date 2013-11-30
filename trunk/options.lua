@@ -26,6 +26,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		db.bonusColor[1] = r
 		db.bonusColor[2] = g
 		db.bonusColor[3] = b
+		wipe(namespace.cache)
 	end
 
 	local colorEnchant = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.ENCHANT_COLOR)
@@ -37,6 +38,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		db.enchantColor[1] = r
 		db.enchantColor[2] = g
 		db.enchantColor[3] = b
+		wipe(namespace.cache)
 	end
 
 	local colorReforge = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.REFORGE_COLOR)
@@ -48,6 +50,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		db.reforgeColor[1] = r
 		db.reforgeColor[2] = g
 		db.reforgeColor[3] = b
+		wipe(namespace.cache)
 	end
 
 
@@ -55,6 +58,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	local CreateCheckbox = LibStub("PhanxConfig-Checkbox").CreateCheckbox
 	local function OnClick(this, checked)
 		db[this.key] = not not checked
+		wipe(namespace.cache)
 	end
 
 
@@ -78,6 +82,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		else
 			SetCVar("dontShowEquipmentSetsOnItems", 0)
 		end
+		wipe(namespace.cache)
 	end
 
 	local checkILevel = CreateCheckbox(self, L.HIDE_ILEVEL)
@@ -168,6 +173,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkReqs.OnValueChanged = function(self, checked)
 		db.hideRequirements = checked
 		checkReqsMet:SetEnabled(checked)
+		wipe(namespace.cache)
 	end
 
 	checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS_MET)
@@ -183,6 +189,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkTransmog.OnValueChanged = function(self, checked)
 		db.hideTransmog = checked
 		checkTransmogLabel:SetEnabled(checked)
+		wipe(namespace.cache)
 	end
 
 	checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG_LABEL, L.HIDE_TRANSMOG_LABEL_TIP)
@@ -209,9 +216,6 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		checkReqsMet:SetEnabled(db.hideRequirements)
 		checkTransmogLabel:SetEnabled(db.hideTransmog)
 	end
-
-
-	hooksecurefunc(self, "okay", function() wipe(namespace.cache) end)
 end)
 
 SLASH_ITEMTOOLTIPCLEANER1 = "/itc"
