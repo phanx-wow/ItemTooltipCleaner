@@ -23,6 +23,7 @@ L.REFORGE_COLOR = "Reforge color"
 L.HIDE_BLANK = "Hide blank lines"
 L.HIDE_CLICKBUY = "Hide buying instructions"
 L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+L.HIDE_DIFFICULTY = "Hide raid difficulty tags"
 L.HIDE_DURABILITY = "Hide durability"
 L.HIDE_EQUIPSETS = "Hide equipment sets"
 L.HIDE_ILEVEL = "Hide item levels"
@@ -39,7 +40,7 @@ L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, 
 
 ------------------------------------------------------------------------
 --	German
---	Last updated 2012-09-04 by litastep
+--	Last updated 2013-11-30 by Phanx // Previously by litastep
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "deDE" then
@@ -49,25 +50,26 @@ if GAME_LOCALE == "deDE" then
 	L.MADE_BY = "Hergestellt von"
 
 	L.BONUS_COLOR = "Bonusfarbe"
-	L.ENCHANT_COLOR = "Verzauberungenfarbe"
---	L.REFORGE_COLOR = ""
+	L.ENCHANT_COLOR = "Verzauberungsfarbe"
+	L.REFORGE_COLOR = "Umschmiedefarbe"
 
 	L.HIDE_BLANK = "Leerzeilen ausblenden"
 	L.HIDE_CLICKBUY = "Instruktionen zum Kauf ausblenden"
 	L.HIDE_CLICKSOCKET = "Instruktionen zum Sockeln ausblenden"
---	L.HIDE_DURABILITY = ""
+	L.HIDE_DIFFICULTY = "Schlachtzugsschwierigkeit ausblenden"
+	L.HIDE_DURABILITY = "Haltbarkeit ausblenden"
 	L.HIDE_EQUIPSETS = "Ausrüstungssets ausblenden"
 	L.HIDE_ILEVEL = "Gegenstandsstufen ausblenden"
 	L.HIDE_REQUIREMENTS = "Anforderungen ausblenden"
 	L.HIDE_REQUIREMENTS_TIP = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden."
---	L.HIDE_REQUIREMENTS_MET = ""
+	L.HIDE_REQUIREMENTS_MET = "Nur erfülltes Anforderungen"
 	L.HIDE_TAG = "Etikett %q ausblenden"
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
+	L.HIDE_TRANSMOG = "Transmogrifikationsinfo ausblenden"
+	L.HIDE_TRANSMOG_LABEL = "Nur das Etikett"
+	L.HIDE_TRANSMOG_LABEL_TIP = "Das Etikett \"Transmogrifiziert zu\" ausblenden, aber den Namen des transmogrifizierten Gegenstand gezeigt halten."
+	L.HIDE_UPGRADE = "Aufwerten"
 	L.HIDE_VALUE = "Händlerpreis ausblenden"
-	L.HIDE_VALUE_TIP = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster, oder Questbelohnungsfenster angezeigt wird."
+	L.HIDE_VALUE_TIP = "Händlerpreis ausblenden, außer wenn das Händlerfenster, Auktionsfenster oder Questbelohnungsfenster angezeigt wird."
 
 ------------------------------------------------------------------------
 --	Spanish
@@ -87,6 +89,7 @@ elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 	L.HIDE_BLANK = "Ocultar líneas vacias"
 	L.HIDE_CLICKBUY = "Ocultar instrucciones de comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instrucciones de gemas"
+	L.HIDE_DIFFICULTY = "Occultar dificultad de banda"
 	L.HIDE_DURABILITY = "Ocultar durabilidad"
 	L.HIDE_EQUIPSETS = "Ocultar equipamientos"
 	L.HIDE_ILEVEL = "Ocultar niveles de objecto"
@@ -119,6 +122,7 @@ elseif GAME_LOCALE == "frFR" then
 	L.HIDE_BLANK = "Masquer lignes vides"
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
+--	L.HIDE_DIFFICULTY = ""
 --	L.HIDE_DURABILITY = ""
 --	L.HIDE_EQUIPSETS = ""
 --	L.HIDE_ILEVEL = ""
@@ -151,6 +155,7 @@ elseif GAME_LOCALE == "itIT" then
 	L.HIDE_BLANK = "Nascondere righe vuote"
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
+--	L.HIDE_DIFFICULTY = ""
 	L.HIDE_DURABILITY = "Nascondere durabilità"
 --	L.HIDE_EQUIPSETS = ""
 --	L.HIDE_ILEVEL = ""
@@ -183,6 +188,7 @@ elseif GAME_LOCALE == "ptBR" then
 	L.HIDE_BLANK = "Ocultar linhas vazias"
 	L.HIDE_CLICKBUY = "Ocultar instruções para comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instruções para engastar"
+--	L.HIDE_DIFFICULTY = ""
 	L.HIDE_DURABILITY = "Ocultar durabilidade"
 	L.HIDE_EQUIPSETS = "Ocultar conjunto de equipamentos"
 	L.HIDE_ILEVEL = "Ocultar níveis de itens"
@@ -215,6 +221,7 @@ elseif GAME_LOCALE == "ruRU" then
 	L.HIDE_BLANK = "Скрыть пустые строки"
 	L.HIDE_CLICKBUY = "Скрыть инструкцию о покупке"
 	L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
+--	L.HIDE_DIFFICULTY = ""
 --	L.HIDE_DURABILITY = ""
 	L.HIDE_EQUIPSETS = "Скрыть комплекты экипировки"
 	L.HIDE_ILEVEL = "Скрыть уровень предметов"
@@ -247,6 +254,7 @@ elseif GAME_LOCALE == "koKR" then
 --	L.HIDE_BLANK = ""
 --	L.HIDE_CLICKBUY = ""
 --	L.HIDE_CLICKSOCKET = ""
+--	L.HIDE_DIFFICULTY = ""
 --	L.HIDE_DURABILITY = ""
 --	L.HIDE_EQUIPSETS = ""
 --	L.HIDE_ILEVEL = ""
@@ -279,6 +287,7 @@ elseif GAME_LOCALE == "zhCN" then
 --	L.HIDE_BLANK = ""
 	L.HIDE_CLICKBUY = "隐藏购买提示"
 	L.HIDE_CLICKSOCKET = "隐藏镶嵌宝石提示"
+--	L.HIDE_DIFFICULTY = ""
 --	L.HIDE_DURABILITY = ""
 	L.HIDE_EQUIPSETS = "隐藏装备方案"
 	L.HIDE_ILEVEL = "隐藏物品等级"
@@ -311,6 +320,7 @@ elseif GAME_LOCALE == "zhTW" then
 	L.HIDE_BLANK = "隱藏空白行"
 	L.HIDE_CLICKBUY = "隱藏購買說明"
 	L.HIDE_CLICKSOCKET = "隱藏插槽說明"
+--	L.HIDE_DIFFICULTY = ""
 	L.HIDE_DURABILITY = "隱藏耐久度"
 	L.HIDE_EQUIPSETS = "隱藏套裝資訊"
 	L.HIDE_ILEVEL = "隱藏物品等級"
