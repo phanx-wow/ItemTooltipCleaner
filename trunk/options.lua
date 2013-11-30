@@ -117,26 +117,20 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	tinsert(checks, checkValue)
 
 
-	local checkHeroic = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_HEROIC))
-	checkHeroic:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -8)
-	checkHeroic.OnValueChanged = OnClick
-	checkHeroic.key = "hideHeroic"
-	tinsert(checks, checkHeroic)
+	local checkDifficulty = CreateCheckbox(self, format(L.HIDE_DIFFICULTY))
+	checkDifficulty:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -8)
+	checkDifficulty.OnValueChanged = OnClick
+	checkDifficulty.key = "hideRaidDifficulty"
+	tinsert(checks, checkDifficulty)
 
 	local checkMadeBy = CreateCheckbox(self, format(L.HIDE_TAG, L.MADE_BY))
-	checkMadeBy:SetPoint("TOPLEFT", checkHeroic, "BOTTOMLEFT", 0, -8)
+	checkMadeBy:SetPoint("TOPLEFT", checkDifficulty, "BOTTOMLEFT", 0, -8)
 	checkMadeBy.OnValueChanged = OnClick
 	checkMadeBy.key = "hideMadeBy"
 	tinsert(checks, checkMadeBy)
 
-	local checkRaidFinder = CreateCheckbox(self, format(L.HIDE_TAG, RAID_FINDER))
-	checkRaidFinder:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
-	checkRaidFinder.OnValueChanged = OnClick
-	checkRaidFinder.key = "hideRaidFinder"
-	tinsert(checks, checkRaidFinder)
-
 	local checkReforged = CreateCheckbox(self, format(L.HIDE_TAG, REFORGED))
-	checkReforged:SetPoint("TOPLEFT", checkRaidFinder, "BOTTOMLEFT", 0, -8)
+	checkReforged:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
 	checkReforged.OnValueChanged = OnClick
 	checkReforged.key = "hideReforged"
 	tinsert(checks, checkReforged)

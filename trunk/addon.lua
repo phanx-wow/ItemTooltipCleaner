@@ -27,8 +27,7 @@ local defaults = {
 	hideTransmogLabel = true,
 --	hideDurability = false,
 --	hideEquipmentSets = true,
---	hideHeroic = false,
---	hideRaidFinder = false,
+--	hideRaidDifficulty = false,
 --	hideSellValue = false,
 --	hideSetBonuses = false,
 --	hideSetItems = false,
@@ -43,15 +42,18 @@ namespace.settings = settings
 
 local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
 
-local ITEM_HEROIC      = ITEM_HEROIC
-local ITEM_HEROIC_EPIC = ITEM_HEROIC_EPIC
 local ITEM_SOCKETABLE  = ITEM_SOCKETABLE
 local ITEM_SOULBOUND   = ITEM_SOULBOUND
 local ITEM_UNIQUE      = ITEM_UNIQUE
 local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
 local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
-local RAID_FINDER      = RAID_FINDER
 local REFORGED         = REFORGED
+
+local raidDifficultyLabels = {
+	[RAID_FINDER]        = true, -- Raid Finder
+	[PLAYER_DIFFICULTY4] = true, -- Flexible
+	[ITEM_HEROIC]        = true, -- Heroic
+}
 
 local function topattern(str, plain)
 	str = gsub(str, "%%%d?$?c", ".+")
@@ -157,12 +159,11 @@ local function ReformatLine(tooltip, line, text)
 		return
 	end
 
-	if (text == ITEM_HEROIC and db.hideHeroic)
-	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
+	if (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
 	or (text == ITEM_VENDOR_STACK_BUY and db.hideRightClickBuy)
 	or (text == REFORGED and db.hideReforged)
-	or (text == RAID_FINDER and db.hideRaidFinder)
+	or (db.hideRaidDifficulty and raidDifficultyLabels[text])
 	or (db.hideDurability and strmatch(text, S_DURABILITY))
 	or (db.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
 	or (db.hideMadeBy and strmatch(text, S_MADE_BY))

@@ -14,7 +14,7 @@ Item Tooltip Cleaner removes extraneous lines from item tooltips:
 
 * Durability
 * Equipment sets
-* Heroic and Raid Finder tags
+* Raid Finder, Flexible, and Heroic difficulty tags
 * Instructions for socketing and stack purchasing
 * Made by ____ tags
 * Reforged tags
