@@ -59,6 +59,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	local function OnClick(this, checked)
 		db[this.key] = not not checked
 		wipe(namespace.cache)
+		--print("Wiped cache.")
 	end
 
 

@@ -16,7 +16,6 @@ local defaults = {
 	enchantColor = { 0, 0.8, 1 },
 	reforgeColor = { 1, 0.5, 1 },
 	hideBlank = true,
-	hideEquipmentSets = true,
 	hideItemLevel = true,
 	hideMadeBy = true,
 	hideReforged = true,
@@ -24,15 +23,16 @@ local defaults = {
 	hideRequirementsMet = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
+	hideTransmog = true,
+	hideTransmogLabel = true,
 --	hideDurability = false,
+--	hideEquipmentSets = true,
 --	hideHeroic = false,
 --	hideRaidFinder = false,
 --	hideSellValue = false,
 --	hideSetBonuses = false,
 --	hideSetItems = false,
 --	hideSoulbound = false,
---	hideTransmog = false,
---	hideTransmogLabel = false,
 --	hideUnique = false,
 --	hideUpgradeLevel = false,
 }
@@ -62,7 +62,7 @@ local function topattern(str, plain)
 end
 
 local S_DURABILITY      = topattern(DURABILITY_TEMPLATE)
-local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local S_ENCHANTED       = topattern(ENCHANTED_TOOLTIP_LINE)
 local S_ITEM_LEVEL      = topattern(ITEM_LEVEL)
 local S_ITEM_SET_BONUS  = topattern(ITEM_SET_BONUS)
 local S_ITEM_SET_BONUS_GRAY = topattern(ITEM_SET_BONUS_GRAY)
@@ -74,7 +74,7 @@ local S_REQ_LEVEL       = topattern(ITEM_MIN_LEVEL)
 local S_REQ_RACE        = topattern(ITEM_RACES_ALLOWED)
 local S_REQ_REPUTATION  = topattern(ITEM_REQ_REPUTATION)
 local S_REQ_SKILL       = topattern(ITEM_REQ_SKILL)
-local S_TRANSMOGRIFIED  = topattern(TRANSMOGRIFIED)
+local S_TRANSMOGRIFIED  = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
 local S_UNIQUE_MULTIPLE = topattern(ITEM_UNIQUE_MULTIPLE)
 local S_UPGRADE_LEVEL   = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
 
@@ -128,8 +128,8 @@ local function ReformatLine(tooltip, line, text)
 	if db.hideTransmog then
 		local new = strmatch(text, S_TRANSMOGRIFIED)
 		if new then
+			--print("Found transmog line:", new)
 			if db.hideTransmogLabelOnly then
-				local new = strmatch(text, S_TRANSMOGRIFIED)
 				cache[text] = new
 				return line:SetText(new)
 			else
@@ -140,7 +140,7 @@ local function ReformatLine(tooltip, line, text)
 	end
 
 	if inSetList then
-		if strmatch(text, "^ ") then
+		if strmatch(text, "^ .") then -- don't match " "
 			--print("Found set item:", text)
 			if db.hideSetItems then
 				cache[text] = ""
@@ -154,6 +154,7 @@ local function ReformatLine(tooltip, line, text)
 	elseif strmatch(text, S_ITEM_SET_NAME) then
 		--print("Found set name:", text)
 		inSetList = true
+		return
 	end
 
 	if (text == ITEM_HEROIC and db.hideHeroic)
