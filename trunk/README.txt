@@ -1,16 +1,7 @@
 Item Tooltip Cleaner
 ====================
 
-* Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.
-* See the accompanying LICENSE file for more information.
-* http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
-* http://www.curse.com/addons/wow/itemtooltipcleaner
-
-
-Features
---------
-
-Item Tooltip Cleaner removes extraneous lines from item tooltips:
+Removes extraneous lines from item tooltips, including:
 
 * Durability
 * Equipment sets
@@ -40,6 +31,13 @@ Type "/itc" for options, or browse to the Item Tooltip Cleaner panel
 in the standard Interface Options window.
 
 
+Download
+--------
+
+* http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
+* http://www.curse.com/addons/wow/itemtooltipcleaner
+
+
 Localization
 ------------
 
@@ -55,26 +53,28 @@ Localization tab on the [CurseForge project page] [1].
   [1]: http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
 
 
-Feedback
---------
-
-Bug reports:
-Submit a bug report ticket on either download page.
-
-Feature requests:
-Submit a feature request ticket on either download page.
-
-Other questions or comments:
-Post a comment on the WoWInterface download page.
-
-If you need to contact me privately for some other reason, you can email
-met at <addons@phanx.net> or send a private message to Phanx on either
-download site. Please don't use email or PMs for bug reports, feature
-requests, questions, or comments; post a ticker or comment instead!
-
-
 Credits
 -------
 
-GridStatusHealTrace was originally written by Akkorian, and was inpsired
-by dlemvigh's PhoenixTooltip.
+Originally written by Akkorian. Inpsired by dlemvigh's PhoenixTooltip.
+
+
+Feedback
+-----------
+
+**Post a comment on WoWInterface.** If you are reporting a bug, please
+include detailed instructions I can follow to reproduce the bug myself,
+whether or not it still happens when all other addons are disabled, and
+the exact text of the first related error message (if any) from BugSack.
+
+If you need to contact me privately, you can send a private message to
+Phanx on either download site, or email me at <addons@phanx.net>.
+**Please note** that I do not provide private addon support or tutoring
+of any kind; post a comment or forum thread instead!
+
+
+License
+----------
+
+Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved. See the
+accompanying LICENSE file for additional information.
