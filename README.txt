@@ -1,16 +1,7 @@
 Item Tooltip Cleaner
-====================
+=======================
 
-* Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.
-* See the accompanying LICENSE file for more information.
-* http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
-* http://www.curse.com/addons/wow/itemtooltipcleaner
-
-
-Features
---------
-
-Item Tooltip Cleaner removes extraneous lines from item tooltips:
+Removes extraneous lines from item tooltips, including:
 
 * Durability
 * Equipment sets
@@ -34,19 +25,25 @@ that read stats from the tooltip.
 
 
 Usage
------
+--------
 
 Type "/itc" for options, or browse to the Item Tooltip Cleaner panel
 in the standard Interface Options window.
 
 
+Download
+-----------
+
+* http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
+* http://www.curse.com/addons/wow/itemtooltipcleaner
+
+
 Localization
-------------
+---------------
 
-Compatible with English, Deutsch, Español (AL & UE), Français, Italiano,
-Português (BR & UE), Русский, 한국어, 简体中文, and 繁體中文 game clients.
+Works in all langugages.
 
-Translated into English, Deutsch, Español, Português, Русский, 简体中文,
+Translated into English, Deutsch, Español, Português, Русский, 简体中文
 and 繁體中文.
 
 To add or update translations for any language, enter them on the
@@ -55,26 +52,29 @@ Localization tab on the [CurseForge project page] [1].
   [1]: http://wow.curseforge.com/addons/itemtooltipcleaner/localization/
 
 
-Feedback
---------
-
-Bug reports:
-Submit a bug report ticket on either download page.
-
-Feature requests:
-Submit a feature request ticket on either download page.
-
-Other questions or comments:
-Post a comment on the WoWInterface download page.
-
-If you need to contact me privately for some other reason, you can email
-met at <addons@phanx.net> or send a private message to Phanx on either
-download site. Please don't use email or PMs for bug reports, feature
-requests, questions, or comments; post a ticker or comment instead!
-
-
 Credits
 -------
 
-GridStatusHealTrace was originally written by Akkorian, and was inpsired
-by dlemvigh's PhoenixTooltip.
+Originally written by Akkorian. Inpsired by dlemvigh's PhoenixTooltip.
+
+
+Feedback
+-----------
+
+Post a ticket on either download site, or a comment on WoWInterface.
+
+If you are reporting a bug, please include directions I can follow to
+reproduce the bug, whether it still happens when all other addons are
+disabled, and the exact text of the related error message (if any) from 
+[BugSack](http://www.wowinterface.com/downloads/info5995-BugSack.html).
+
+If you need to contact me privately, you can send me a private message
+on either download site, or email me at <addons@phanx.net>.
+
+
+License
+----------
+
+Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.  
+See the accompanying LICENSE file for information about the conditions
+under which redistribution and modification may be allowed.

@@ -1,6 +1,4 @@
-Copyright (c) 2010-2014 A. "Akkorian" Mordecai, A. "Phanx" Kinley
-
-All rights reserved.
+Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.
 
 Permission is granted for anyone to use, read, or otherwise interpret
 this software for any purpose, without any restrictions.
