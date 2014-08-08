@@ -1,5 +1,5 @@
 Item Tooltip Cleaner
-====================
+=======================
 
 Removes extraneous lines from item tooltips, including:
 
@@ -25,26 +25,25 @@ that read stats from the tooltip.
 
 
 Usage
------
+--------
 
 Type "/itc" for options, or browse to the Item Tooltip Cleaner panel
 in the standard Interface Options window.
 
 
 Download
---------
+-----------
 
 * http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
 * http://www.curse.com/addons/wow/itemtooltipcleaner
 
 
 Localization
-------------
+---------------
 
-Compatible with English, Deutsch, Español (AL & UE), Français, Italiano,
-Português (BR & UE), Русский, 한국어, 简体中文, and 繁體中文 game clients.
+Works in all langugages.
 
-Translated into English, Deutsch, Español, Português, Русский, 简体中文,
+Translated into English, Deutsch, Español, Português, Русский, 简体中文
 and 繁體中文.
 
 To add or update translations for any language, enter them on the
@@ -76,6 +75,6 @@ on either download site, or email me at <addons@phanx.net>.
 License
 ----------
 
-Copyright (c) 2010-2014 Akkorian and Phanx. All rights reserved.
+Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.  
 See the accompanying LICENSE file for information about the conditions
 under which redistribution and modification may be allowed.
