@@ -40,7 +40,8 @@ L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, 
 
 ------------------------------------------------------------------------
 --	German
---	Last updated 2013-11-30 by Phanx // Previously by litastep
+--	Last updated 2013-11-30 by Phanx
+-- Previous contributors: litastep
 ------------------------------------------------------------------------
 
 if GAME_LOCALE == "deDE" then
@@ -205,7 +206,8 @@ elseif GAME_LOCALE == "ptBR" then
 
 ------------------------------------------------------------------------
 --	Russian
---	Last updated 2012-09-11 by D_Angel
+--	Last updated 2014-08-18 by Yafis
+-- Previous contributors: D_Angel
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "ruRU" then
@@ -216,23 +218,23 @@ elseif GAME_LOCALE == "ruRU" then
 
 	L.BONUS_COLOR = "Цвет бонусы"
 	L.ENCHANT_COLOR = "Цвет зачарования"
---	L.REFORGE_COLOR = ""
+	L.REFORGE_COLOR = "Цвет перековки"
 
 	L.HIDE_BLANK = "Скрыть пустые строки"
 	L.HIDE_CLICKBUY = "Скрыть инструкцию о покупке"
 	L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
---	L.HIDE_DIFFICULTY = ""
---	L.HIDE_DURABILITY = ""
+	L.HIDE_DIFFICULTY = "Скрыть сложность рейда"
+	L.HIDE_DURABILITY = "Скрыть прочность"
 	L.HIDE_EQUIPSETS = "Скрыть комплекты экипировки"
 	L.HIDE_ILEVEL = "Скрыть уровень предметов"
 	L.HIDE_REQUIREMENTS = "Скрыть требования"
 	L.HIDE_REQUIREMENTS_TIP = "Скрыть требования уровня, репутации и навыка профессии для предметов, чар и гнезд."
---	L.HIDE_REQUIREMENTS_MET = ""
+	L.HIDE_REQUIREMENTS_MET = "Только довольные требования"
 	L.HIDE_TAG = "Скрыть текст %q"
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
+	L.HIDE_TRANSMOG = "Скрыть информацию об трансмогрификации"
+	L.HIDE_TRANSMOG_LABEL = "Только ярлык"
+	L.HIDE_TRANSMOG_LABEL_TIP = "Скрыть ярлык трансмогрификации, но оставить имя трансмогрифицированного предмета."
+	L.HIDE_UPGRADE = "Скрыть уровень улучшения"
 	L.HIDE_VALUE = "Скрыть цену торговцев"
 	L.HIDE_VALUE_TIP = "Скрыть цену торговцев, кроме случаев взаимодействия с торговцем, в аукционном доме, или при выборе награды за задание."
 
@@ -271,7 +273,8 @@ elseif GAME_LOCALE == "koKR" then
 
 ------------------------------------------------------------------------
 --	Simplified Chinese
---	Last updated 2012-10-05 by digmouse
+--	Last updated 2013-04-15 by lsjyzjl
+-- Previous contributors: digmouse
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "zhCN" then
@@ -280,25 +283,25 @@ elseif GAME_LOCALE == "zhCN" then
 	L.SOCKET_REQUIRES = "插槽要求"
 	L.MADE_BY = "由谁制造"
 
---	L.BONUS_COLOR = ""
+	L.BONUS_COLOR = "加成颜色"
 	L.ENCHANT_COLOR = "强化属性颜色"
---	L.REFORGE_COLOR = ""
+	L.REFORGE_COLOR = "重铸颜色"
 
---	L.HIDE_BLANK = ""
+	L.HIDE_BLANK = "隐藏空行"
 	L.HIDE_CLICKBUY = "隐藏购买提示"
 	L.HIDE_CLICKSOCKET = "隐藏镶嵌宝石提示"
 --	L.HIDE_DIFFICULTY = ""
---	L.HIDE_DURABILITY = ""
+	L.HIDE_DURABILITY = "隐藏耐久度"
 	L.HIDE_EQUIPSETS = "隐藏装备方案"
 	L.HIDE_ILEVEL = "隐藏物品等级"
 	L.HIDE_REQUIREMENTS = "隐藏需求"
 	L.HIDE_REQUIREMENTS_TIP = "隐藏物品、附魔和插槽的等级、声望和技能需求。"
---	L.HIDE_REQUIREMENTS_MET = ""
+	L.HIDE_REQUIREMENTS_MET = "仅符合条件"
 	L.HIDE_TAG = "隐藏 %q 标签"
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
+	L.HIDE_TRANSMOG = "隐藏幻化信息"
+	L.HIDE_TRANSMOG_LABEL = "仅标签"
+	L.HIDE_TRANSMOG_LABEL_TIP = "隐藏\"幻化为\"的标签,但保留幻化物品名称."
+	L.HIDE_UPGRADE = "隐藏升级的等级"
 	L.HIDE_VALUE = "隐藏卖价"
 	L.HIDE_VALUE_TIP = "除非和商人交易，否则隐藏卖价。"
 
