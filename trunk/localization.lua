@@ -18,18 +18,20 @@ L.MADE_BY = "Made by"
 
 L.BONUS_COLOR = "Bonus color"
 L.ENCHANT_COLOR = "Enchant color"
-L.REFORGE_COLOR = "Reforge color"
 
 L.HIDE_BLANK = "Hide blank lines"
 L.HIDE_CLICKBUY = "Hide buying instructions"
 L.HIDE_CLICKSOCKET = "Hide socketing instructions"
-L.HIDE_DIFFICULTY = "Hide raid difficulty tags"
+L.HIDE_DIFFICULTY = "Hide difficulty"
 L.HIDE_DURABILITY = "Hide durability"
 L.HIDE_EQUIPSETS = "Hide equipment sets"
+L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
 L.HIDE_ILEVEL = "Hide item levels"
 L.HIDE_REQUIREMENTS = "Hide requirements"
 L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
 L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+L.HIDE_SETBONUS = "Hide set bonuses"
+L.HIDE_SETLIST = "Hide set item list"
 L.HIDE_TAG = "Hide %q tags"
 L.HIDE_TRANSMOG = "Hide transmogrified info"
 L.HIDE_TRANSMOG_LABEL = "Only label"
@@ -40,7 +42,7 @@ L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, 
 
 ------------------------------------------------------------------------
 --	German
---	Last updated 2013-11-30 by Phanx
+--	Last updated 2014-10-30 by Phanx
 -- Previous contributors: litastep
 ------------------------------------------------------------------------
 
@@ -52,18 +54,20 @@ if GAME_LOCALE == "deDE" then
 
 	L.BONUS_COLOR = "Bonusfarbe"
 	L.ENCHANT_COLOR = "Verzauberungsfarbe"
-	L.REFORGE_COLOR = "Umschmiedefarbe"
 
 	L.HIDE_BLANK = "Leerzeilen ausblenden"
 	L.HIDE_CLICKBUY = "Instruktionen zum Kauf ausblenden"
 	L.HIDE_CLICKSOCKET = "Instruktionen zum Sockeln ausblenden"
-	L.HIDE_DIFFICULTY = "Schlachtzugsschwierigkeit ausblenden"
+	L.HIDE_DIFFICULTY = "Schwierigkeit ausblenden"
 	L.HIDE_DURABILITY = "Haltbarkeit ausblenden"
 	L.HIDE_EQUIPSETS = "Ausrüstungssets ausblenden"
+	L.HIDE_EQUIPSETS_TIP = "Die Ausrüstungssetsliste ausblenden, die den Gegenstand enthalten."
 	L.HIDE_ILEVEL = "Gegenstandsstufen ausblenden"
 	L.HIDE_REQUIREMENTS = "Anforderungen ausblenden"
 	L.HIDE_REQUIREMENTS_TIP = "Anforderungen an Stufe, Ruf und Fertigkeit für Gegenstände, Verzauberungen und Sockel ausblenden."
 	L.HIDE_REQUIREMENTS_MET = "Nur erfülltes Anforderungen"
+	L.HIDE_SETBONUS = "Setboni ausblenden"
+	L.HIDE_SETLIST = "Setteilliste ausblenden"
 	L.HIDE_TAG = "Etikett %q ausblenden"
 	L.HIDE_TRANSMOG = "Transmogrifikationsinfo ausblenden"
 	L.HIDE_TRANSMOG_LABEL = "Nur das Etikett"
@@ -74,7 +78,7 @@ if GAME_LOCALE == "deDE" then
 
 ------------------------------------------------------------------------
 --	Spanish
---	Last updated 2012-07-21 by Phanx
+--	Last updated 2014-10-30 by Phanx
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
@@ -85,18 +89,20 @@ elseif GAME_LOCALE == "esES" or GAME_LOCALE == "esMX" then
 
 	L.BONUS_COLOR = "Color de bonos"
 	L.ENCHANT_COLOR = "Color de encantamientos"
-	L.REFORGE_COLOR = "Color de estadísticas reforjadas"
 
 	L.HIDE_BLANK = "Ocultar líneas vacias"
 	L.HIDE_CLICKBUY = "Ocultar instrucciones de comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instrucciones de gemas"
-	L.HIDE_DIFFICULTY = "Occultar dificultad de banda"
+	L.HIDE_DIFFICULTY = "Occultar dificultad"
 	L.HIDE_DURABILITY = "Ocultar durabilidad"
 	L.HIDE_EQUIPSETS = "Ocultar equipamientos"
+	L.HIDE_EQUIPSETS_TIP = "Ocultar la lista de equipamientos que incluyen el objeto."
 	L.HIDE_ILEVEL = "Ocultar niveles de objecto"
 	L.HIDE_REQUIREMENTS = "Ocultar requisitos"
 	L.HIDE_REQUIREMENTS_TIP = "Ocultar los requisitos de nivel, reputación y habilidad para los objetos, encantamientos y ranuras."
 	L.HIDE_REQUIREMENTS_MET = "Sólo satisfechas"
+	L.HIDE_SETBONUS = "Ocultar bonificaciones de conjunto"
+	L.HIDE_SETLIST = "Ocultar lista de piezas de conjunto"
 	L.HIDE_TAG = "Ocultar %q"
 	L.HIDE_TRANSMOG = "Ocultar info transfiguración"
 	L.HIDE_TRANSMOG_LABEL = "Sólo etiqueta"
@@ -116,27 +122,29 @@ elseif GAME_LOCALE == "frFR" then
 	L.SOCKET_REQUIRES = "Le sertissage requiert"
 	L.MADE_BY = "Artisan"
 
---	L.BONUS_COLOR = ""
---	L.ENCHANT_COLOR = ""
---	L.REFORGE_COLOR = ""
+--	L.BONUS_COLOR = "Bonus color"
+--	L.ENCHANT_COLOR = "Enchant color"
 
 	L.HIDE_BLANK = "Masquer lignes vides"
---	L.HIDE_CLICKBUY = ""
---	L.HIDE_CLICKSOCKET = ""
---	L.HIDE_DIFFICULTY = ""
---	L.HIDE_DURABILITY = ""
---	L.HIDE_EQUIPSETS = ""
---	L.HIDE_ILEVEL = ""
---	L.HIDE_REQUIREMENTS = ""
---	L.HIDE_REQUIREMENTS_TIP = ""
---	L.HIDE_REQUIREMENTS_MET = ""
---	L.HIDE_TAG = ""
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
---	L.HIDE_VALUE = ""
---	L.HIDE_VALUE_TIP = ""
+--	L.HIDE_CLICKBUY = "Hide buying instructions"
+--	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+--	L.HIDE_DIFFICULTY = "Hide difficulty"
+--	L.HIDE_DURABILITY = "Hide durability"
+--	L.HIDE_EQUIPSETS = "Hide equipment sets"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
+--	L.HIDE_ILEVEL = "Hide item levels"
+--	L.HIDE_REQUIREMENTS = "Hide requirements"
+--	L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+--	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
+--	L.HIDE_TAG = "Hide %q tags"
+--	L.HIDE_TRANSMOG = "Hide transmogrified info"
+--	L.HIDE_TRANSMOG_LABEL = "Only label"
+--	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
+--	L.HIDE_UPGRADE = "Hide upgrade level"
+--	L.HIDE_VALUE = "Hide vendor values"
+--	L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
 
 ------------------------------------------------------------------------
 --	Italian
@@ -149,31 +157,33 @@ elseif GAME_LOCALE == "itIT" then
 	L.SOCKET_REQUIRES = "L'incavo richiede"
 	L.MADE_BY = "Creazione di"
 
---	L.BONUS_COLOR = ""
---	L.ENCHANT_COLOR = ""
---	L.REFORGE_COLOR = ""
+--	L.BONUS_COLOR = "Bonus color"
+--	L.ENCHANT_COLOR = "Enchant color"
 
 	L.HIDE_BLANK = "Nascondere righe vuote"
---	L.HIDE_CLICKBUY = ""
---	L.HIDE_CLICKSOCKET = ""
---	L.HIDE_DIFFICULTY = ""
+--	L.HIDE_CLICKBUY = "Hide buying instructions"
+--	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+--	L.HIDE_DIFFICULTY = "Hide difficulty"
 	L.HIDE_DURABILITY = "Nascondere durabilità"
---	L.HIDE_EQUIPSETS = ""
---	L.HIDE_ILEVEL = ""
---	L.HIDE_REQUIREMENTS = ""
---	L.HIDE_REQUIREMENTS_TIP = ""
---	L.HIDE_REQUIREMENTS_MET = ""
---	L.HIDE_TAG = ""
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
---	L.HIDE_VALUE = ""
---	L.HIDE_VALUE_TIP = ""
+--	L.HIDE_EQUIPSETS = "Hide equipment sets"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
+--	L.HIDE_ILEVEL = "Hide item levels"
+--	L.HIDE_REQUIREMENTS = "Hide requirements"
+--	L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+--	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
+--	L.HIDE_TAG = "Hide %q tags"
+--	L.HIDE_TRANSMOG = "Hide transmogrified info"
+--	L.HIDE_TRANSMOG_LABEL = "Only label"
+--	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
+--	L.HIDE_UPGRADE = "Hide upgrade level"
+--	L.HIDE_VALUE = "Hide vendor values"
+--	L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
 
 ------------------------------------------------------------------------
 --	Portuguese
---	Last updated 2011-12-11 by Phanx
+--	Last updated 2014-08-27 by Tercioo
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "ptBR" then
@@ -184,23 +194,25 @@ elseif GAME_LOCALE == "ptBR" then
 
 	L.BONUS_COLOR = "Cor do bônus"
 	L.ENCHANT_COLOR = "Cor do encantamentos"
---	L.REFORGE_COLOR = ""
 
 	L.HIDE_BLANK = "Ocultar linhas vazias"
 	L.HIDE_CLICKBUY = "Ocultar instruções para comprar"
 	L.HIDE_CLICKSOCKET = "Ocultar instruções para engastar"
---	L.HIDE_DIFFICULTY = ""
+	L.HIDE_DIFFICULTY = "Esconder dificuldade"
 	L.HIDE_DURABILITY = "Ocultar durabilidade"
 	L.HIDE_EQUIPSETS = "Ocultar conjunto de equipamentos"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
 	L.HIDE_ILEVEL = "Ocultar níveis de itens"
-	L.HIDE_REQUIREMENTS = "Ocultar requisitos"
+	L.HIDE_REQUIREMENTS = "Esconder requerimentos"
 	L.HIDE_REQUIREMENTS_TIP = "Ocultar os requisitos de nível, reputação e habilidade para os itens, encantamentos e engastes."
---	L.HIDE_REQUIREMENTS_MET = ""
+--	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
 	L.HIDE_TAG = "Ocultar texto %q"
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
+	L.HIDE_TRANSMOG = "Esconder infos sobre transmogrificações"
+	L.HIDE_TRANSMOG_LABEL = "Apenas a frase"
+	L.HIDE_TRANSMOG_LABEL_TIP = "Esconder a frase \"Transmogrificado para\", mas deixar o nome do item."
+	L.HIDE_UPGRADE = "Esconder o aprimoramento"
 	L.HIDE_VALUE = "Esconder preço de venda"
 	L.HIDE_VALUE_TIP = "Ocultar preço de venda, exceto quando interagem com um vendedor, na casa de leilões, o da escolha uma recompensa de missão."
 
@@ -218,18 +230,20 @@ elseif GAME_LOCALE == "ruRU" then
 
 	L.BONUS_COLOR = "Цвет бонусы"
 	L.ENCHANT_COLOR = "Цвет зачарования"
-	L.REFORGE_COLOR = "Цвет перековки"
 
 	L.HIDE_BLANK = "Скрыть пустые строки"
 	L.HIDE_CLICKBUY = "Скрыть инструкцию о покупке"
 	L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
-	L.HIDE_DIFFICULTY = "Скрыть сложность рейда"
+	L.HIDE_DIFFICULTY = "Скрыть сложность"
 	L.HIDE_DURABILITY = "Скрыть прочность"
 	L.HIDE_EQUIPSETS = "Скрыть комплекты экипировки"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
 	L.HIDE_ILEVEL = "Скрыть уровень предметов"
 	L.HIDE_REQUIREMENTS = "Скрыть требования"
 	L.HIDE_REQUIREMENTS_TIP = "Скрыть требования уровня, репутации и навыка профессии для предметов, чар и гнезд."
 	L.HIDE_REQUIREMENTS_MET = "Только довольные требования"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
 	L.HIDE_TAG = "Скрыть текст %q"
 	L.HIDE_TRANSMOG = "Скрыть информацию об трансмогрификации"
 	L.HIDE_TRANSMOG_LABEL = "Только ярлык"
@@ -249,27 +263,29 @@ elseif GAME_LOCALE == "koKR" then
 	L.SOCKET_REQUIRES = "보석 홈"
 	L.MADE_BY = "제작자"
 
---	L.BONUS_COLOR = ""
---	L.ENCHANT_COLOR = ""
---	L.REFORGE_COLOR = ""
+--	L.BONUS_COLOR = "Bonus color"
+--	L.ENCHANT_COLOR = "Enchant color"
 
---	L.HIDE_BLANK = ""
---	L.HIDE_CLICKBUY = ""
---	L.HIDE_CLICKSOCKET = ""
---	L.HIDE_DIFFICULTY = ""
---	L.HIDE_DURABILITY = ""
---	L.HIDE_EQUIPSETS = ""
---	L.HIDE_ILEVEL = ""
---	L.HIDE_REQUIREMENTS = ""
---	L.HIDE_REQUIREMENTS_TIP = ""
---	L.HIDE_REQUIREMENTS_MET = ""
---	L.HIDE_TAG = ""
---	L.HIDE_TRANSMOG = ""
---	L.HIDE_TRANSMOG_LABEL = ""
---	L.HIDE_TRANSMOG_LABEL_TIP = ""
---	L.HIDE_UPGRADE = ""
---	L.HIDE_VALUE = ""
---	L.HIDE_VALUE_TIP = ""
+--	L.HIDE_BLANK = "Hide blank lines"
+--	L.HIDE_CLICKBUY = "Hide buying instructions"
+--	L.HIDE_CLICKSOCKET = "Hide socketing instructions"
+--	L.HIDE_DIFFICULTY = "Hide difficulty"
+--	L.HIDE_DURABILITY = "Hide durability"
+--	L.HIDE_EQUIPSETS = "Hide equipment sets"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
+--	L.HIDE_ILEVEL = "Hide item levels"
+--	L.HIDE_REQUIREMENTS = "Hide requirements"
+--	L.HIDE_REQUIREMENTS_TIP = "Hide class, level, race, reputation, and tradeskill requirements."
+--	L.HIDE_REQUIREMENTS_MET = "Only met requirements"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
+--	L.HIDE_TAG = "Hide %q tags"
+--	L.HIDE_TRANSMOG = "Hide transmogrified info"
+--	L.HIDE_TRANSMOG_LABEL = "Only label"
+--	L.HIDE_TRANSMOG_LABEL_TIP = "Hide the \"Transmogrified to\" label, but leave the name of the transmogrified item."
+--	L.HIDE_UPGRADE = "Hide upgrade level"
+--	L.HIDE_VALUE = "Hide vendor values"
+--	L.HIDE_VALUE_TIP = "Hide vendor values, except while interacting with a vendor, at the auction house, or choosing a quest reward."
 
 ------------------------------------------------------------------------
 --	Simplified Chinese
@@ -290,13 +306,16 @@ elseif GAME_LOCALE == "zhCN" then
 	L.HIDE_BLANK = "隐藏空行"
 	L.HIDE_CLICKBUY = "隐藏购买提示"
 	L.HIDE_CLICKSOCKET = "隐藏镶嵌宝石提示"
---	L.HIDE_DIFFICULTY = ""
+--	L.HIDE_DIFFICULTY = "Hide difficulty"
 	L.HIDE_DURABILITY = "隐藏耐久度"
 	L.HIDE_EQUIPSETS = "隐藏装备方案"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
 	L.HIDE_ILEVEL = "隐藏物品等级"
 	L.HIDE_REQUIREMENTS = "隐藏需求"
 	L.HIDE_REQUIREMENTS_TIP = "隐藏物品、附魔和插槽的等级、声望和技能需求。"
 	L.HIDE_REQUIREMENTS_MET = "仅符合条件"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
 	L.HIDE_TAG = "隐藏 %q 标签"
 	L.HIDE_TRANSMOG = "隐藏幻化信息"
 	L.HIDE_TRANSMOG_LABEL = "仅标签"
@@ -307,7 +326,7 @@ elseif GAME_LOCALE == "zhCN" then
 
 ------------------------------------------------------------------------
 --	Traditional Chinese
---	Last updated 2013-04-17 by BNSSNB
+--	Last updated 2014-08-18 by BNSSNB
 ------------------------------------------------------------------------
 
 elseif GAME_LOCALE == "zhTW" then
@@ -323,13 +342,16 @@ elseif GAME_LOCALE == "zhTW" then
 	L.HIDE_BLANK = "隱藏空白行"
 	L.HIDE_CLICKBUY = "隱藏購買說明"
 	L.HIDE_CLICKSOCKET = "隱藏插槽說明"
---	L.HIDE_DIFFICULTY = ""
+	L.HIDE_DIFFICULTY = "隱藏難度標籤" -- needs check
 	L.HIDE_DURABILITY = "隱藏耐久度"
 	L.HIDE_EQUIPSETS = "隱藏套裝資訊"
+--	L.HIDE_EQUIPSETS_TIP = "Hide the list of equipment sets that include the item."
 	L.HIDE_ILEVEL = "隱藏物品等級"
 	L.HIDE_REQUIREMENTS = "隱藏需要條件"
 	L.HIDE_REQUIREMENTS_TIP = "隱藏職業、等級、種族、聲望與專業技能的需要。"
 	L.HIDE_REQUIREMENTS_MET = "僅符合需求"
+--	L.HIDE_SETBONUS = "Hide set bonuses"
+--	L.HIDE_SETLIST = "Hide set item list"
 	L.HIDE_TAG = "隐藏%q行"
 	L.HIDE_TRANSMOG = "隱藏塑型訊息"
 	L.HIDE_TRANSMOG_LABEL = "只有標籤"

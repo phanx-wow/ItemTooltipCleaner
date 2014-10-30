@@ -12,13 +12,13 @@ local ADDON_NAME, namespace = ...
 local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME, nil, function(self)
 	local db = ItemTooltipCleanerSettings
 	local L = namespace.L
+	local GAP, BIGGAP = 8, 32
+
+	local title, notes = self:CreateHeader(ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Notes"))
 
 
-	local title, notes = LibStub("PhanxConfig-Header").CreateHeader(self, ADDON_NAME, GetAddOnMetadata(ADDON_NAME, "Notes"))
-
-
-	local colorBonus = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.BONUS_COLOR)
-	colorBonus:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 0, -8)
+	local colorBonus = self:CreateColorPicker(L.BONUS_COLOR)
+	colorBonus:SetPoint("TOPLEFT", notes, "BOTTOMLEFT", 0, -GAP)
 	function colorBonus:GetValue()
 		return unpack(db.bonusColor)
 	end
@@ -29,8 +29,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		wipe(namespace.cache)
 	end
 
-	local colorEnchant = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.ENCHANT_COLOR)
-	colorEnchant:SetPoint("TOPLEFT", colorBonus, "BOTTOMLEFT", 0, -8)
+	local colorEnchant = self:CreateColorPicker(L.ENCHANT_COLOR)
+	colorEnchant:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -GAP)
 	function colorEnchant:GetValue()
 		return unpack(db.enchantColor)
 	end
@@ -41,21 +41,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		wipe(namespace.cache)
 	end
 
-	local colorReforge = LibStub("PhanxConfig-ColorPicker").CreateColorPicker(self, L.REFORGE_COLOR)
-	colorReforge:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -8)
-	function colorReforge:GetValue()
-		return unpack(db.reforgeColor)
-	end
-	function colorReforge:Callback(r, g, b)
-		db.reforgeColor[1] = r
-		db.reforgeColor[2] = g
-		db.reforgeColor[3] = b
-		wipe(namespace.cache)
-	end
-
 
 	local checks = {}
-	local CreateCheckbox = LibStub("PhanxConfig-Checkbox").CreateCheckbox
 	local function OnClick(this, checked)
 		db[this.key] = not not checked
 		wipe(namespace.cache)
@@ -63,20 +50,72 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	end
 
 
-	local checkBlank = CreateCheckbox(self, L.HIDE_BLANK)
-	checkBlank:SetPoint("TOPLEFT", colorReforge, "BOTTOMLEFT", 0, -42)
+	local checkBlank = self:CreateCheckbox(L.HIDE_BLANK)
+	checkBlank:SetPoint("TOPLEFT", colorBonus, "BOTTOMLEFT", 0, -BIGGAP)
 	checkBlank.Callback = OnClick
 	checkBlank.key = "hideBlank"
 	tinsert(checks, checkBlank)
 
-	local checkDura = CreateCheckbox(self, L.HIDE_DURABILITY)
-	checkDura:SetPoint("TOPLEFT", checkBlank, "BOTTOMLEFT", 0, -42)
+	local checkDifficulty = self:CreateCheckbox(format(L.HIDE_DIFFICULTY))
+	checkDifficulty:SetPoint("TOPLEFT", checkBlank, "BOTTOMLEFT", 0, -GAP)
+	checkDifficulty.Callback = OnClick
+	checkDifficulty.key = "hideRaidDifficulty"
+	tinsert(checks, checkDifficulty)
+
+	local checkDura = self:CreateCheckbox(L.HIDE_DURABILITY)
+	checkDura:SetPoint("TOPLEFT", checkDifficulty, "BOTTOMLEFT", 0, -GAP)
 	checkDura.Callback = OnClick
 	checkDura.key = "hideDurability"
 	tinsert(checks, checkDura)
 
-	local checkEquipSets = CreateCheckbox(self, L.HIDE_EQUIPSETS)
-	checkEquipSets:SetPoint("TOPLEFT", checkDura, "BOTTOMLEFT", 0, -8)
+	local checkILevel = self:CreateCheckbox(L.HIDE_ILEVEL)
+	checkILevel:SetPoint("TOPLEFT", checkDura, "BOTTOMLEFT", 0, -GAP)
+	checkILevel.Callback = OnClick
+	checkILevel.key = "hideItemLevel"
+	tinsert(checks, checkILevel)
+
+	local checkUpgrade = self:CreateCheckbox(L.HIDE_UPGRADE)
+	checkUpgrade:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -GAP)
+	checkUpgrade.Callback = OnClick
+	checkUpgrade.key = "hideUpgradeLevel"
+	tinsert(checks, checkUpgrade)
+
+
+
+	local checkCraftingReagent = self:CreateCheckbox(format(L.HIDE_TAG, PROFESSIONS_USED_IN_COOKING))
+	checkCraftingReagent:SetPoint("TOPLEFT", checkUpgrade, "BOTTOMLEFT", 0, -BIGGAP)
+	checkCraftingReagent.Callback = OnClick
+	checkCraftingReagent.key = "hideCraftingReagent"
+	tinsert(checks, checkCraftingReagent)
+
+	local checkEnchantLabel = self:CreateCheckbox(format(L.HIDE_TAG, strtrim(gsub(gsub(ENCHANTED_TOOLTIP_LINE, ":", ""), "%%s", ""))))
+	checkEnchantLabel:SetPoint("TOPLEFT", checkCraftingReagent, "BOTTOMLEFT", 0, -GAP)
+	checkEnchantLabel.Callback = OnClick
+	checkEnchantLabel.key = "hideEnchantLabel"
+	tinsert(checks, checkEnchantLabel)
+
+	local checkMadeBy = self:CreateCheckbox(format(L.HIDE_TAG, L.MADE_BY))
+	checkMadeBy:SetPoint("TOPLEFT", checkEnchantLabel, "BOTTOMLEFT", 0, -GAP)
+	checkMadeBy.Callback = OnClick
+	checkMadeBy.key = "hideMadeBy"
+	tinsert(checks, checkMadeBy)
+
+	local checkSoulbound = self:CreateCheckbox(format(L.HIDE_TAG, ITEM_SOULBOUND))
+	checkSoulbound:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -GAP)
+	checkSoulbound.Callback = OnClick
+	checkSoulbound.key = "hideSoulbound"
+	tinsert(checks, checkSoulbound)
+
+	local checkUnique = self:CreateCheckbox(format(L.HIDE_TAG, ITEM_UNIQUE))
+	checkUnique:SetPoint("TOPLEFT", checkSoulbound, "BOTTOMLEFT", 0, -GAP)
+	checkUnique.Callback = OnClick
+	checkUnique.key = "hideUnique"
+	tinsert(checks, checkUnique)
+
+
+
+	local checkEquipSets = self:CreateCheckbox(L.HIDE_EQUIPSETS, L.HIDE_EQUIPSETS_TIP)
+	checkEquipSets:SetPoint("TOPLEFT", colorEnchant, "BOTTOMLEFT", 0, -BIGGAP)
 	function checkEquipSets:Callback(checked)
 		if checked then
 			SetCVar("dontShowEquipmentSetsOnItems", 1)
@@ -86,82 +125,40 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		wipe(namespace.cache)
 	end
 
-	local checkILevel = CreateCheckbox(self, L.HIDE_ILEVEL)
-	checkILevel:SetPoint("TOPLEFT", checkEquipSets, "BOTTOMLEFT", 0, -8)
-	checkILevel.Callback = OnClick
-	checkILevel.key = "hideItemLevel"
-	tinsert(checks, checkILevel)
+	local checkSetBonuses = self:CreateCheckbox(L.HIDE_SETBONUS)
+	checkSetBonuses:SetPoint("TOPLEFT", checkEquipSets, "BOTTOMLEFT", 0, -GAP)
+	checkSetBonuses.Callback = OnClick
+	checkSetBonuses.key = "hideSetBonuses"
+	tinsert(checks, checkSetBonuses)
 
-	local checkUpgrade = CreateCheckbox(self, L.HIDE_UPGRADE)
-	checkUpgrade:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -8)
-	checkUpgrade.Callback = OnClick
-	checkUpgrade.key = "hideUpgradeLevel"
-	tinsert(checks, checkUpgrade)
+	local checkSetItems = self:CreateCheckbox(L.HIDE_SETLIST)
+	checkSetItems:SetPoint("TOPLEFT", checkSetBonuses, "BOTTOMLEFT", 0, -GAP)
+	checkSetItems.Callback = OnClick
+	checkSetItems.key = "hideSetItems"
+	tinsert(checks, checkSetItems)
 
-	local checkBuy = CreateCheckbox(self, L.HIDE_CLICKBUY)
-	checkBuy:SetPoint("TOPLEFT", checkUpgrade, "BOTTOMLEFT", 0, -8)
+	local checkBuy = self:CreateCheckbox(L.HIDE_CLICKBUY)
+	checkBuy:SetPoint("TOPLEFT", checkSetItems, "BOTTOMLEFT", 0, -GAP)
 	checkBuy.Callback = OnClick
 	checkBuy.key = "hideRightClickBuy"
 	tinsert(checks, checkBuy)
 
-	local checkSocket = CreateCheckbox(self, L.HIDE_CLICKSOCKET)
-	checkSocket:SetPoint("TOPLEFT", checkBuy, "BOTTOMLEFT", 0, -8)
+	local checkSocket = self:CreateCheckbox(L.HIDE_CLICKSOCKET)
+	checkSocket:SetPoint("TOPLEFT", checkBuy, "BOTTOMLEFT", 0, -GAP)
 	checkSocket.Callback = OnClick
 	checkSocket.key = "hideRightClickSocket"
 	tinsert(checks, checkSocket)
 
-	local checkValue = CreateCheckbox(self, L.HIDE_VALUE, L.HIDE_VALUE_TIP)
-	checkValue:SetPoint("TOPLEFT", checkSocket, "BOTTOMLEFT", 0, -8)
+	local checkValue = self:CreateCheckbox(L.HIDE_VALUE, L.HIDE_VALUE_TIP)
+	checkValue:SetPoint("TOPLEFT", checkSocket, "BOTTOMLEFT", 0, -GAP)
 	checkValue.Callback = OnClick
 	checkValue.key = "hideSellValue"
 	tinsert(checks, checkValue)
 
 
-	local checkDifficulty = CreateCheckbox(self, format(L.HIDE_DIFFICULTY))
-	checkDifficulty:SetPoint("TOPLEFT", notes, "BOTTOM", 0, -8)
-	checkDifficulty.Callback = OnClick
-	checkDifficulty.key = "hideRaidDifficulty"
-	tinsert(checks, checkDifficulty)
 
-	local checkMadeBy = CreateCheckbox(self, format(L.HIDE_TAG, L.MADE_BY))
-	checkMadeBy:SetPoint("TOPLEFT", checkDifficulty, "BOTTOMLEFT", 0, -8)
-	checkMadeBy.Callback = OnClick
-	checkMadeBy.key = "hideMadeBy"
-	tinsert(checks, checkMadeBy)
-
-	local checkReforged = CreateCheckbox(self, format(L.HIDE_TAG, REFORGED))
-	checkReforged:SetPoint("TOPLEFT", checkMadeBy, "BOTTOMLEFT", 0, -8)
-	checkReforged.Callback = OnClick
-	checkReforged.key = "hideReforged"
-	tinsert(checks, checkReforged)
-
-	local checkSoulbound = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_SOULBOUND))
-	checkSoulbound:SetPoint("TOPLEFT", checkReforged, "BOTTOMLEFT", 0, -8)
-	checkSoulbound.Callback = OnClick
-	checkSoulbound.key = "hideSoulbound"
-	tinsert(checks, checkSoulbound)
-
-	local checkUnique = CreateCheckbox(self, format(L.HIDE_TAG, ITEM_UNIQUE))
-	checkUnique:SetPoint("TOPLEFT", checkSoulbound, "BOTTOMLEFT", 0, -8)
-	checkUnique.Callback = OnClick
-	checkUnique.key = "hideUnique"
-	tinsert(checks, checkUnique)
-
-
-	local checkSetBonuses = CreateCheckbox(self, "Hide set bonuses")
-	checkSetBonuses:SetPoint("TOPLEFT", checkUnique, "BOTTOMLEFT", 0, -42)
-	checkSetBonuses.Callback = OnClick
-	checkSetBonuses.key = "hideSetBonuses"
-	tinsert(checks, checkSetBonuses)
-
-	local checkSetItems = CreateCheckbox(self, "Hide set item list")
-	checkSetItems:SetPoint("TOPLEFT", checkSetBonuses, "BOTTOMLEFT", 0, -8)
-	checkSetItems.Callback = OnClick
-	checkSetItems.key = "hideSetItems"
-	tinsert(checks, checkSetItems)
-
-	local checkReqs, checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
-	checkReqs:SetPoint("TOPLEFT", checkSetItems, "BOTTOMLEFT", 0, -8)
+	local checkReqs, checkReqsMet = self:CreateCheckbox(L.HIDE_REQUIREMENTS, L.HIDE_REQUIREMENTS_TIP)
+	checkReqs:SetPoint("TOPLEFT", checkValue, "BOTTOMLEFT", 0, -BIGGAP)
 	checkReqs.Callback = OnClick
 	checkReqs.key = "hideRequirements"
 	tinsert(checks, checkReqs)
@@ -171,14 +168,14 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		wipe(namespace.cache)
 	end
 
-	checkReqsMet = CreateCheckbox(self, L.HIDE_REQUIREMENTS_MET)
-	checkReqsMet:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 26, -8)
+	checkReqsMet = self:CreateCheckbox(L.HIDE_REQUIREMENTS_MET)
+	checkReqsMet:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 26, -GAP)
 	checkReqsMet.Callback = OnClick
 	checkReqsMet.key = "hideRequirementsMetOnly"
 	tinsert(checks, checkReqsMet)
 
-	local checkTransmog, checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG)
-	checkTransmog:SetPoint("TOPLEFT", checkReqsMet, "BOTTOMLEFT", -26, -8)
+	local checkTransmog, checkTransmogLabel = self:CreateCheckbox(L.HIDE_TRANSMOG)
+	checkTransmog:SetPoint("TOPLEFT", checkReqsMet, "BOTTOMLEFT", -26, -GAP)
 	checkTransmog.key = "hideTransmog"
 	tinsert(checks, checkTransmog)
 	function checkTransmog:Callback(checked)
@@ -187,8 +184,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		wipe(namespace.cache)
 	end
 
-	checkTransmogLabel = CreateCheckbox(self, L.HIDE_TRANSMOG_LABEL, L.HIDE_TRANSMOG_LABEL_TIP)
-	checkTransmogLabel:SetPoint("TOPLEFT", checkTransmog, "BOTTOMLEFT", 26, -8)
+	checkTransmogLabel = self:CreateCheckbox(L.HIDE_TRANSMOG_LABEL, L.HIDE_TRANSMOG_LABEL_TIP)
+	checkTransmogLabel:SetPoint("TOPLEFT", checkTransmog, "BOTTOMLEFT", 26, -GAP)
 	checkTransmogLabel.Callback = OnClick
 	checkTransmogLabel.key = "hideTransmogLabelOnly"
 	tinsert(checks, checkTransmogLabel)
@@ -200,7 +197,6 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	self.refresh = function(self)
 		colorBonus:SetValue(unpack(db.bonusColor))
 		colorEnchant:SetValue(unpack(db.enchantColor))
-		colorReforge:SetValue(unpack(db.reforgeColor))
 
 		for _, check in pairs(checks) do
 			check:SetChecked(db[check.key])
