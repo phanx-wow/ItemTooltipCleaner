@@ -3,25 +3,22 @@ Item Tooltip Cleaner
 
 Removes extraneous lines from item tooltips, including:
 
+* Blank lines
+* Crafting Reagent, Made by X, Soulbound, Unique, Unique-Equipped, etc.
+* Difficulty tags (Raid Finder, Normal, Heroic, Mythic)
 * Durability
-* Equipment sets
-* Raid Finder, Flexible, and Heroic difficulty tags
-* Instructions for socketing and stack purchasing
-* Made by ____ tags
-* Reforged tags
+* Equipment manager sets that include the item
 * Requirements for class, level, race, reputation, and tradeskill
-* Soulbound tags
+* Set bonuses and the list of items in the set
+* Socketing instructions
 * Transmogrified label, info, or both
-* Unique, Unique-Equipped, and Unique (N) tags
 * Upgrade level
-* Vendor values when not at a vendor, at the auction house, or choosing
-  a quest reward
+* Vendor purchase instructions
+* Vendor values when not at a vendor, not at the auction house,
+  and not choosing a quest reward
 
 It also lets you change the color of bonus lines and enchant lines to
 help make them more distinct.
-
-Item Tooltip Cleaner is compatible with RatingBuster and other addons
-that read stats from the tooltip.
 
 
 Usage

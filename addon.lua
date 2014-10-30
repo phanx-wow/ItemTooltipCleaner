@@ -7,6 +7,9 @@
 	http://www.curse.com/addons/wow/itemtooltipcleaner
 ----------------------------------------------------------------------]]
 
+-- TODO:
+-- hideUnusedStats Hide gray stats on WOD items
+
 local ADDON_NAME, namespace = ...
 local L = namespace.L
 local db
@@ -14,17 +17,18 @@ local db
 local defaults = {
 	bonusColor = { 0, 1, 0 },
 	enchantColor = { 0, 0.8, 1 },
-	reforgeColor = { 1, 0.5, 1 },
 	hideBlank = true,
+	hideCraftingReagent = true,
+	hideEnchantLabel = true,
 	hideItemLevel = true,
 	hideMadeBy = true,
-	hideReforged = true,
 	hideRequirements = true,
 	hideRequirementsMet = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
 	hideTransmog = true,
 	hideTransmogLabel = true,
+	hideUnusedStats = true,
 --	hideDurability = false,
 --	hideEquipmentSets = true,
 --	hideRaidDifficulty = false,
@@ -42,12 +46,12 @@ namespace.settings = settings
 
 local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
 
-local ITEM_SOCKETABLE  = ITEM_SOCKETABLE
-local ITEM_SOULBOUND   = ITEM_SOULBOUND
-local ITEM_UNIQUE      = ITEM_UNIQUE
+local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
+local ITEM_SOULBOUND         = ITEM_SOULBOUND
+local ITEM_UNIQUE            = ITEM_UNIQUE
 local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
 local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
-local REFORGED         = REFORGED
+local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
 
 local raidDifficultyLabels = {
 	[RAID_FINDER]        = true, -- Raid Finder
@@ -64,13 +68,12 @@ local function topattern(str, plain)
 end
 
 local S_DURABILITY      = topattern(DURABILITY_TEMPLATE)
-local S_ENCHANTED       = topattern(ENCHANTED_TOOLTIP_LINE)
+local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 local S_ITEM_LEVEL      = topattern(ITEM_LEVEL)
 local S_ITEM_SET_BONUS  = topattern(ITEM_SET_BONUS)
 local S_ITEM_SET_BONUS_GRAY = topattern(ITEM_SET_BONUS_GRAY)
 local S_ITEM_SET_NAME   = topattern(ITEM_SET_NAME)
 local S_MADE_BY         = topattern(ITEM_CREATED_BY)
-local S_REFORGED        = "^(.+)" .. topattern(strsub(REFORGE_TOOLTIP_LINE, (strfind(REFORGE_TOOLTIP_LINE, " ?[%(（]"))), true)
 local S_REQ_CLASS       = topattern(ITEM_CLASSES_ALLOWED)
 local S_REQ_LEVEL       = topattern(ITEM_MIN_LEVEL)
 local S_REQ_RACE        = topattern(ITEM_RACES_ALLOWED)
@@ -113,17 +116,13 @@ local function ReformatLine(tooltip, line, text)
 		line:SetText(cache[text])
 	return end
 
-	if strmatch(text, S_ENCHANTED) then
+	local enchant = strmatch(text, S_ENCHANTED)
+	if enchant then
 		-- no cache for colors yet
-		line:SetText(strmatch(text, S_ENCHANTED))
-		line:SetTextColor(unpack(db.enchantColor))
-	return end
-
-	if strmatch(text, S_REFORGED) then
-		-- no cache for colors yet
-		line:SetTextColor(unpack(db.reforgeColor))
-		if db.hideReforged then
-			line:SetText(strmatch(text, S_REFORGED))
+		local color = db.enchantColor
+		line:SetTextColor(color[1], color[2], color[3])
+		if db.hideEnchantLabel then
+			line:SetText(enchant)
 		end
 	return end
 
@@ -159,10 +158,10 @@ local function ReformatLine(tooltip, line, text)
 		return
 	end
 
-	if (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
+	if (text == CRAFTING_REAGENT and db.hideCraftingReagent)
+	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
 	or (text == ITEM_VENDOR_STACK_BUY and db.hideRightClickBuy)
-	or (text == REFORGED and db.hideReforged)
 	or (db.hideRaidDifficulty and raidDifficultyLabels[text])
 	or (db.hideDurability and strmatch(text, S_DURABILITY))
 	or (db.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
@@ -252,6 +251,9 @@ Loader:SetScript("OnEvent", function(self, event, arg)
 				db[k] = v
 			end
 		end
+		-- Reforging removed from game in 6.0
+		db.hideReforged = nil
+		db.reforgeColor = nil
 	end
 
 	-- Hook tooltips:
