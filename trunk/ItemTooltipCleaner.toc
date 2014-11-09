@@ -15,8 +15,8 @@
 ## Author: Phanx
 ## X-Email: addons@phanx.net
 ## X-Credits: Originally written by Akkorian. Inspired by dlemvigh's PhoenixTooltip.
-## X-Copyright: Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.
-## X-License: See accompanying LICENSE file for details.
+## X-Copyright: Copyright (c) 2010-2014 Akkorian and Phanx.
+## X-License: All rights reserved.
 ## X-CompatibleLocales: enUS, deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW
 ## X-Localizations: enUS, deDE, esES, esMX, ptBR, ruRU, zhCN, zhTW
 ## X-Website: http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html
