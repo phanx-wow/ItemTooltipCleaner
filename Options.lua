@@ -1,10 +1,11 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2014 Akkorian, Phanx. All rights reserved.
-	See the accompanying README and LICENSE files for more information.
+	Copyright (c) 2010-2014 Akkorian <akkorian@hotmail.com>
+	Copyright (c) 2010-2014 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
+	https://github.com/Phanx/ItemTooltipCleaner
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
