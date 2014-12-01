@@ -202,6 +202,8 @@ local function ReformatLine(tooltip, line, text)
 		local r, g, b = line:GetTextColor()
 		if r < 0.1 and g > 0.9 and b < 0.1 then
 			line:SetTextColor(unpack(db.bonusColor))
+		elseif r < 0.51 and g < 0.51 and b < 0.51 and db.hideUnusedStats then
+			line:SetText("")
 		end
 	return end
 end

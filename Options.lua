@@ -74,9 +74,15 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkILevel.Callback = OnClick
 	checkILevel.key = "hideItemLevel"
 	tinsert(checks, checkILevel)
+	
+	local checkUnused = self:CreateCheckbox(L.HIDE_UNUSED)
+	checkUnused:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -GAP)
+	checkUnused.Callback = OnClick
+	checkUnused.key = "hideUnusedStats"
+	tinsert(checks, checkUnused)
 
 	local checkUpgrade = self:CreateCheckbox(L.HIDE_UPGRADE)
-	checkUpgrade:SetPoint("TOPLEFT", checkILevel, "BOTTOMLEFT", 0, -GAP)
+	checkUpgrade:SetPoint("TOPLEFT", checkUnused, "BOTTOMLEFT", 0, -GAP)
 	checkUpgrade.Callback = OnClick
 	checkUpgrade.key = "hideUpgradeLevel"
 	tinsert(checks, checkUpgrade)
