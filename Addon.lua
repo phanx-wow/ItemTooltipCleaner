@@ -21,6 +21,8 @@ local defaults = {
 	hideBlank = true,
 	hideCraftingReagent = true,
 	hideEnchantLabel = true,
+	hideFlavor = true,
+	hideFlavorTrade = true,
 	hideItemLevel = true,
 	hideMadeBy = true,
 	hideRequirements = true,
@@ -31,7 +33,7 @@ local defaults = {
 	hideTransmogLabel = true,
 	hideUnusedStats = true,
 --	hideDurability = false,
---	hideEquipmentSets = true,
+--	hideEquipmentSets = false,
 --	hideRaidDifficulty = false,
 --	hideSellValue = false,
 --	hideSetBonuses = false,
@@ -54,6 +56,8 @@ local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
 local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
 local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
 
+local TRADE_GOODS = select(6, GetAuctionItemClasses())
+
 local raidDifficultyLabels = {
 	[RAID_FINDER]        = true, -- Raid Finder
 	[PLAYER_DIFFICULTY4] = true, -- Flexible
@@ -70,6 +74,7 @@ end
 
 local S_DURABILITY      = topattern(DURABILITY_TEMPLATE)
 local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local S_FLAVOR          = '^".+"$'
 local S_ITEM_LEVEL      = topattern(ITEM_LEVEL)
 local S_ITEM_SET_BONUS  = topattern(ITEM_SET_BONUS)
 local S_ITEM_SET_BONUS_GRAY = topattern(ITEM_SET_BONUS_GRAY)
