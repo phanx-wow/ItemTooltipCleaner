@@ -49,19 +49,13 @@ namespace.settings = settings
 
 local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
 
-local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
-local ITEM_SOULBOUND         = ITEM_SOULBOUND
-local ITEM_UNIQUE            = ITEM_UNIQUE
-local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
-local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
-local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
-
-local TRADE_GOODS = select(6, GetAuctionItemClasses())
-
 local raidDifficultyLabels = {
-	[RAID_FINDER]        = true, -- Raid Finder
+	[PLAYER_DIFFICULTY1] = true, -- Normal
+	[PLAYER_DIFFICULTY2] = true, -- Heroic
+	[PLAYER_DIFFICULTY3] = true, -- Raid Finder
 	[PLAYER_DIFFICULTY4] = true, -- Flexible
-	[ITEM_HEROIC]        = true, -- Heroic
+	[PLAYER_DIFFICULTY5] = true, -- Challenge
+	[PLAYER_DIFFICULTY6] = true, -- Mythic
 }
 
 local function topattern(str, plain)
@@ -72,43 +66,43 @@ local function topattern(str, plain)
 	return plain and str or ("^" .. str)
 end
 
-local S_DURABILITY      = topattern(DURABILITY_TEMPLATE)
-local S_ENCHANTED       = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
-local S_FLAVOR          = '^".+"$'
-local S_ITEM_LEVEL      = topattern(ITEM_LEVEL)
-local S_ITEM_SET_BONUS  = topattern(ITEM_SET_BONUS)
-local S_ITEM_SET_BONUS_GRAY = topattern(ITEM_SET_BONUS_GRAY)
-local S_ITEM_SET_NAME   = topattern(ITEM_SET_NAME)
-local S_MADE_BY         = topattern(ITEM_CREATED_BY)
-local S_REQ_CLASS       = topattern(ITEM_CLASSES_ALLOWED)
-local S_REQ_LEVEL       = topattern(ITEM_MIN_LEVEL)
-local S_REQ_RACE        = topattern(ITEM_RACES_ALLOWED)
-local S_REQ_REPUTATION  = topattern(ITEM_REQ_REPUTATION)
-local S_REQ_SKILL       = topattern(ITEM_REQ_SKILL)
-local S_TRANSMOGRIFIED  = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
-local S_UNIQUE_MULTIPLE = topattern(ITEM_UNIQUE_MULTIPLE)
-local S_UPGRADE_LEVEL   = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
+local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
+local ITEM_SOULBOUND         = ITEM_SOULBOUND
+local ITEM_UNIQUE            = ITEM_UNIQUE
+local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
+local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
+local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
 
-local cache = setmetatable({ }, { __mode = "kv" }) -- weak table to enable garbage collection
+local S_DURABILITY           = topattern(DURABILITY_TEMPLATE)
+local S_ENCHANTED            = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local S_FLAVOR               = '^".+"$'
+local S_ITEM_LEVEL           = topattern(ITEM_LEVEL)
+local S_ITEM_SET_BONUS       = topattern(ITEM_SET_BONUS)
+local S_ITEM_SET_BONUS_GRAY  = topattern(ITEM_SET_BONUS_GRAY)
+local S_ITEM_SET_NAME        = topattern(ITEM_SET_NAME)
+local S_MADE_BY              = topattern(ITEM_CREATED_BY)
+local S_REQ_CLASS            = topattern(ITEM_CLASSES_ALLOWED)
+local S_REQ_LEVEL            = topattern(ITEM_MIN_LEVEL)
+local S_REQ_RACE             = topattern(ITEM_RACES_ALLOWED)
+local S_REQ_REPUTATION       = topattern(ITEM_REQ_REPUTATION)
+local S_REQ_SKILL            = topattern(ITEM_REQ_SKILL)
+local S_TRANSMOGRIFIED       = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
+local S_UNIQUE_MULTIPLE      = topattern(ITEM_UNIQUE_MULTIPLE)
+local S_UPGRADE_LEVEL        = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
+
+local TRADE_GOODS            = select(6, GetAuctionItemClasses())
+
+local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbage collection
 namespace.cache = cache -- so it can be wiped when an option changes
-
-local lines = setmetatable({ }, { __index = function(lines, tooltip)
-	local lines_tooltip = setmetatable({ name = tooltip:GetName() }, { __index = function(lines_tooltip, line)
-		local obj = _G[lines_tooltip.name .. "TextLeft" .. i]
-		lines_tooltip[line] = obj
-		return obj
-	end })
-	lines[tooltip] = lines_tooltip
-	return lines_tooltip
-end })
 
 local inSetList
 
 local function ReformatLine(tooltip, line, text)
 	if text == " " and db.hideBlank then
 		if tooltip.shownMoneyFrames then
-			for j = 1, tooltip.shownMoneyFrames do
-				if select(2,_G[tooltip:GetName().."MoneyFrame"..j]:GetPoint("LEFT")) == line then
+			for i = 1, tooltip.shownMoneyFrames do
+				local _, left = _G[tooltip:GetName().."MoneyFrame"..i]:GetPoint("LEFT")
+				if left == line then
 					return
 				end
 			end
@@ -179,6 +173,22 @@ local function ReformatLine(tooltip, line, text)
 		cache[text] = ""
 		line:SetText("")
 	return end
+
+	if db.hideFlavor and strmatch(text, S_FLAVOR) then
+		if db.hideFlavorTrade then
+			local _, item = tooltip:GetItem()
+			if item then
+				local _, _, q, _, _, t, tt = GetItemInfo(item) -- TODO: allow on high quality stuff, fish?
+				if t ~= TRADE_GOODS then
+					cache[text] = ""
+					line:SetText("")
+				end
+			end
+		else
+			cache[text] = ""
+			line:SetText("")
+		end
+	end
 
 	if db.hideRequirements and (
 		strmatch(text, S_REQ_CLASS)
@@ -266,8 +276,9 @@ Loader:SetScript("OnEvent", function(self, event, arg)
 
 	-- Hook tooltips:
 	for i, tooltip in pairs(itemTooltips) do
-		if _G[tooltip] then
-			_G[tooltip]:HookScript("OnTooltipSetItem", ReformatItemTooltip)
+		tooltip = _G[tooltip]
+		if tooltip then
+			tooltip:HookScript("OnTooltipSetItem", ReformatItemTooltip)
 			itemTooltips[i] = nil
 		end
 	end
@@ -279,6 +290,7 @@ end)
 
 ------------------------------------------------------------------------
 
+-- TODO: update this list
 local showPriceFrames = {
 	"AuctionFrame",
 	"MerchantFrame",

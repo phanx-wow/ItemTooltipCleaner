@@ -1,3 +1,8 @@
+### Version 6.0.3.12
+
+* Added an option to hide flavor text on all items or just trade goods
+* Updated the options panel with shorter text labels to save space -- [translation updates welcome](http://wow.curseforge.com/addons/itemtooltipcleaner/localization/)!
+
 ### Version 6.0.2.11
 
 * Updated for WoW 6.0
