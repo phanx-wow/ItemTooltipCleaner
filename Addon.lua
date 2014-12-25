@@ -175,16 +175,15 @@ local function ReformatLine(tooltip, line, text)
 	return end
 
 	if db.hideFlavor and strmatch(text, S_FLAVOR) then
+		local keep
 		if db.hideFlavorTrade then
 			local _, item = tooltip:GetItem()
 			if item then
 				local _, _, q, _, _, t, tt = GetItemInfo(item) -- TODO: allow on high quality stuff, fish?
-				if t ~= TRADE_GOODS then
-					cache[text] = ""
-					line:SetText("")
-				end
+				keep = t ~= TRADE_GOODS
 			end
-		else
+		end
+		if not keep then
 			cache[text] = ""
 			line:SetText("")
 		end

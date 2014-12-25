@@ -47,9 +47,8 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	local function OnValueChanged(this, checked)
 		db[this.key] = checked
 		wipe(namespace.cache)
-		--print("Wiped cache.")
 		for _, other in pairs(checks) do
-			if this.parent == other then
+			if other.parent == this then
 				other:SetEnabled(checked)
 			end
 		end
@@ -98,7 +97,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkCraftingReagent.key = "hideCraftingReagent"
 	tinsert(checks, checkCraftingReagent)
 
-	local checkEnchantLabel = self:CreateCheckbox(format(L.HIDE_TAG, strtrim(gsub(gsub(ENCHANTED_TOOLTIP_LINE, ":", ""), "%%s", ""))))
+	local checkEnchantLabel = self:CreateCheckbox(format(L.HIDE_TAG, strmatch(ENCHANTED_TOOLTIP_LINE, "[^:]+")))
 	checkEnchantLabel:SetPoint("TOPLEFT", checkCraftingReagent, "BOTTOMLEFT", 0, -GAP)
 	checkEnchantLabel.OnValueChanged = OnValueChanged
 	checkEnchantLabel.key = "hideEnchantLabel"
@@ -173,10 +172,12 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkReqsMet:SetPoint("TOPLEFT", checkReqs, "BOTTOMLEFT", 26, -GAP)
 	checkReqsMet.OnValueChanged = OnValueChanged
 	checkReqsMet.key = "hideRequirementsMetOnly"
+	checkReqsMet.parent = checkReqs
 	tinsert(checks, checkReqsMet)
 
 	local checkTransmog = self:CreateCheckbox(L.HIDE_TRANSMOG)
 	checkTransmog:SetPoint("TOPLEFT", checkReqsMet, "BOTTOMLEFT", -26, -GAP)
+	checkTransmog.OnValueChanged = OnValueChanged
 	checkTransmog.key = "hideTransmog"
 	tinsert(checks, checkTransmog)
 
@@ -187,8 +188,9 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 	checkTransmogLabel.parent = checkTransmog
 	tinsert(checks, checkTransmogLabel)
 
-	local checkFlavor = self:CreateCheckbox(L.HIDE_FLAVOR, L.FLAVOR_TIP)
+	local checkFlavor = self:CreateCheckbox(L.HIDE_FLAVOR, L.HIDE_FLAVOR_TIP)
 	checkFlavor:SetPoint("TOPLEFT", checkTransmogLabel, "BOTTOMLEFT", -26, -GAP)
+	checkFlavor.OnValueChanged = OnValueChanged
 	checkFlavor.key = "hideFlavor"
 	tinsert(checks, checkFlavor)
 
