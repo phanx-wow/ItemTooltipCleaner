@@ -97,8 +97,13 @@ namespace.cache = cache -- so it can be wiped when an option changes
 
 local inSetList
 
+local blanks = {
+	[" "] = true,
+	["|cFF 0FF 0|r"] = true, -- game bug? appears as a blank line, ex: Breastplate of Wracking Souls
+}
+
 local function ReformatLine(tooltip, line, text)
-	if text == " " and db.hideBlank then
+	if blanks[text] and db.hideBlank then
 		if tooltip.shownMoneyFrames then
 			for i = 1, tooltip.shownMoneyFrames do
 				local _, left = _G[tooltip:GetName().."MoneyFrame"..i]:GetPoint("LEFT")
