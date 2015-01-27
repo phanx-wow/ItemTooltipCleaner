@@ -1,15 +1,12 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2014 Akkorian <akkorian@hotmail.com>
-	Copyright (c) 2010-2014 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2010-2011 Akkorian <akkorian@hotmail.com>
+	Copyright (c) 2011-2015 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 	http://www.curse.com/addons/wow/itemtooltipcleaner
 	https://github.com/Phanx/ItemTooltipCleaner
 ----------------------------------------------------------------------]]
-
--- TODO:
--- hideUnusedStats Hide gray stats on WOD items
 
 local ADDON_NAME, namespace = ...
 local L = namespace.L

@@ -1,5 +1,5 @@
 ## Interface: 60000
-## Version: 6.0.2.74
+## Version: @project-version@
 
 ## Title: Item Tooltip Cleaner
 ## Notes: Removes extraneous lines from item tooltips.
@@ -13,7 +13,7 @@
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
-## X-Copyright: Copyright (c) 2010-2014 Akkorian and Phanx.All rights reserved.
+## X-Copyright: Copyright (c) 2010-2011 Akkorian, 2011-2015 Phanx. All rights reserved.
 ## X-Credits: Originally written by Akkorian. Inspired by dlemvigh's PhoenixTooltip.
 ## X-Website: https://github.com/Phanx/ItemTooltipCleaner
 
