@@ -1,3 +1,7 @@
+### Version 6.1.0.13
+
+* Updated for WoW 6.1
+
 ### Version 6.0.3.12
 
 * Added an option to hide "Crafting Reagent" lines
