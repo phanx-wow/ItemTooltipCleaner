@@ -44,7 +44,7 @@ namespace.settings = settings
 
 ------------------------------------------------------------------------
 
-local format, gsub, ipairs, strmatch, unpack = format, gsub, ipairs, strmatch, unpack
+local format, gsub, ipairs, strfind, strmatch, unpack = format, gsub, ipairs, strfind, strmatch, unpack
 
 local raidDifficultyLabels = {
 	[PLAYER_DIFFICULTY1] = true, -- Normal
@@ -143,7 +143,7 @@ local function ReformatLine(tooltip, line, text)
 	end
 
 	if inSetList then
-		if strmatch(text, "^ .") then -- don't match " "
+		if strfind(text, "^ .") then -- don't match " "
 			--print("Found set item:", text)
 			if db.hideSetItems then
 				cache[text] = ""
@@ -154,29 +154,30 @@ local function ReformatLine(tooltip, line, text)
 			--print("End of set list:", text)
 			inSetList = nil
 		end
-	elseif strmatch(text, S_ITEM_SET_NAME) then
+	elseif strfind(text, S_ITEM_SET_NAME) then
 		--print("Found set name:", text)
 		inSetList = true
 		return
 	end
 
-	if (text == CRAFTING_REAGENT and db.hideCraftingReagent)
+	if (text == L.ARTIFACT_LOGGED) -- no option yet
+	or (text == CRAFTING_REAGENT and db.hideCraftingReagent)
 	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
 	or (text == ITEM_VENDOR_STACK_BUY and db.hideRightClickBuy)
 	or (db.hideRaidDifficulty and raidDifficultyLabels[text])
-	or (db.hideDurability and strmatch(text, S_DURABILITY))
-	or (db.hideItemLevel and strmatch(text, S_ITEM_LEVEL))
-	or (db.hideMadeBy and strmatch(text, S_MADE_BY))
-	or (db.hideUpgradeLevel and strmatch(text, S_UPGRADE_LEVEL))
-	or (db.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strmatch(text, S_UNIQUE_MULTIPLE)))
-	or (db.hideSetBonuses and (strmatch(text, S_ITEM_SET_BONUS) or strmatch(text, S_ITEM_SET_BONUS_GRAY)))
+	or (db.hideDurability and strfind(text, S_DURABILITY))
+	or (db.hideItemLevel and strfind(text, S_ITEM_LEVEL))
+	or (db.hideMadeBy and strfind(text, S_MADE_BY))
+	or (db.hideUpgradeLevel and strfind(text, S_UPGRADE_LEVEL))
+	or (db.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strfind(text, S_UNIQUE_MULTIPLE)))
+	or (db.hideSetBonuses and (strfind(text, S_ITEM_SET_BONUS) or strfind(text, S_ITEM_SET_BONUS_GRAY)))
 	then
 		cache[text] = ""
 		line:SetText("")
 	return end
 
-	if db.hideFlavor and strmatch(text, S_FLAVOR) then
+	if db.hideFlavor and strfind(text, S_FLAVOR) then
 		local keep
 		if db.hideFlavorTrade then
 			local _, item = tooltip:GetItem()
@@ -192,13 +193,13 @@ local function ReformatLine(tooltip, line, text)
 	end
 
 	if db.hideRequirements and (
-		strmatch(text, S_REQ_CLASS)
-		or strmatch(text, S_REQ_RACE)
-		or strmatch(text, S_REQ_LEVEL)
-		or strmatch(text, S_REQ_REPUTATION)
-		or strmatch(text, S_REQ_SKILL)
-		or strmatch(text, L.ENCHANT_REQUIRES)
-		or strmatch(text, L.SOCKET_REQUIRES)
+		strfind(text, S_REQ_CLASS)
+		or strfind(text, S_REQ_RACE)
+		or strfind(text, S_REQ_LEVEL)
+		or strfind(text, S_REQ_REPUTATION)
+		or strfind(text, S_REQ_SKILL)
+		or strfind(text, L.ENCHANT_REQUIRES)
+		or strfind(text, L.SOCKET_REQUIRES)
 	) then
 		if db.hideRequirementsMet then
 			-- hide only if met
@@ -213,7 +214,7 @@ local function ReformatLine(tooltip, line, text)
 		end
 	return end
 
-	if strmatch(text, "^%+%d+") then
+	if strfind(text, "^%+%d+") then
 		-- no cache for colors yet
 		local r, g, b = line:GetTextColor()
 		if r < 0.1 and g > 0.9 and b < 0.1 then

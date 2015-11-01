@@ -25,6 +25,7 @@ end })
 -- English
 ------------------------------------------------------------------------
 
+L.ARTIFACT_LOGGED = "\"Artifact details have already been logged in your Archaeology Journal, under the Completed Artifacts tab.\""
 L.BONUS_COLOR = "Bonus color"
 L.ENCHANT_COLOR = "Enchant color"
 L.ENCHANT_REQUIRES = "Enchantment Requires"
