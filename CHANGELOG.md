@@ -1,3 +1,8 @@
+### Version 7.0.3.0
+
+* Updated for WoW 7.0
+* Added options for hiding appearance collected/not collected text
+
 ### Version 6.1.0.13
 
 * Updated for WoW 6.1

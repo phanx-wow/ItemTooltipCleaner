@@ -1,11 +1,12 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2011 Akkorian <akkorian@hotmail.com>
-	Copyright (c) 2011-2015 Phanx <addons@phanx.net>. All rights reserved.
-	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
-	http://www.curse.com/addons/wow/itemtooltipcleaner
+	Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>
+	Copyright (c) 2011-2016 Phanx <addons@phanx.net>
+	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
+	https://mods.curse.com/addons/wow/itemtooltipcleaner
+	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
@@ -15,29 +16,31 @@ local db
 local defaults = {
 	bonusColor = { 0, 1, 0 },
 	enchantColor = { 0, 0.8, 1 },
+	hideAppearanceKnown = true,
+	hideAppearanceUnknown = false,
 	hideBlank = true,
 	hideCraftingReagent = true,
+	hideDurability = false,
 	hideEnchantLabel = true,
-	hideFlavor = true,
+	hideEquipmentSets = false,
 	hideFlavorTrade = true,
+	hideFlavor = true,
 	hideItemLevel = true,
 	hideMadeBy = true,
-	hideRequirements = true,
+	hideRaidDifficulty = false,
 	hideRequirementsMet = true,
+	hideRequirements = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
-	hideTransmog = true,
+	hideSellValue = false,
+	hideSetBonuses = false,
+	hideSetItems = false,
+	hideSoulbound = false,
 	hideTransmogLabel = true,
+	hideTransmog = true,
+	hideUnique = false,
 	hideUnusedStats = true,
---	hideDurability = false,
---	hideEquipmentSets = false,
---	hideRaidDifficulty = false,
---	hideSellValue = false,
---	hideSetBonuses = false,
---	hideSetItems = false,
---	hideSoulbound = false,
---	hideUnique = false,
---	hideUpgradeLevel = false,
+	hideUpgradeLevel = false,
 }
 
 namespace.settings = settings
@@ -63,12 +66,15 @@ local function topattern(str, plain)
 	return plain and str or ("^" .. str)
 end
 
+local APPEARANCE_KNOWN       = TRANSMOGRIFY_TOOLTIP_APPEARANCE_KNOWN
+local APPEARANCE_KNOWN_OTHER = TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN
+local APPEARANCE_UNKNOWN     = TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN
+local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
 local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
 local ITEM_SOULBOUND         = ITEM_SOULBOUND
 local ITEM_UNIQUE            = ITEM_UNIQUE
 local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
 local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
-local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
 
 local S_DURABILITY           = topattern(DURABILITY_TEMPLATE)
 local S_ENCHANTED            = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
@@ -87,7 +93,7 @@ local S_TRANSMOGRIFIED       = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
 local S_UNIQUE_MULTIPLE      = topattern(ITEM_UNIQUE_MULTIPLE)
 local S_UPGRADE_LEVEL        = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
 
-local TRADE_GOODS            = select(6, GetAuctionItemClasses())
+local TRADE_GOODS            = AUCTION_CATEGORY_TRADE_GOODS
 
 local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbage collection
 namespace.cache = cache -- so it can be wiped when an option changes
@@ -165,6 +171,8 @@ local function ReformatLine(tooltip, line, text)
 	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
 	or (text == ITEM_VENDOR_STACK_BUY and db.hideRightClickBuy)
+	or (text == APPEARANCE_UNKNOWN and db.hideAppearanceUnknown)
+	or ((text == APPEARANCE_KNOWN or text == APPEARANCE_KNOWN_OTHER) and db.hideAppearanceKnown)
 	or (db.hideRaidDifficulty and raidDifficultyLabels[text])
 	or (db.hideDurability and strfind(text, S_DURABILITY))
 	or (db.hideItemLevel and strfind(text, S_ITEM_LEVEL))
