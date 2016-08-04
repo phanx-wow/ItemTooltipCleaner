@@ -1,4 +1,4 @@
-## Interface: 60100
+## Interface: 70000
 ## Version: @project-version@
 
 ## Title: Item Tooltip Cleaner
@@ -13,7 +13,7 @@
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
-## X-Copyright: Copyright (c) 2010-2011 Akkorian, 2011-2015 Phanx. All rights reserved.
+## X-Copyright: Copyright (c) 2010-2011 Akkorian, 2011-2016 Phanx. All rights reserved.
 ## X-Credits: Originally written by Akkorian. Inspired by dlemvigh's PhoenixTooltip.
 ## X-Website: https://github.com/Phanx/ItemTooltipCleaner
 
