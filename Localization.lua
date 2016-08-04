@@ -1,11 +1,12 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010, 2011 Akkorian <akkorian@hotmail.com>
-	Copyright (c) 2011-2015 Phanx <addons@phanx.net>. All rights reserved.
-	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
-	http://www.curse.com/addons/wow/itemtooltipcleaner
+	Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>
+	Copyright (c) 2011-2016 Phanx <addons@phanx.net>
+	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
+	https://mods.curse.com/addons/wow/itemtooltipcleaner
+	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
@@ -30,6 +31,8 @@ L.BONUS_COLOR = "Bonus color"
 L.ENCHANT_COLOR = "Enchant color"
 L.ENCHANT_REQUIRES = "Enchantment Requires"
 L.HIDE = "The elements selected in this panel will be hidden in item tooltips."
+L.HIDE_APPEARANCE_KNOWN = "Appearance collected"
+L.HIDE_APPEARANCE_UNKNOWN = "Appearance not collected"
 L.HIDE_BLANK = "Blank lines"
 L.HIDE_CLICKBUY = "Buying instructions"
 L.HIDE_CLICKSOCKET = "Socketing instructions"
@@ -67,10 +70,13 @@ if CURRENT_LOCALE == "enUS" then return end
 
 if CURRENT_LOCALE == "deDE" then
 
+L.ARTIFACT_LOGGED = "\"Die Einzelheiten dieses Artefakts wurden bereits in Eurem Archäologiebuch unter \"Restaurierte Artefakte\" protokolliert.\""
 L.BONUS_COLOR = "Bonusfarbe"
 L.ENCHANT_COLOR = "Verzauberungsfarbe"
 L.ENCHANT_REQUIRES = "Verzauberung benötigt"
 L.HIDE = "Die Tooltip-Textzeilen auf dieser Seite ausgewählt werden ausgeblendet."
+L.HIDE_APPEARANCE_KNOWN = "Vorlage gesammelt"
+L.HIDE_APPEARANCE_UNKNOWN = "Vorlage nicht gesammelt"
 L.HIDE_BLANK = "Leerzeilen"
 L.HIDE_CLICKBUY = "Instruktionen zum Kauf"
 L.HIDE_CLICKSOCKET = "Instruktionen zum Sockeln"
@@ -107,10 +113,13 @@ return end
 
 if CURRENT_LOCALE == "esES" then
 
+L.ARTIFACT_LOGGED = "\"Los detalles del artefacto ya se han registrado en la pestaña Artefactos completados de tu diario de arqueología.\""
 L.BONUS_COLOR = "Color de bonos"
 L.ENCHANT_COLOR = "Color de encantamientos"
 L.ENCHANT_REQUIRES = "Encantamiento requiere"
 L.HIDE = "Los elementos seleccionados en este panel se ocultarán en las descripciones de objetivos."
+L.HIDE_APPEARANCE_KNOWN = "Aparencia conseguida"
+L.HIDE_APPEARANCE_UNKNOWN = "Aparencia no conseguida"
 L.HIDE_BLANK = "Líneas vacias"
 L.HIDE_CLICKBUY = "Instrucciones de comprar"
 L.HIDE_CLICKSOCKET = "Instrucciones de gemas"
@@ -147,10 +156,13 @@ return end
 
 if CURRENT_LOCALE == "esMX" then
 
+L.ARTIFACT_LOGGED = "\"Los detalles del artefacto ya se han registrado en la pestaña Artefactos completados de tu diario de arqueología.\""
 L.BONUS_COLOR = "Color de bonos"
 L.ENCHANT_COLOR = "Color de encantamientos"
 L.ENCHANT_REQUIRES = "Encantamiento requiere"
 L.HIDE = "Los elementos seleccionados en este panel se ocultarán en las descripciones de objetivos."
+L.HIDE_APPEARANCE_KNOWN = "Aparencia conseguida"
+L.HIDE_APPEARANCE_UNKNOWN = "Aparencia no conseguida"
 L.HIDE_BLANK = "Líneas vacias"
 L.HIDE_CLICKBUY = "Instrucciones de comprar"
 L.HIDE_CLICKSOCKET = "Instrucciones de gemas"
@@ -187,6 +199,7 @@ return end
 
 if CURRENT_LOCALE == "frFR" then
 
+L.ARTIFACT_LOGGED = "\"Les détails de l'artéfact ont déjà été inscrits dans votre journal d'archéologie, dans l'onglet Artéfacts reconstitués.\""
 L.ENCHANT_REQUIRES = "L'enchantement requiert"
 L.HIDE_BLANK = "Lignes vides"
 L.HIDE_FLAVOR = "Texte d'ambiance"
@@ -201,6 +214,7 @@ return end
 
 if CURRENT_LOCALE == "itIT" then
 
+L.ARTIFACT_LOGGED = "\"I dettagli del Manufatto sono registrati nel tuo Diario di Archeologia, nella scheda dei Manufatti Completati.\""
 L.ENCHANT_REQUIRES = "L'incantamento richiede"
 L.HIDE_BLANK = "Righe vuote"
 L.HIDE_DURABILITY = "Durabilità"
@@ -216,10 +230,13 @@ return end
 
 if CURRENT_LOCALE == "ptBR" then
 
+L.ARTIFACT_LOGGED = "\"Detalhes do artefato já foram registrados no seu Diário de Arqueologia, na guia Artefatos Completos.\""
 L.BONUS_COLOR = "Cor do bônus"
 L.ENCHANT_COLOR = "Cor do encantamentos"
 L.ENCHANT_REQUIRES = "Encantamento requer"
 L.HIDE = "Os elementos selecionados neste painel não serão mostrados nos tooltips."
+L.HIDE_APPEARANCE_KNOWN = "Aparência coletada"
+L.HIDE_APPEARANCE_UNKNOWN = "Aparência não coletada"
 L.HIDE_BLANK = "Linhas vazias"
 L.HIDE_CLICKBUY = "Instruções para comprar"
 L.HIDE_CLICKSOCKET = "Instruções para engastar"
@@ -228,10 +245,13 @@ L.HIDE_DURABILITY = "Durabilidade"
 L.HIDE_EQUIPSETS = "Conjunto de equipamentos"
 L.HIDE_EQUIPSETS_TIP = "Esconde a lista de conjuntos de equipamentos que incluam este item."
 L.HIDE_FLAVOR = "Texto illustrativo"
+L.HIDE_FLAVOR_TRADE = "Só em mercadorias"
 L.HIDE_ILEVEL = "Níveis de itens"
 L.HIDE_REQUIREMENTS = "Requerimentos"
 L.HIDE_REQUIREMENTS_MET = "Esconder requerimentos"
 L.HIDE_REQUIREMENTS_TIP = "Ocultar os requisitos de nível, reputação e habilidade para os itens, encantamentos e engastes."
+L.HIDE_SETBONUS = "Bônus do conjunto"
+L.HIDE_SETLIST = "Lista de ltens do conjunto"
 L.HIDE_TAG = "\"%s\""
 L.HIDE_TRANSMOG = "Esconder infos sobre transmogrificações"
 L.HIDE_TRANSMOG_LABEL = "Apenas a frase"
@@ -251,29 +271,38 @@ return end
 
 if CURRENT_LOCALE == "ruRU" then
 
-L.BONUS_COLOR = "Цвет бонусы"
+L.ARTIFACT_LOGGED = "\"Этот артефакт уже записан в ваш журнал археологических находок. На вк\""
+L.BONUS_COLOR = "Цвет бонусов"
 L.ENCHANT_COLOR = "Цвет зачарования"
-L.ENCHANT_REQUIRES = "Для наложения чар"
-L.HIDE_BLANK = "Пустые строки"
-L.HIDE_CLICKBUY = "Инструкцию о покупке"
-L.HIDE_CLICKSOCKET = "Инструкции о гнездах"
-L.HIDE_DIFFICULTY = "Сложность"
-L.HIDE_DURABILITY = "Прочность"
-L.HIDE_EQUIPSETS = "Комплекты экипировки"
+L.ENCHANT_REQUIRES = "Требования зачарования"
+L.HIDE = "Элемент, выделенный в этой панели, будет скрыт в описании тултипов."
+L.HIDE_BLANK = "Скрыть пустые строки"
+L.HIDE_CLICKBUY = "Скрыть инструкцию по покупке"
+L.HIDE_CLICKSOCKET = "Скрыть инструкции о гнездах"
+L.HIDE_DIFFICULTY = "Сложность рейда"
+L.HIDE_DURABILITY = "Скрыть прочность"
+L.HIDE_EQUIPSETS = "Скрыть комплекты экипировки"
+L.HIDE_EQUIPSETS_TIP = "Скрыть список наборов экипировки, которые включают этот предмет."
 L.HIDE_FLAVOR = "Художественный текст"
-L.HIDE_ILEVEL = "Уровень предметов"
-L.HIDE_REQUIREMENTS = "Требования"
+L.HIDE_FLAVOR_TIP = "Текст желтого цвета в кавычках, обозначающий цитату, шутку или историю предмета."
+L.HIDE_FLAVOR_TRADE = "Скрыть только у ремесленных предметов"
+L.HIDE_FLAVOR_TRADE_TIP = "Скрыть художественный текст у травы, руды и прочих ремесленных ресурсов, но оставить на остальных предметах."
+L.HIDE_ILEVEL = "Скрыть уровень предметов"
+L.HIDE_REQUIREMENTS = "Скрыть требования"
 L.HIDE_REQUIREMENTS_MET = "Только довольные требования"
-L.HIDE_REQUIREMENTS_TIP = "Скрыть требования уровня, репутации и навыка профессии для предметов, чар и гнезд."
-L.HIDE_TAG = "Текст \"%s\""
+L.HIDE_REQUIREMENTS_TIP = "Скрыть класс, уровень, расу, репутацию и требования навыков профессий."
+L.HIDE_SETBONUS = "Скрыть бонусы от сета"
+L.HIDE_SETLIST = "Скрыть список в сете"
+L.HIDE_TAG = "Скрыть \"%s\""
 L.HIDE_TRANSMOG = "Скрыть информацию об трансмогрификации"
 L.HIDE_TRANSMOG_LABEL = "Только ярлык"
 L.HIDE_TRANSMOG_LABEL_TIP = "Скрыть ярлык трансмогрификации, но оставить имя трансмогрифицированного предмета."
-L.HIDE_UPGRADE = "Уровень улучшения"
-L.HIDE_VALUE = "Цену торговцев"
+L.HIDE_UNUSED = "Скрыть неиспользуемые характеристики"
+L.HIDE_UPGRADE = "Скрыть уровень улучшения"
+L.HIDE_VALUE = "Скрыть цену торговцев"
 L.HIDE_VALUE_TIP = "Скрыть цену торговцев, кроме случаев взаимодействия с торговцем, в аукционном доме, или при выборе награды за задание."
 L.MADE_BY = "Изготовитель"
-L.SOCKET_REQUIRES = "Для (использования )?гнезда [тп][ре][ер][бс][уо][ен][та][сж]я?( должен быть не младше)?"
+L.SOCKET_REQUIRES = "Требования для гнёзд"
 
 return end
 
@@ -283,6 +312,7 @@ return end
 
 if CURRENT_LOCALE == "koKR" then
 
+L.ARTIFACT_LOGGED = "\"유물에 대한 자세한 내용이 복원한 유물의 유물 도감란에 기록되었습니다.\""
 L.ENCHANT_REQUIRES = "마법부여"
 L.HIDE_FLAVOR = "배경담"
 L.MADE_BY = "제작자"
@@ -296,6 +326,7 @@ return end
 
 if CURRENT_LOCALE == "zhCN" then
 
+L.ARTIFACT_LOGGED = "\"这件遗物的详细情况已记录在你的考古日志中的‘已完成神器’页面下。\""
 L.BONUS_COLOR = "加成颜色"
 L.ENCHANT_COLOR = "强化属性颜色"
 L.ENCHANT_REQUIRES = "附魔要求"
