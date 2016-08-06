@@ -70,6 +70,7 @@ local APPEARANCE_KNOWN       = TRANSMOGRIFY_TOOLTIP_APPEARANCE_KNOWN
 local APPEARANCE_KNOWN_OTHER = TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN
 local APPEARANCE_UNKNOWN     = TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN
 local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
+local ITEM_SET_LEGACY        = ITEM_SET_LEGACY_INACTIVE_BONUS
 local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
 local ITEM_SOULBOUND         = ITEM_SOULBOUND
 local ITEM_UNIQUE            = ITEM_UNIQUE
@@ -99,6 +100,7 @@ local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbag
 namespace.cache = cache -- so it can be wiped when an option changes
 
 local inSetList
+local tooltipHeight = {}
 
 local blanks = {
 	[" "] = true,
@@ -179,7 +181,7 @@ local function ReformatLine(tooltip, line, text)
 	or (db.hideMadeBy and strfind(text, S_MADE_BY))
 	or (db.hideUpgradeLevel and strfind(text, S_UPGRADE_LEVEL))
 	or (db.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strfind(text, S_UNIQUE_MULTIPLE)))
-	or (db.hideSetBonuses and (strfind(text, S_ITEM_SET_BONUS) or strfind(text, S_ITEM_SET_BONUS_GRAY)))
+	or (db.hideSetBonuses and (text == ITEM_SET_LEGACY or strfind(text, S_ITEM_SET_BONUS) or strfind(text, S_ITEM_SET_BONUS_GRAY)))
 	then
 		cache[text] = ""
 		line:SetText("")
@@ -235,8 +237,17 @@ end
 
 local function ReformatItemTooltip(tooltip)
 	local tooltipName = tooltip:GetName()
+	local textLeft = tooltip.textLeft
+	if not textLeft then
+		textLeft = setmetatable({}, { __index = function(t, i)
+			local line = _G[tooltipName .. "TextLeft" .. i]
+			t[i] = line
+			return line
+		end })
+		tooltip.textLeft = textLeft
+	end
 	for i = 2, tooltip:NumLines() do
-		local line = _G[tooltipName .. "TextLeft" .. i]
+		local line = textLeft[i]
 		local text = line:GetText()
 		if text then
 			ReformatLine(tooltip, line, text)
@@ -244,6 +255,42 @@ local function ReformatItemTooltip(tooltip)
 	end
 	inSetList = nil
 	tooltip:Show()
+end
+
+local function AdjustLineAnchors(tooltip)
+	local textLeft = tooltip.textLeft
+	if not textLeft then return end
+
+	local numBlanks = 0
+	local hasItem = tooltip:GetItem()
+	local anchor = textLeft[1]
+	for i = 2, tooltip:NumLines() do
+		local line = textLeft[i]
+		local text = line:GetText() or ""
+		local point, relativeTo, relativePoint, x, y = line:GetPoint(1)
+		if hasItem and text == "" then
+			relativeTo = anchor
+			numBlanks = numBlanks + 1
+		else
+			anchor = line
+		end
+		line:SetPoint(point, relativeTo, relativePoint, x, y)
+	end
+	if numBlanks > 0 then
+		local height = floor(tooltip:GetHeight() - (2 * numBlanks) + 0.5)
+		tooltipHeight[tooltip] = height
+		tooltip:SetHeight(height)
+	else
+		tooltipHeight[tooltip] = nil
+	end
+end
+
+local abs = math.abs
+local function FixHeight(tooltip)
+	local height = tooltipHeight[tooltip]
+	if height and abs(tooltip:GetHeight() - height) > 2 then
+		tooltip:SetHeight(height)
+	end
 end
 
 ------------------------------------------------------------------------
@@ -288,7 +335,12 @@ Loader:SetScript("OnEvent", function(self, event, arg)
 	for i, tooltip in pairs(itemTooltips) do
 		tooltip = _G[tooltip]
 		if tooltip then
+			-- Hooks for removing text:
 			tooltip:HookScript("OnTooltipSetItem", ReformatItemTooltip)
+			-- Hooks for fixing line spacing:
+			hooksecurefunc(tooltip, "Show", AdjustLineAnchors)
+			tooltip:HookScript("OnUpdate", FixHeight)
+			-- Done with this tooltip.
 			itemTooltips[i] = nil
 		end
 	end

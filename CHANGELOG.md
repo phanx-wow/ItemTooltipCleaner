@@ -2,6 +2,7 @@
 
 * Updated for WoW 7.0
 * Added options for hiding appearance collected/not collected text
+* Added code to adjust line spacing for removed lines
 
 ### Version 6.1.0.13
 
