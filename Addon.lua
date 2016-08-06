@@ -87,7 +87,7 @@ local S_TRANSMOGRIFIED       = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
 local S_UNIQUE_MULTIPLE      = topattern(ITEM_UNIQUE_MULTIPLE)
 local S_UPGRADE_LEVEL        = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
 
-local TRADE_GOODS            = select(6, GetAuctionItemClasses())
+local TRADE_GOODS            = AUCTION_CATEGORY_TRADE_GOODS
 
 local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbage collection
 namespace.cache = cache -- so it can be wiped when an option changes
