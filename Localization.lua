@@ -358,10 +358,13 @@ return end
 
 if CURRENT_LOCALE == "zhTW" then
 
+L.ARTIFACT_LOGGED = "\"這件文物的詳細情況已記錄在你的考古日誌中的‘已完成神器’頁面下。"
 L.BONUS_COLOR = "加成顏色"
 L.ENCHANT_COLOR = "附魔顏色"
 L.ENCHANT_REQUIRES = "附魔需要"
 L.HIDE = "此面板中選擇的項目將會在物品提示隱藏。"
+L.HIDE_APPEARANCE_KNOWN = "外觀已收藏"
+L.HIDE_APPEARANCE_UNKNOWN = "外觀未收藏"
 L.HIDE_BLANK = "空白行"
 L.HIDE_CLICKBUY = "購買說明"
 L.HIDE_CLICKSOCKET = "插槽說明"
