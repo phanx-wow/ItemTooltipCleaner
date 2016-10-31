@@ -1,3 +1,9 @@
+### Version 7.1.0.0
+
+* Updated for WoW 7.1
+* Removed line spacing fix until I have time to debug it properly
+* Updated zhTW localization from BNSSNB on Curse
+
 ### Version 7.0.3.0
 
 * Updated for WoW 7.0
@@ -21,7 +27,7 @@
 
 ### Version 5.4.8.71
 
-* Updated Русский translations frim Yafis
+* Updated Русский translations from Yafis
 * Updated 简体中文 from lsjyzjl
 
 ### Version 5.4.8.67
