@@ -6,7 +6,7 @@
 	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
 	https://mods.curse.com/addons/wow/itemtooltipcleaner
-	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
+	https://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
@@ -338,8 +338,8 @@ Loader:SetScript("OnEvent", function(self, event, arg)
 			-- Hooks for removing text:
 			tooltip:HookScript("OnTooltipSetItem", ReformatItemTooltip)
 			-- Hooks for fixing line spacing:
-			hooksecurefunc(tooltip, "Show", AdjustLineAnchors)
-			tooltip:HookScript("OnUpdate", FixHeight)
+			-- hooksecurefunc(tooltip, "Show", AdjustLineAnchors)
+			-- tooltip:HookScript("OnUpdate", FixHeight)
 			-- Done with this tooltip.
 			itemTooltips[i] = nil
 		end
