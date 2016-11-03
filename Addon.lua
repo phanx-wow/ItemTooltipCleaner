@@ -36,8 +36,8 @@ local defaults = {
 	hideSetBonuses = false,
 	hideSetItems = false,
 	hideSoulbound = false,
-	hideTransmogLabel = true,
 	hideTransmog = true,
+	hideTransmogLabelOnly = true,
 	hideUnique = false,
 	hideUnusedStats = true,
 	hideUpgradeLevel = false,
@@ -58,12 +58,12 @@ local raidDifficultyLabels = {
 	[PLAYER_DIFFICULTY6] = true, -- Mythic
 }
 
-local function topattern(str, plain)
+local function topattern(str)
 	str = gsub(str, "%%%d?$?c", ".+")
 	str = gsub(str, "%%%d?$?d", "%%d+")
 	str = gsub(str, "%%%d?$?s", ".+")
 	str = gsub(str, "([%(%)])", "%%%1")
-	return plain and str or ("^" .. str)
+	return "^" .. str
 end
 
 local APPEARANCE_KNOWN       = TRANSMOGRIFY_TOOLTIP_APPEARANCE_KNOWN
@@ -76,6 +76,7 @@ local ITEM_SOULBOUND         = ITEM_SOULBOUND
 local ITEM_UNIQUE            = ITEM_UNIQUE
 local ITEM_UNIQUE_EQUIPPABLE = ITEM_UNIQUE_EQUIPPABLE
 local ITEM_VENDOR_STACK_BUY  = ITEM_VENDOR_STACK_BUY
+local TRANSMOGRIFIED_HEADER  = TRANSMOGRIFIED_HEADER
 
 local S_DURABILITY           = topattern(DURABILITY_TEMPLATE)
 local S_ENCHANTED            = "^" .. gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
@@ -90,7 +91,6 @@ local S_REQ_LEVEL            = topattern(ITEM_MIN_LEVEL)
 local S_REQ_RACE             = topattern(ITEM_RACES_ALLOWED)
 local S_REQ_REPUTATION       = topattern(ITEM_REQ_REPUTATION)
 local S_REQ_SKILL            = topattern(ITEM_REQ_SKILL)
-local S_TRANSMOGRIFIED       = "^" .. gsub(TRANSMOGRIFIED, "%%s", "(.+)")
 local S_UNIQUE_MULTIPLE      = topattern(ITEM_UNIQUE_MULTIPLE)
 local S_UPGRADE_LEVEL        = topattern(ITEM_UPGRADE_TOOLTIP_FORMAT)
 
@@ -99,7 +99,7 @@ local TRADE_GOODS            = AUCTION_CATEGORY_TRADE_GOODS
 local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbage collection
 namespace.cache = cache -- so it can be wiped when an option changes
 
-local inSetList
+local inSetList, inTransmogInfo
 local tooltipHeight = {}
 
 local blanks = {
@@ -136,18 +136,22 @@ local function ReformatLine(tooltip, line, text)
 		end
 	return end
 
-	if db.hideTransmog then
-		local new = strmatch(text, S_TRANSMOGRIFIED)
-		if new then
-			--print("Found transmog line:", new)
-			if db.hideTransmogLabelOnly then
-				cache[text] = new
-				return line:SetText(new)
-			else
-				cache[text] = ""
-				return line:SetText("")
-			end
-		return end
+	if inTransmogInfo then
+		inTransmogInfo = nil
+		if not db.hideTransmogLabelOnly then
+			-- It seems safe to cache this, since we never look at
+			-- line1, and item names don't (?) appear in any other
+			-- context in tooltips without some kind of decoration,
+			-- eg. in set item lists they're indented with a space.
+			cache[text] = ""
+			line:SetText("")
+		end
+		return
+	elseif text == TRANSMOGRIFIED_HEADER and db.hideTransmog then
+		inTransmogInfo = true
+		-- can't cache this, or we never set `inTransmogInfo`
+		line:SetText("")
+		return
 	end
 
 	if inSetList then
@@ -236,9 +240,9 @@ local function ReformatLine(tooltip, line, text)
 end
 
 local function ReformatItemTooltip(tooltip)
-	local tooltipName = tooltip:GetName()
 	local textLeft = tooltip.textLeft
 	if not textLeft then
+		local tooltipName = tooltip:GetName()
 		textLeft = setmetatable({}, { __index = function(t, i)
 			local line = _G[tooltipName .. "TextLeft" .. i]
 			t[i] = line

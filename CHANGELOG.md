@@ -2,6 +2,7 @@
 
 * Updated for WoW 7.1
 * Removed line spacing fix until I have time to debug it properly
+* Fixed hiding transmog info
 * Updated zhTW localization from BNSSNB on Curse
 
 ### Version 7.0.3.0
