@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 70300
 ## Version: @project-version@
 
 ## Title: Item Tooltip Cleaner
@@ -11,18 +11,16 @@
 ## Notes-zhCN: 简化装备属性文本并从装备提示信息中移除多余的行。
 ## Notes-zhTW: 簡化裝備加成文字與移除物品提示多餘的文字。
 
-## Author: Phanx
-## X-Email: addons@phanx.net
-## X-Copyright: Copyright (c) 2010-2011 Akkorian, 2011-2016 Phanx. All rights reserved.
-## X-Credits: Originally written by Akkorian. Inspired by dlemvigh's PhoenixTooltip.
-## X-Website: https://github.com/Phanx/ItemTooltipCleaner
-## X-Curse-Project-ID: itemtooltipcleaner
+## Author: Akkorian, Phanx
+## X-Email: armordecai@protonmail.com
+## X-License: All rights reserved. See LICENSE.txt
+## X-Website: https://github.com/phanx-wow/ItemTooltipCleaner
+## X-Curse-Project-ID: 28397
 ## X-WoWI-ID: 19129
 
 ## SavedVariables: ItemTooltipCleanerSettings
 
 Libs\LibStub\LibStub.lua
-Libs\LibAboutPanel\LibAboutPanel.lua
 Libs\PhanxConfig-Checkbox\PhanxConfig-Checkbox.lua
 Libs\PhanxConfig-ColorPicker\PhanxConfig-ColorPicker.lua
 Libs\PhanxConfig-Header\PhanxConfig-Header.lua
