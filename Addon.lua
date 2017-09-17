@@ -1,8 +1,7 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>
-	Copyright (c) 2011-2016 Phanx <addons@phanx.net>
+	Copyright (c) 2010-2017 Akkorian <armordecai@protonmail.com>, Phanx <addons@phanx.net>
 	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
 	https://mods.curse.com/addons/wow/itemtooltipcleaner
@@ -28,12 +27,13 @@ local defaults = {
 	hideItemLevel = true,
 	hideMadeBy = true,
 	hideRaidDifficulty = false,
-	hideRequirementsMet = true,
 	hideRequirements = true,
+	hideRequirementsMet = true,
 	hideRightClickBuy = true,
 	hideRightClickSocket = true,
 	hideSellValue = false,
 	hideSetBonuses = false,
+	hideSetBonusesLegacy = true,
 	hideSetItems = false,
 	hideSoulbound = false,
 	hideTransmog = true,
@@ -70,6 +70,7 @@ local APPEARANCE_KNOWN       = TRANSMOGRIFY_TOOLTIP_APPEARANCE_KNOWN
 local APPEARANCE_KNOWN_OTHER = TRANSMOGRIFY_TOOLTIP_ITEM_UNKNOWN_APPEARANCE_KNOWN
 local APPEARANCE_UNKNOWN     = TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN
 local CRAFTING_REAGENT       = PROFESSIONS_USED_IN_COOKING
+local CRAFTING_REAGENT_COLOR = "|cFF66BBFF" .. PROFESSIONS_USED_IN_COOKING .. "|r"
 local ITEM_SET_LEGACY        = ITEM_SET_LEGACY_INACTIVE_BONUS
 local ITEM_SOCKETABLE        = ITEM_SOCKETABLE
 local ITEM_SOULBOUND         = ITEM_SOULBOUND
@@ -173,19 +174,20 @@ local function ReformatLine(tooltip, line, text)
 	end
 
 	if (text == L.ARTIFACT_LOGGED) -- no option yet
-	or (text == CRAFTING_REAGENT and db.hideCraftingReagent)
 	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
 	or (text == ITEM_VENDOR_STACK_BUY and db.hideRightClickBuy)
 	or (text == APPEARANCE_UNKNOWN and db.hideAppearanceUnknown)
 	or ((text == APPEARANCE_KNOWN or text == APPEARANCE_KNOWN_OTHER) and db.hideAppearanceKnown)
+	or ((text == CRAFTING_REAGENT or text == CRAFTING_REAGENT_COLOR) and db.hideCraftingReagent)
 	or (db.hideRaidDifficulty and raidDifficultyLabels[text])
 	or (db.hideDurability and strfind(text, S_DURABILITY))
 	or (db.hideItemLevel and strfind(text, S_ITEM_LEVEL))
 	or (db.hideMadeBy and strfind(text, S_MADE_BY))
 	or (db.hideUpgradeLevel and strfind(text, S_UPGRADE_LEVEL))
 	or (db.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strfind(text, S_UNIQUE_MULTIPLE)))
-	or (db.hideSetBonuses and (text == ITEM_SET_LEGACY or strfind(text, S_ITEM_SET_BONUS) or strfind(text, S_ITEM_SET_BONUS_GRAY)))
+	or (db.hideSetBonuses and (text == ITEM_SET_b or strfind(text, S_ITEM_SET_BONUS)))
+	or (db.hideSetBonusesLegacy and (text == ITEM_SET_LEGACY or strfind(text, S_ITEM_SET_BONUS_GRAY)))
 	then
 		cache[text] = ""
 		line:SetText("")
