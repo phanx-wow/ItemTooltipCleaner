@@ -41,7 +41,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 		db.enchantColor[3] = b
 		wipe(namespace.cache)
 	end
-	
+
 	local checkinfos = {
 		{
 			-- key, title, tooltip, isChild, func
@@ -69,7 +69,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 					wipe(namespace.cache)
 				end },
 			{ "hideSetBonuses", L.HIDE_SETBONUS },
-			{ "hideSetBonusesLegacy", L.HIDE_SETBONUS_LEGACY },
+			{ "hideSetBonusesLegacy", L.HIDE_SETBONUS_LEGACY, nil, true },
 			{ "hideSetItems", L.HIDE_SETLIST },
 			{ "hideRightClickBuy", L.HIDE_CLICKBUY },
 			{ "hideRightClickSocket", L.HIDE_CLICKSOCKET },
@@ -88,20 +88,26 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 
 	local function addColumn(options, ...)
 		local anchor
+		local parent
 
 		for i = 1, #options do
-			local info = options[i]
-			local check = self:CreateCheckbox(info[2], info[3])
-			check.OnValueChanged = info[6]
-			checks.getter = info[5]
-			check.key = info[1]
+			local key, label, tooltip, isChild, getter, setter = unpack(options[i])
+
+			local check = self:CreateCheckbox(label, tooltip)
+			check.OnValueChanged = setter
+			check.getter = getter
+			check.index = i
+			check.key = key
 
 			if i > 1 then
+				parent = isChild and parent or check
+				check.parent = isChild and parent or nil
+
 				local x = 0
 				local previousIsChild = options[i - 1][4]
-				if info[4] and not previousIsChild then
+				if isChild and not previousIsChild then
 					x = INDENT
-				elseif previousIsChild and not info[4] then
+				elseif previousIsChild and not isChild then
 					x = -INDENT
 				end
 				check:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", x, -GAP)
@@ -113,7 +119,7 @@ local panel = LibStub("PhanxConfig-OptionsPanel").CreateOptionsPanel(ADDON_NAME,
 			anchor = check
 		end
 	end
-	
+
 	addColumn(checkinfos[1], colorEnchant, "BOTTOMLEFT", 0, -GAP)
 	addColumn(checkinfos[2], notes, "BOTTOM", 0, -GAP)
 
