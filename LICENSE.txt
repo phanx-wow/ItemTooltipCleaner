@@ -1,5 +1,4 @@
-Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>
-Copyright (c) 2011-2016 Phanx <addons@phanx.net>
+Copyright (c) 2010-2017 Akkorian <armordecai@protonmail.com>, Phanx <addons@phanx.net>
 
 All rights reserved.
 

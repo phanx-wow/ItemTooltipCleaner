@@ -10,4 +10,4 @@ Item Tooltip Cleaner
 **ZH-TW** — 簡化裝備加成文字與移除物品提示多餘的文字。
 
 * [Download from Curse](https://mods.curse.com/addons/wow/itemtooltipcleaner)
-* [Download from WoWInterface](http://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html)
+* [Download from WoWInterface](https://www.wowinterface.com/downloads/info19129-ItemTooltipCleaner.html)

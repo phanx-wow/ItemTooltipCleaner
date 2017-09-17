@@ -1,9 +1,15 @@
+### Version 7.3.0.0
+
+* Updated for WoW 7.3
+* Added an option to hide only legacy (inactive) set bonuses
+* Updated Korean translations from netaras
+
 ### Version 7.1.0.0
 
 * Updated for WoW 7.1
 * Removed line spacing fix until I have time to debug it properly
 * Fixed hiding transmog info
-* Updated zhTW localization from BNSSNB on Curse
+* Updated zhTW translations from BNSSNB
 
 ### Version 7.0.3.0
 
@@ -20,7 +26,7 @@
 * Added an option to hide "Crafting Reagent" lines
 * Added an option to hide flavor text on all items or just trade goods
 * Added an option to hide unused stats on Warlords of Draenor items
-* Updated the options panel with shorter text labels to save space -- [translation updates welcome](http://wow.curseforge.com/addons/itemtooltipcleaner/localization/)!
+* Updated the options panel with shorter text labels to save space
 
 ### Version 6.0.2.74
 
@@ -58,7 +64,6 @@
 * Fixed reforge info modification in Simplified Chinese clients
 * Added an option to hide set item lists -- *this will leave a large gap in the tooltip*
 * Added an option to hide set bonuses -- *this will leave a large gap in the tooltip*
-
 
 ### Version 5.2.0.53
 
