@@ -1,12 +1,11 @@
 --[[--------------------------------------------------------------------
 	Item Tooltip Cleaner
 	Removes extraneous lines from item tooltips.
-	Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>
-	Copyright (c) 2011-2016 Phanx <addons@phanx.net>
+	Copyright (c) 2010-2017 Akkorian <armordecai@protonmail.com>, Phanx <addons@phanx.net>
 	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
 	https://mods.curse.com/addons/wow/itemtooltipcleaner
-	http://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
+	https://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME, namespace = ...
@@ -313,8 +312,23 @@ return end
 if CURRENT_LOCALE == "koKR" then
 
 L.ARTIFACT_LOGGED = "\"유물에 대한 자세한 내용이 복원한 유물의 유물 도감란에 기록되었습니다.\""
+L.BONUS_COLOR = "보너스 색상"
+L.ENCHANT_COLOR = "마법부여 색상"
 L.ENCHANT_REQUIRES = "마법부여"
+L.HIDE = "이 패널에서 선택한 요소는 아이템 툴팁에 표시되지 않습니다."
+L.HIDE_APPEARANCE_KNOWN = "수집된 형상"
+L.HIDE_APPEARANCE_UNKNOWN = "미수집된 형상"
+L.HIDE_BLANK = "빈 줄"
+L.HIDE_DIFFICULTY = "공격대 난이도"
+L.HIDE_DURABILITY = "내구도"
+L.HIDE_EQUIPSETS = "장비 세트"
+L.HIDE_EQUIPSETS_TIP = "해당 아이템을 포함하는 장비 세트 목록을 숨깁니다."
 L.HIDE_FLAVOR = "배경담"
+L.HIDE_ILEVEL = "아이템 레벨"
+L.HIDE_SETBONUS = "세트 효과"
+L.HIDE_SETLIST = "세트 아이템 목록"
+L.HIDE_TAG = "\"%s\" 태그"
+L.HIDE_VALUE = "판매 가격"
 L.MADE_BY = "제작자"
 L.SOCKET_REQUIRES = "보석 홈"
 
