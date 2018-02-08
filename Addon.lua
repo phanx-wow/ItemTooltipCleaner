@@ -101,7 +101,7 @@ local TRADE_GOODS            = AUCTION_CATEGORY_TRADE_GOODS
 local cache = setmetatable({}, { __mode = "kv" }) -- weak table to enable garbage collection
 namespace.cache = cache -- so it can be wiped when an option changes
 
-local inSetList, inTransmogInfo
+local inSetList, inTransmogInfo, isLegacySet
 local tooltipHeight = {}
 
 local blanks = {
@@ -174,6 +174,14 @@ local function ReformatLine(tooltip, line, text)
 		return
 	end
 
+	if text == ITEM_SET_LEGACY then
+		isLegacySet = true
+		if db.hideSetBonuses then
+			cache[text] = ""
+			line:SetText("")
+		return end
+	end
+
 	if (text == L.ARTIFACT_LOGGED) -- no option yet
 	or (text == ITEM_SOCKETABLE and db.hideRightClickSocket)
 	or (text == ITEM_SOULBOUND and db.hideSoulbound)
@@ -187,9 +195,14 @@ local function ReformatLine(tooltip, line, text)
 	or (db.hideMadeBy and strfind(text, S_MADE_BY))
 	or (db.hideUpgradeLevel and strfind(text, S_UPGRADE_LEVEL))
 	or (db.hideUnique and (text == ITEM_UNIQUE or text == ITEM_UNIQUE_EQUIPPABLE or strfind(text, S_UNIQUE_MULTIPLE)))
-	or (db.hideSetBonuses and (text == ITEM_SET_b or strfind(text, S_ITEM_SET_BONUS)))
-	or (db.hideSetBonusesLegacy and (text == ITEM_SET_LEGACY or strfind(text, S_ITEM_SET_BONUS_GRAY)))
 	then
+		cache[text] = ""
+		line:SetText("")
+	return end
+
+	if db.hideSetBonuses
+	and (isLegacySet or not db.hideSetBonusesLegacy)
+	and (strfind(text, S_ITEM_SET_BONUS_GRAY) or strfind(text, S_ITEM_SET_BONUS)) then
 		cache[text] = ""
 		line:SetText("")
 	return end
@@ -207,7 +220,7 @@ local function ReformatLine(tooltip, line, text)
 			cache[text] = ""
 			line:SetText("")
 		end
-	end
+	return end
 
 	if db.hideRequirements and (
 		strfind(text, S_REQ_CLASS)
@@ -260,7 +273,7 @@ local function ReformatItemTooltip(tooltip)
 			ReformatLine(tooltip, line, text)
 		end
 	end
-	inSetList = nil
+	inSetList, isLegacySet = nil, nil
 	tooltip:Show()
 end
 
