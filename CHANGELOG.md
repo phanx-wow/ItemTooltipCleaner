@@ -1,3 +1,7 @@
+### Version 7.3.5.0
+
+* Fixed the option to hide only legacy set bonuses
+
 ### Version 7.3.0.0
 
 * Updated for WoW 7.3
