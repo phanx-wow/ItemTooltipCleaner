@@ -5,7 +5,7 @@
 	Copyright (c) 2011-2018 Phanx <addons@phanx.net>
 	All rights reserved. See LICENSE.txt for more info.
 	https://github.com/Phanx/ItemTooltipCleaner
-	https://www.curseforge.com/addons/wow/itemtooltipcleaner
+	https://www.curseforge.com/wow/addons/itemtooltipcleaner
 	https://www.wowinterface.com/addons/info19129-ItemTooltipCleaner.html
 ----------------------------------------------------------------------]]
 
