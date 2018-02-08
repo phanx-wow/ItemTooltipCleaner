@@ -12,7 +12,7 @@
 ## Notes-zhTW: 簡化裝備加成文字與移除物品提示多餘的文字。
 
 ## Author: Akkorian, Phanx
-## X-Email: armordecai@protonmail.com
+## X-Email: addons@phanx.net
 ## X-License: All rights reserved. See LICENSE.txt
 ## X-Website: https://github.com/phanx-wow/ItemTooltipCleaner
 ## X-Curse-Project-ID: 28397
